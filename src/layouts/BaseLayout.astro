@@ -3,23 +3,9 @@
 // Injects schema, meta, fonts, and wraps every page
 import { contact } from '../data/contact.js';
 import ChatbotWidget from '../components/ChatbotWidget.astro';
+import type { Metadata } from '../types/metadata.js';
 
-interface Props {
-  title: string;
-  description: string;
-  canonical?: string;
-  ogImage?: string;
-  ogImageAlt?: string;
-  schema?: object | object[];
-  faqs?: Array<{ q: string; a: string }>;
-  breadcrumbs?: Array<{ name: string; url: string }>;
-  noIndex?: boolean;
-  dateModified?: string;
-  pageType?: 'website' | 'article';
-  publishedTime?: string;
-  keywords?: string[] | string;
-  chatbotContext?: string;
-}
+interface Props extends Metadata {}
 
 const siteOrigin = 'https://ewastekochi.com';
 const normalizeUrl = (value: string) => {
@@ -211,6 +197,13 @@ const baseSchema = {
 
   <!-- Preload critical assets -->
   <link rel="preload" href="/brand/ewastekochi-logo.svg" as="image" type="image/svg+xml">
+
+  <!-- AI and Search Engine Indexing -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1, archive, snippet, odp">
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1, archive, snippet, odp">
+  <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1, archive, snippet, odp">
+  <meta name="slurp" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1, archive, snippet, odp">
+  <meta name="duckduckbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1, archive, snippet, odp">
 
   <!-- Schema JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(baseSchema)} />
