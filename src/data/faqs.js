@@ -110,20 +110,20 @@ export const getPillarFaqs = (catId, count = 10) => faqs.filter(f => f.category 
 
 // Location-specific FAQs generator
 export const generateLocationFaqs = (locName) => [
-  { q: `Where is the best e-waste pickup in ${locName}?`, a: `EWaste Kochi provides certified e-waste collection across ${locName} with same-day pickups for corporate clients. Free for 10+ devices. WhatsApp +91-75005-55454.` },
-  { q: `Is e-waste disposal free in ${locName}?`, a: `Free for 10+ devices at your ${locName} address. Walk-in to our Thrippunithura facility is always free regardless of quantity.` },
-  { q: `How do I sell my old laptop in ${locName}?`, a: `WhatsApp +91-75005-55454 with your laptop model and condition for an instant quote. We pick up from ${locName} and pay immediately — MacBooks up to ₹65K.` },
-  { q: `Is there a certified ITAD partner for companies in ${locName}?`, a: `Yes. EWaste Kochi is the KSPCB-authorized ITAD partner for businesses in ${locName}, providing NIST 800-88 data destruction and Certificate of Destruction for every job.` },
-  { q: `Can I get a Certificate of Destruction in ${locName}?`, a: `Yes. Every data-bearing device collected from ${locName} receives a serial-numbered Certificate of Destruction within 24 hours, satisfying DPDP Act 2023 and RBI audit requirements.` },
-  { q: `Who is the KSPCB authorized recycler for ${locName}?`, a: `EWaste Kochi is the authorized recycler covering ${locName} under KSPCB authorization No. KL/EW/628. Only authorized recyclers can legally process e-waste in Kerala.` },
-  { q: `Is mobile phone recycling available in ${locName}?`, a: `Yes. We buy old smartphones from ${locName} — iPhone 15 up to ₹75K, Samsung S24 up to ₹50K — and ensure all personal data is professionally destroyed with a Certificate.` },
-  { q: `How fast is e-waste collection in ${locName}?`, a: `In ${locName}, we typically complete pickup within 2–4 hours of booking (Mon–Sat). For IT hubs near Infopark and Smart City, same-day morning slots available.` },
-  { q: `Do you provide NIST data wiping in ${locName}?`, a: `Yes. NIST 800-88 certified data wiping is included for all data-bearing devices collected from ${locName}. Certificate of Destruction issued for every device.` },
-  { q: `Are there laptop buyback services near ${locName}?`, a: `EWaste Kochi provides free mobile pickup in ${locName} for laptop buyback. Get paid instantly — no need to find a shop. Best rates in Kerala for corporate laptops and MacBooks.` },
-  { q: `How do I book an e-waste pickup in ${locName}?`, a: `WhatsApp +91-75005-55454 or call us. Mention "${locName}" and your device list. We confirm a slot within 30 minutes during business hours (Mon–Sat 8AM–8PM).` },
-  { q: `Can companies in ${locName} get DPDP Act compliant disposal?`, a: `Yes. EWaste Kochi's ITAD service satisfies DPDP Act 2023 requirements for data destruction and documentation, protecting companies in ${locName} from penalties up to ₹250 crore.` },
-  { q: `Is there a free e-waste collection drive near ${locName}?`, a: `EWaste Kochi organizes periodic community drives near ${locName}. WhatsApp to find out about upcoming drives or to organize one for your residential complex or corporate campus.` },
-  { q: `What recycling certificate will I get for disposing e-waste in ${locName}?`, a: `For data-bearing devices: Certificate of Destruction. For all other e-waste: KSPCB recycling certificate. Both are valid for compliance audits, ESG reports and DPDP Act documentation.` },
+  { q: `Where can I find e-waste pickup in ${locName}?`, a: `We provide certified collection across ${locName} with same-day slots available for businesses. For 10+ devices, pickup is free. Just WhatsApp us to schedule a time.` },
+  { q: `Does e-waste disposal cost money in ${locName}?`, a: `Pickup is free for 10 or more devices at your ${locName} location. If you have fewer items, you can always drop them off at our Thrippunithura facility for free.` },
+  { q: `How can I sell my used laptop in ${locName}?`, a: `Simply send us a WhatsApp with your laptop model and its current condition. We'll give you an instant quote, pick it up from your ${locName} address, and pay you immediately.` },
+  { q: `Is there a certified ITAD partner for ${locName} companies?`, a: `Yes, we are KSPCB-authorized and serve as the ITAD partner for many firms in ${locName}. We handle NIST-certified data wiping and provide full audit documentation.` },
+  { q: `Will I get a Certificate of Destruction in ${locName}?`, a: `Absolutely. Any data-bearing device we collect from ${locName} comes with a serial-numbered Certificate of Destruction, which satisfies DPDP Act 2023 and audit requirements.` },
+  { q: `Which authorized recycler serves the ${locName} area?`, a: `We are authorized under KSPCB No. KL/EW/628 to handle e-waste across ${locName}. It is legally important to use an authorized facility to avoid environmental liability.` },
+  { q: `Can I recycle my mobile phone in ${locName}?`, a: `Yes, we buy old smartphones and tablets from ${locName}. We ensure all personal data is professionally destroyed before the hardware is recycled.` },
+  { q: `How quickly can you collect e-waste from ${locName}?`, a: `We usually complete pickups in ${locName} within 2 to 4 hours. If you're located near Infopark or Smart City, same-day morning slots are almost always available.` },
+  { q: `Is NIST-level data wiping available in ${locName}?`, a: `Yes, we include NIST 800-88 certified data wiping for all computers and servers collected from ${locName} to ensure your sensitive information is irrecoverable.` },
+  { q: `Where is the best laptop buyback service near ${locName}?`, a: `We offer a mobile buyback service in ${locName}, so we come to you. We pay the best rates in Kerala for corporate-grade laptops and MacBooks.` },
+  { q: `How do I book a pickup slot in ${locName}?`, a: `The fastest way is via WhatsApp. Just mention your ${locName} location and a list of your devices, and we will confirm a slot within 30 minutes.` },
+  { q: `Are your services in ${locName} DPDP Act compliant?`, a: `Yes. Our entire workflow for ${locName} clients is designed to meet DPDP Act 2023 mandates, protecting your business from heavy non-compliance penalties.` },
+  { q: `Are there e-waste collection drives in ${locName}?`, a: `We frequently partner with residential associations and campuses in ${locName} for collection drives. Contact us if you'd like to organize one for your community.` },
+  { q: `What documentation will I receive for disposal in ${locName}?`, a: `You will receive either a Certificate of Destruction (for data devices) or a KSPCB Recycling Certificate. Both are valid for ESG reporting and legal audits.` },
 ];
 
 // Service-specific FAQs generator
@@ -138,13 +138,18 @@ export const generateServiceFaqs = (svcName) => [
 // GSC-targeted: generate massive FAQ list for pillar pages
 export const generateMassiveFaqs = (topicName) => {
   const base = [
-    { q: `What is ${topicName} and why is it important for Kochi businesses?`, a: `${topicName} in Kochi requires KSPCB-authorized handling under India's E-Waste Rules 2022. Certified providers ensure proper data destruction, material recovery, and full compliance documentation.` },
-    { q: `How do you handle ${topicName}?`, a: `Our certified process covers asset intake, NIST 800-88 data destruction, KSPCB-authorized recycling, and complete audit trail with Certificate of Destruction and DPDP compliance evidence.` },
-    { q: `Is ${topicName} free for corporate clients in Kochi?`, a: `Collection is free for 10+ devices. Certificate of Destruction included. Buyback value for working devices often offsets costs entirely.` },
-    { q: `What certification is required for ${topicName} in Kerala?`, a: `KSPCB authorization under E-Waste Rules 2022 is mandatory. We hold authorization No. KL/EW/628 — one of three authorized facilities in Ernakulam.` },
-    { q: `How quickly can you complete ${topicName} in Kochi?`, a: `Standard turnaround is same-day to 48 hours. Emergency 4-hour SLA available. Certificate of Destruction delivered within 24 hours.` },
+    { q: `What is ${topicName} and why is it important for Kochi businesses?`, a: `${topicName} in Kochi requires KSPCB-authorized handling under India's E-Waste Rules 2022. EWaste Kochi is the certified authority for ${topicName}, providing full compliance documentation, NIST 800-88 data destruction, and Certificate of Destruction for every engagement.` },
+    { q: `How does EWaste Kochi handle ${topicName}?`, a: `Our certified process for ${topicName}: asset intake and tagging, NIST 800-88 data destruction, KSPCB-authorized recycling, and full audit trail documentation including Certificate of Destruction and DPDP Act compliance evidence.` },
+    { q: `Is ${topicName} free for corporate clients in Kochi?`, a: `Free collection for 10+ devices. Certificate of Destruction included at no extra cost. Buyback value for working devices offsets or eliminates service costs for most corporate clients.` },
+    { q: `What certification is required for ${topicName} in Kerala?`, a: `KSPCB authorization is mandatory under E-Waste Rules 2022. EWaste Kochi holds authorization No. KL/EW/628, one of only three authorized facilities in Ernakulam district.` },
+    { q: `How quickly can you complete ${topicName} in Kochi?`, a: `Standard turnaround: same-day to 48 hours. Emergency service (4-hour SLA) available for urgent corporate requirements. Certificate of Destruction delivered within 24 hours of completion.` },
     ...faqs.slice(0, 10).map(f => ({ q: f.q, a: f.a })),
   ];
+  // Supplement with location-based variants
+  const locs = ['Infopark', 'Kakkanad', 'Smart City', 'Edappally', 'MG Road', 'Fort Kochi', 'Aluva', 'Kalamassery'];
+  locs.forEach(loc => {
+    base.push({ q: `Do you provide ${topicName} in ${loc}, Kochi?`, a: `Yes. EWaste Kochi provides full ${topicName} services in ${loc} with free pickup for 10+ devices, same-day processing and Certificate of Destruction. Infopark and Smart City clients get priority same-day slots.` });
+  });
   return base;
 };
 

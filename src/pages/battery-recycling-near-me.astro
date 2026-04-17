@@ -1,0 +1,246 @@
+---
+// battery-recycling-near-me.astro — High-Intent Landing Page
+// GSC targets: "battery recycling near me", "battery disposal near me", "lithium battery recycling kochi", "UPS battery disposal"
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
+
+const pageTitle = "Battery Recycling Near Me Kochi | Li-Ion, Lead-Acid, UPS, EV | Free Pickup | EWaste Kochi";
+const pageDesc = "Safe battery recycling near you in Kochi. We recycle lithium-ion, lead-acid, laptop, phone, UPS, EV batteries. KSPCB authorized. Free bulk pickup. Battery Waste Rules 2022 compliant.";
+
+const batteryTypes = [
+  { type: 'Lithium-Ion (Li-ion)', examples: 'Laptop batteries, phone batteries, power banks, power tool batteries, e-bike batteries', hazards: 'Fire/explosion risk if damaged or shorted; toxic electrolytes' },
+  { type: 'Lead-Acid', examples: 'Car batteries, UPS batteries, inverter batteries, industrial backup batteries', hazards: 'Lead contaminates soil/water; corrosive sulfuric acid' },
+  { type: 'Nickel-Metal Hydride (NiMH)', examples: 'Older hybrid car batteries, some cordless phone batteries', hazards: 'Less toxic but still contain nickel and electrolyte' },
+  { type: 'EV & Industrial Batteries', examples: 'Electric vehicle battery packs, data center battery banks, large format lithium', hazards: 'High voltage, thermal runaway risk; require specialized facility' },
+  { type: 'Button & Small Cells', examples: 'Watch batteries, hearing aid batteries, small electronics', hazards: 'Mercury or lithium; can be ingested' },
+];
+
+const whyRecycle = [
+  { icon: '⚖️', title: 'Legal Requirement', desc: 'Battery Waste Management Rules 2022 mandate that consumers and producers use authorized recyclers. Penalties up to ₹1 lakh per ton for improper disposal.' },
+  { icon: '🔥', title: 'Fire & Safety', desc: 'Lithium batteries can spontaneously combust in landfills. Proper handling prevents fires and toxic smoke exposure.' },
+  { icon: '🌍', title: 'Environmental Protection', desc: 'Batteries contain toxic heavy metals (lead, mercury, cadmium) that leach into soil and groundwater. Recycling prevents contamination.' },
+  { icon: '♻️', title: 'Material Recovery', desc: 'Valuable materials like lithium, cobalt, nickel, lead are recovered and reused, reducing mining demand.' },
+];
+
+const services = [
+  { title: 'Free Bulk Pickup', desc: 'Free pickup across Kochi for 20+ batteries. We handle safe packaging and transport.' },
+  { title: 'Safe Handling', desc: 'Swollen/damaged batteries handled with care. Insulated containers, temperature-controlled transport.' },
+  { title: 'Certified Recycling', desc: 'KSPCB authorized facility. Full documentation: weight, type, certificate of recycling.' },
+  { title: 'Compliance', desc: 'Fully compliant with Battery Waste Management Rules 2022. EPR documentation provided.' },
+];
+
+const process = [
+  { step: '1', title: 'Contact & Inventory', desc: 'Tell us battery types & quantities. Schedule pickup.' },
+  { step: '2', title: 'Safe Collection', desc: 'Our team arrives with proper containers, labels, and safety gear.' },
+  { step: '3', title: 'Transport to Facility', desc: 'Temperature-controlled, GPS-tracked vehicles. No mixing of incompatible chemistries.' },
+  { step: '4', title: 'Processing & Recycling', desc: 'Batteries sorted by chemistry; materials recovered; hazardous residues disposed safely.' },
+  { step: '5', title: 'Certificate Issued', desc: 'You receive Battery Recycling Certificate with weight, types, and compliance details.' },
+];
+
+const pricing = [
+  { title: 'Bulk Pickup (20+ batteries)', price: 'Free', includes: ['Free collection across Kochi', 'Safe handling & transport', 'Certificate of Recycling', 'Compliance docs'] },
+  { title: 'Small Batches (<20)', price: 'Quote', includes: ['Paid collection (minimum ₹500)', 'Ideal for offices, small businesses', 'Contact for exact price'] },
+  { title: 'On-Site Drop-off', price: 'Free', includes: ['Bring batteries to Thrippunithura facility', 'No quantity minimum', 'Instant certificate'] },
+];
+
+const faqs = [
+  { q: 'Where can I recycle batteries near me in Kochi?', a: 'EWaste Kochi provides battery recycling pickup across Kochi. For 20+ batteries, pickup is free. For fewer, you can drop off at our Thrippunithura facility. KSPCB authorized.' },
+  { q: 'What types of batteries do you accept?', a: 'We recycle all battery types: lithium-ion (laptops, phones, power banks), lead-acid (car, UPS, inverter), NiMH, EV batteries, and small button cells. Please note: we do not accept household alkaline batteries in bulk (they can go in regular trash).' },
+  { q: 'Is battery recycling free?', a: 'Yes, for bulk quantities (20+ batteries) pickup is free. For smaller batches, a nominal collection fee may apply to cover transport costs. Drop-off is always free.' },
+  { q: 'Is battery recycling required by law?', a: 'Yes. Under Battery Waste Management Rules 2022, consumers and producers must use authorized recyclers. Improper disposal can attract fines up to ₹1 lakh per ton. We provide legal compliance documentation.' },
+  { q: 'Can you recycle swollen or damaged lithium batteries?', a: 'Yes. Swollen or damaged Li-ion batteries are high-risk. Our team uses specialized safety gear and insulated containers to handle them safely. Do not puncture or throw them in regular trash — call us for safe pickup.' },
+  { q: 'Do you provide a certificate?', a: 'Yes. Every battery recycling job receives a Certificate of Recycling detailing date, weight, battery chemistry, and our KSPCB authorization number. Essential for corporate ESG and compliance reporting.' },
+  { q: 'What happens to the batteries?', a: 'Batteries are sorted by chemistry. Lead-acid batteries are broken and lead is smelted. Li-ion batteries are processed to recover lithium, cobalt, nickel. Hazardous residues are safely stabilized.' },
+  { q: 'Do you recycle car/automotive batteries?', a: 'Yes. We accept automotive lead-acid batteries. Free pickup for bulk (20+). For single car batteries, drop-off at our facility is free.' },
+  { q: 'Are EV batteries accepted?', a: 'Yes, but they require special handling due to high voltage and size. Contact us for a site assessment and quote. We serve EV fleet operators, bus depots, and industrial sites.' },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'Battery Recycling Near Me', url: 'https://ewastekochi.com/battery-recycling-near-me/' },
+];
+
+const serviceSchema = {
+  '@type': 'RecyclingService',
+  name: 'Battery Recycling Near Me Kochi',
+  description: pageDesc,
+  provider: { '@id': 'https://ewastekochi.com/#organization' },
+  areaServed: { '@type': 'City', name: 'Kochi' },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'INR',
+    description: 'Free bulk pickup for 20+ batteries; drop-off always free',
+  },
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} schema={serviceSchema} faqs={faqs} breadcrumbs={breadcrumbs}>
+  <Navbar currentPath="/battery-recycling-near-me/" />
+
+  <!-- HERO -->
+  <section style="padding:80px 0 60px;background:radial-gradient(circle at 70% 30%,rgba(255,152,0,.07),transparent),var(--bg)">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" style="font-size:.8rem;color:var(--muted);margin-bottom:20px">
+        <a href="/" style="color:var(--green)">Home</a> › Battery Recycling Near Me
+      </nav>
+      <div class="badge badge-a" style="margin-bottom:20px">🔋 KSPCB Authorized Battery Recycler</div>
+      <h1 style="font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;margin-bottom:18px;font-weight:800;letter-spacing:-.03em">
+        Battery Recycling <span style="color:var(--green)">Near Me</span><br/>in Kochi
+      </h1>
+      <p style="font-size:1rem;color:var(--text);max-width:620px;line-height:1.7;margin-bottom:35px;font-family:var(--serif);font-style:italic">
+        Safe, authorized battery recycling near you. Li-ion, lead-acid, UPS, EV, phone/laptop batteries. Free bulk pickup (20+). KSPCB authorized, Battery Waste Rules 2022 compliant. Call 24/7.
+      </p>
+      <div style="display:flex;gap:15px;flex-wrap:wrap">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg">💬 Book Pickup</a>
+        <a href={contact.phoneLink} class="btn btn-primary btn-lg">📞 Call Now</a>
+        <a href="/contact/" class="btn btn-outline">Get a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BATTERY TYPES -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">What We Recycle</div>
+      <h2 class="sec-title">All Battery <em>Types</em> Accepted</h2>
+      <p class="sec-sub" style="margin-bottom:2rem">From phone cells to EV packs — we handle every chemistry safely.</p>
+      <div style="display:grid;gap:20px">
+        {batteryTypes.map(b => (
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px">
+            <h3 style="font-size:1.1rem;margin-bottom:8px;color:var(--green)">{b.type}</h3>
+            <p style="font-size:.9rem;margin-bottom:8px;color:var(--text)"><strong>Examples:</strong> {b.examples}</p>
+            <p style="font-size:.85rem;color:var(--muted);line-height:1.6"><strong>Hazards:</strong> {b.hazards}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY RECYCLE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Why Battery Recycling Matters</div>
+      <h2 class="sec-title">More Than Just <em>Disposal</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:30px">
+        {whyRecycle.map(item => (
+          <div style="text-align:center;padding:24px;background:var(--card);border-radius:16px;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;margin-bottom:12px">{item.icon}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px;color:var(--text)">{item.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Our Services</div>
+      <h2 class="sec-title">Comprehensive <em>Battery Recycling</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:30px">
+        {services.map(s => (
+          <div style="background:var(--card);padding:28px;border-radius:16px;border:1px solid var(--border);text-align:center">
+            <h3 style="font-size:1.1rem;margin-bottom:12px;color:var(--text)">{s.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Process</div>
+      <h2 class="sec-title">From Pickup to <em>Certificate</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:30px">
+        {process.map(step => (
+          <div style="text-align:center;background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;color:var(--green);font-weight:800;margin-bottom:12px">{step.step}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px">{step.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Pricing</div>
+      <h2 class="sec-title">Transparent <em>Costs</em></h2>
+      <div style="display:grid;gap:20px;max-width:800px;margin:0 auto">
+        {pricing.map(p => (
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+            <div style="flex:1;min-width:200px">
+              <h3 style="font-size:1.2rem;margin-bottom:8px;color:var(--text)">{p.title}</h3>
+              <div style="font-size:2rem;color:var(--green);font-weight:800">{p.price}</div>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:.9rem;color:var(--muted)">
+                {p.includes.map(feat => <li>✓ {feat}</li>)}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Service Area</div>
+      <h2 class="sec-title">We Cover <em>All Kochi</em></h2>
+      <p style="max-width:700px">
+        Free bulk pickup for batteries across Kochi and Ernakulam. We service Infopark, Smart City, Kakkanad, Edapally, Vyttila, Palarivattom, Aluva, Angamaly, Thrippunithura, Maradu, Kalamassery, Eloor, and beyond.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <span class="badge">Infopark</span>
+        <span class="badge">Smart City</span>
+        <span class="badge">Kakkanad</span>
+        <span class="badge">Edapally</span>
+        <span class="badge">Vyttila</span>
+        <span class="badge">Aluva</span>
+        <span class="badge">Thrippunithura</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div style="background:linear-gradient(135deg,var(--amber),#d97706);color:var(--white);border-radius:20px;padding:50px;text-align:center;margin:60px 0">
+        <h2 style="font-size:2rem;margin-bottom:20px">Need Battery Recycling Now?</h2>
+        <p style="font-size:1.1rem;margin-bottom:30px;opacity:0.9">Book a free pickup (20+ batteries) or drop off at our facility. KSPCB authorized. Certificate provided.</p>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+          <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn" style="background:var(--white);color:var(--amber);font-weight:800;font-size:1.1rem;padding:16px 32px">💬 WhatsApp Us</a>
+          <a href={contact.phoneLink} class="btn" style="background:transparent;border:2px solid var(--white);color:var(--white);font-size:1.1rem;padding:14px 30px">📞 Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Questions?</div>
+      <h2 class="sec-title">Battery Recycling Near Me — <em>FAQs</em></h2>
+      <div style="display:grid;gap:16px;max-width:800px;margin:0 auto">
+        {faqs.map((faq, i) => (
+          <details style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px">
+            <summary style="font-weight:600;cursor:pointer;font-size:1.05rem">{faq.q}</summary>
+            <p style="margin-top:12px;color:var(--muted);line-height:1.7">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

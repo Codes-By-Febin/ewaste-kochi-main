@@ -1,355 +1,236 @@
 ---
+// laptop-recycling-near-me.astro — High-Intent Landing Page
+// GSC targets: "laptop recycling near me", "recycle laptop near me", "laptop disposal near me", "sell laptop near me"
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ContactForm from '../components/ContactForm.astro';
-import ServiceCard from '../components/ServiceCard.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
 
-const meta = {
-  title: 'Laptop Recycling Near Me | Secure Data Destruction & Pickup',
-  description: 'Professional laptop recycling with secure data destruction, battery handling, and local pickup options. Certified e-waste disposal services near you.',
-  keywords: ['laptop recycling near me', 'laptop recycling', 'secure data destruction', 'e-waste recycling', 'battery recycling', 'local pickup'],
-  canonical: 'https://ewaste-kochi.com/laptop-recycling-near-me'
+const pageTitle = "Laptop Recycling Near Me Kochi | Buyback & Recycling | Free Pickup | EWaste Kochi";
+const pageDesc = "Laptop recycling near you in Kochi. All brands accepted. Best buyback prices. Free pickup. Data securely wiped. Same-day payment. MacBook up to ₹65K.";
+
+const buybackRates = [
+  { device: 'MacBook Pro M3 (2023–24)', working: '₹50,000 – ₹65,000', minor: '₹35,000 – ₹50,000', broken: '₹8,000 – ₹18,000' },
+  { device: 'MacBook Pro M1/M2 (2021–22)', working: '₹35,000 – ₹52,000', minor: '₹22,000 – ₹35,000', broken: '₹5,000 – ₹12,000' },
+  { device: 'MacBook Air M2/M3 (2022–24)', working: '₹25,000 – ₹45,000', minor: '₹15,000 – ₹25,000', broken: '₹4,000 – ₹10,000' },
+  { device: 'Dell Latitude i7 (2020–23)', working: '₹12,000 – ₹18,000', minor: '₹7,000 – ₹12,000', broken: '₹800 – ₹2,500' },
+  { device: 'HP EliteBook i7 (2020–23)', working: '₹11,000 – ₹17,000', minor: '₹6,500 – ₹11,000', broken: '₹800 – ₹2,500' },
+  { device: 'Lenovo ThinkPad i7 (2020–23)', working: '₹12,000 – ₹17,000', minor: '₹7,000 – ₹12,000', broken: '₹800 – ₹2,500' },
+  { device: 'Gaming Laptop (RTX 3060+)', working: '₹15,000 – ₹30,000', minor: '₹8,000 – ₹15,000', broken: '₹2,000 – ₹6,000' },
+  { device: 'Budget Laptop (Intel i3/i5)', working: '₹3,000 – ₹7,000', minor: '₹1,500 – ₹3,500', broken: '₹300 – ₹1,500' },
+];
+
+const whyUs = [
+  { icon: '💰', title: 'Best Prices', desc: 'Top rates for Apple & business laptops. We sell directly to business buyers, so you get more.' },
+  { icon: '🚀', title: 'Same-Day Payment', desc: 'Payment via UPI/bank transfer within 2 hours after verification.' },
+  { icon: '🔒', title: 'Data Secured', desc: 'NIST 800-88 certified data wipe on every device. Certificate provided.' },
+  { icon: '🚚', title: 'Free Pickup', desc: 'Free pickup across Kochi for 5+ laptops. Same-day for Infopark & Smart City.' },
+  { icon: '♻️', title: 'Eco-Friendly', desc: 'Responsible recycling with KSPCB authorization. Zero landfill.' },
+  { icon: '🏆', title: 'All Brands', desc: 'Dell, HP, Lenovo, Apple, Asus, Acer, MSI, Samsung, and more.' },
+];
+
+const howItWorks = [
+  { step: '1', title: 'Get a Quote', desc: 'WhatsApp us with laptop brand, model, year, condition. Instant estimate.' },
+  { step: '2', title: 'Schedule Pickup', desc: 'We collect from your home/office anywhere in Kochi. Free for 5+.' },
+  { step: '3', title: 'Inspection & Verification', desc: 'Technician inspects on spot (15 min). Final price confirmed.' },
+  { step: '4', title: 'Data Wipe + Payment', desc: 'Data securely wiped. Immediate payment via UPI/bank transfer.' },
+];
+
+const recyclingOptions = [
+  { title: 'Sell (Working)', desc: 'Get best buyback prices for functional laptops. We refurbish and resell to business buyers.' },
+  { title: 'Recycle (Non-Working)', desc: 'Non-working laptops are responsibly recycled. We recover precious metals and ensure safe disposal of hazardous components.' },
+  { title: 'Donate', desc: 'We can donate working laptops to schools/NGOs with data wiped. Tax benefits may apply.' },
+];
+
+const faqs = [
+  { q: 'Where can I recycle my laptop near me in Kochi?', a: 'EWaste Kochi offers free laptop recycling pickup across Kochi. For 5+ laptops, we come to you. For fewer, you can drop off at our Thrippunithura facility. KSPCB authorized, NIST data destruction included.' },
+  { q: 'How much can I get for my old laptop?', a: 'Prices vary by brand, model, age, and condition. MacBook Pro M3 up to ₹65K; Dell Latitude i7 up to ₹18K; broken laptops still fetch ₹800–₹18K. WhatsApp for an exact quote.' },
+  { q: 'Do you buy broken laptops?', a: 'Yes. We buy broken, water-damaged, and non-working laptops. Even dead laptops contain valuable gold, silver, and copper. Typical payouts: MacBook ₹2,000–₹18,000; Windows laptop ₹500–₹2,500.' },
+  { q: 'Is my data securely wiped?', a: 'Absolutely. Every laptop undergoes NIST 800-88 certified data destruction before it leaves our custody. You receive a Certificate of Destruction with serial numbers, method, and date. Legally valid for DPDP Act 2023.' },
+  { q: 'How soon can I get paid?', a: 'After inspection, payment is instant via UPI or bank transfer — usually within 2 hours. For bulk sales (10+), same-day payment.' },
+  { q: 'Do you offer free pickup?', a: 'Yes, free pickup across Kochi for 5+ laptops. Same-day service available for Infopark, Smart City, Kakkanad, Edapally, and all Ernakulam areas.' },
+  { q: 'What brands do you accept?', a: 'All major brands: Apple MacBook, Dell, HP, Lenovo, Asus, Acer, MSI, Samsung, Microsoft Surface, and more.' },
+  { q: 'What if my laptop is very old?', a: 'We accept all laptops, regardless of age. Even vintage models can have value for parts or recycling.' },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'Laptop Recycling Near Me', url: 'https://ewastekochi.com/laptop-recycling-near-me/' },
+];
+
+const serviceSchema = {
+  '@type': 'RecyclingService',
+  name: 'Laptop Recycling Near Me Kochi',
+  description: pageDesc,
+  provider: { '@id': 'https://ewastekochi.com/#organization' },
+  areaServed: { '@type': 'City', name: 'Kochi' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '800',
+    highPrice: '75000',
+    priceCurrency: 'INR',
+    description: 'Buyback prices from ₹800 for budget laptops up to ₹75,000 for flagship models',
+  },
 };
 ---
 
-<Layout meta={meta}>
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Laptop Recycling Near Me</h1>
-      <p>Professional, secure, and certified laptop recycling services with local pickup options. We ensure your data is completely destroyed and your battery is handled safely.</p>
-      <div class="cta-buttons">
-        <a href="#services" class="btn btn-primary">Get a Quote</a>
-        <a href="#contact" class="btn btn-secondary">Schedule Pickup</a>
+<BaseLayout title={pageTitle} description={pageDesc} schema={serviceSchema} faqs={faqs} breadcrumbs={breadcrumbs}>
+  <Navbar currentPath="/laptop-recycling-near-me/" />
+
+  <!-- HERO -->
+  <section style="padding:80px 0 60px;background:radial-gradient(circle at 70% 30%,rgba(0,232,150,.07),transparent),var(--bg)">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" style="font-size:.8rem;color:var(--muted);margin-bottom:20px">
+        <a href="/" style="color:var(--green)">Home</a> › Laptop Recycling Near Me
+      </nav>
+      <div class="badge badge-g" style="margin-bottom:20px">💻 Best Laptop Buyback Prices in Kerala · Updated April 2026</div>
+      <h1 style="font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;margin-bottom:20px;font-weight:800;letter-spacing:-.03em">
+        Laptop Recycling <span style="color:var(--green)">Near Me</span><br/>in Kochi
+      </h1>
+      <p style="font-size:1.1rem;color:var(--text);max-width:620px;line-height:1.65;margin-bottom:35px;font-family:var(--serif);font-style:italic">
+        Recycle or sell your old laptop locally. All brands accepted — MacBook up to ₹65K, Dell/HP up to ₹18K. Free pickup. Data securely wiped. Same-day payment. Find us near you.
+      </p>
+      <div style="display:flex;gap:15px;flex-wrap:wrap">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg">💬 Get Instant Quote</a>
+        <a href={contact.phoneLink} class="btn btn-primary btn-lg">📞 Call Now</a>
+        <a href="/sell-old-electronics/" class="btn btn-outline">Sell Other Electronics →</a>
       </div>
     </div>
   </section>
 
-  <section id="laptop-process" class="process-section">
-    <div class="container">
-      <h2>Our Laptop Recycling Process</h2>
-      <div class="process-steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Collection & Assessment</h3>
-          <p>We collect your laptop locally and perform a comprehensive assessment of its condition, specifications, and reusable components.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Data Destruction</h3>
-          <p>Professional data wiping using military-grade standards. Physical destruction of storage devices when necessary to ensure complete data security.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Component Separation</h3>
-          <p>Careful disassembly to separate valuable materials: precious metals, plastics, circuit boards, and glass for proper recycling.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <h3>Material Recovery</h3>
-          <p>Advanced processing to recover reusable materials and ensure environmentally responsible disposal of hazardous components.</p>
+  <!-- BUYBACK RATES -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Current Buyback Rates</div>
+      <h2 class="sec-title">Laptop Prices — <em>April 2026</em></h2>
+      <p class="sec-sub" style="margin-bottom:2rem">Updated weekly. Prices depend on model, age, condition. WhatsApp for exact quote.</p>
+      <div style="overflow-x:auto;border:1px solid var(--border);border-radius:16px">
+        <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+          <thead>
+            <tr style="background:rgba(0,232,150,.07)">
+              <th style="padding:14px 20px;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">Laptop Model</th>
+              <th style="padding:14px 20px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">Working</th>
+              <th style="padding:14px 20px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--amber)">Minor Issues</th>
+              <th style="padding:14px 20px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Non-Working</th>
+            </tr>
+          </thead>
+          <tbody>
+            {buybackRates.map(r => (
+              <tr style="border-top:1px solid var(--border)">
+                <td style="padding:12px 20px;font-weight:500">{r.device}</td>
+                <td style="padding:12px 20px;text-align:right;color:var(--green);font-weight:600">{r.working}</td>
+                <td style="padding:12px 20px;text-align:right;color:var(--amber);font-weight:500">{r.minor}</td>
+                <td style="padding:12px 20px;text-align:right;color:var(--muted);font-weight:400">{r.broken}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUY vs RECYCLE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Options</div>
+      <h2 class="sec-title">Sell or <em>Recycle</em> Your Laptop</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:30px">
+        {recyclingOptions.map(opt => (
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px">
+            <h3 style="font-size:1.2rem;margin-bottom:12px;color:var(--text)">{opt.title}</h3>
+            <p style="font-size:.95rem;color:var(--muted);line-height:1.7">{opt.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Why Choose EWaste Kochi</div>
+      <h2 class="sec-title">The Smart Choice for <em>Laptop Recycling</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:30px">
+        {whyUs.map(item => (
+          <div style="display:flex;align-items:flex-start;gap:12px;background:var(--card);padding:20px;border-radius:12px;border:1px solid var(--border)">
+            <div style="font-size:1.5rem">{item.icon}</div>
+            <div>
+              <h4 style="font-size:1rem;margin-bottom:6px;color:var(--text)">{item.title}</h4>
+              <p style="font-size:.85rem;color:var(--muted);line-height:1.6">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Process</div>
+      <h2 class="sec-title">How <em>Laptop Recycling</em> Works</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:30px">
+        {howItWorks.map(step => (
+          <div style="text-align:center;background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;color:var(--green);font-weight:800;margin-bottom:12px">{step.step}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px">{step.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">We're Local</div>
+      <h2 class="sec-title">Serving All of <em>Kochi</em></h2>
+      <p style="max-width:700px">
+        Free pickup for 5+ laptops across all Kochi neighborhoods: Infopark, Smart City, Kakkanad, Edapally, Vyttila, Palarivattom, Aluva, Angamaly, Thrippunithura, Maradu, Kalamassery, Eloor, and all Ernakulam.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <span class="badge">Infopark</span>
+        <span class="badge">Smart City</span>
+        <span class="badge">Kakkanad</span>
+        <span class="badge">Edapally</span>
+        <span class="badge">Vyttila</span>
+        <span class="badge">Aluva</span>
+        <span class="badge">Thrippunithura</span>
+        <span class="badge">Kalamassery</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="wrap">
+      <div style="background:linear-gradient(135deg,var(--green),var(--green-dark));color:var(--white);border-radius:20px;padding:50px;text-align:center;margin:60px 0">
+        <h2 style="font-size:2rem;margin-bottom:20px">Ready to Recycle or Sell Your Laptop?</h2>
+        <p style="font-size:1.1rem;margin-bottom:30px;opacity:0.9">Get a quote in minutes. Free pickup. Instant payment. NIST data wipe included. We're your local laptop recycling partner.</p>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+          <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn" style="background:var(--white);color:var(--green);font-weight:800;font-size:1.1rem;padding:16px 32px">💬 WhatsApp Now</a>
+          <a href={contact.phoneLink} class="btn" style="background:transparent;border:2px solid var(--white);color:var(--white);font-size:1.1rem;padding:14px 30px">📞 Call Us</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="data-security" class="security-section">
-    <div class="container">
-      <h2>Data Security & Privacy</h2>
-      <div class="security-features">
-        <div class="feature-card">
-          <h3>Certified Data Destruction</h3>
-          <p>We follow NIST 800-88 guidelines for media sanitization, ensuring your personal and business data is permanently unrecoverable.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Chain of Custody Documentation</h3>
-          <p>Complete tracking from pickup through processing, with detailed logs for your compliance and audit requirements.</p>
-        </div>
-        <div class="feature-card">
-          <h3>On-Site Data Wiping</h3>
-          <p>Available for enterprise clients who require data destruction to be performed at their location under supervision.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Certificate of Destruction</h3>
-          <p>Receive a detailed certificate documenting the destruction process for each device, including serial numbers and timestamps.</p>
-        </div>
+  <!-- FAQs -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Questions?</div>
+      <h2 class="sec-title">Laptop Recycling Near Me — <em>FAQs</em></h2>
+      <div style="display:grid;gap:16px;max-width:800px;margin:0 auto">
+        {faqs.map((faq, i) => (
+          <details style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px">
+            <summary style="font-weight:600;cursor:pointer;font-size:1.05rem">{faq.q}</summary>
+            <p style="margin-top:12px;color:var(--muted);line-height:1.7">{faq.a}</p>
+          </details>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="battery-handling" class="battery-section">
-    <div class="container">
-      <h2>Battery Handling & Safety</h2>
-      <div class="battery-content">
-        <div class="battery-info">
-          <h3>Why Professional Battery Handling Matters</h3>
-          <p>Laptop batteries contain lithium-ion cells that can be hazardous if not handled properly. We follow strict safety protocols to prevent fires, explosions, and environmental contamination.</p>
-        </div>
-        <div class="battery-process">
-          <h3>Our Battery Disposal Process:</h3>
-          <ul>
-            <li>Initial safety inspection and testing</li>
-            <li>Careful removal by trained technicians with proper PPE</li>
-            <li>Transportation to certified battery recycling facilities</li>
-            <li>Material recovery including lithium, cobalt, and nickel</li>
-            <li>Proper disposal of damaged or non-recyclable batteries</li>
-          </ul>
-        </div>
-        <div class="safety-certifications">
-          <h3>Safety Certifications</h3>
-          <p>Our facility complies with DOT, EPA, and OSHA regulations for handling lithium-ion batteries and other hazardous materials.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="pickup-services" class="pickup-section">
-    <div class="container">
-      <h2>Local Pickup Options</h2>
-      <div class="pickup-options">
-        <div class="pickup-option">
-          <h3>Residential Pickup</h3>
-          <p>Schedule a convenient pickup time for your home. We serve all major areas with no minimum quantity requirements.</p>
-          <ul>
-            <li>Free consultation and quote</li>
-            <li>Flexible scheduling including weekends</li>
-            <li>Same-day pickup available in most areas</li>
-            <li>Service for single laptops to bulk collections</li>
-          </ul>
-        </div>
-        <div class="pickup-option">
-          <h3>Business/Office Pickup</h3>
-          <p>Corporate e-waste management solutions with dedicated account management and customized pickup schedules.</p>
-          <ul>
-            <li>Large volume discount programs</li>
-            <li>On-site data destruction services</li>
-            <li>Compliance reporting and documentation</li>
-            <li>Scheduled recurring pickups</li>
-          </ul>
-        </div>
-        <div class="pickup-option">
-          <h3>Drop-Off Locations</h3>
-          <p>Visit our certified e-waste recycling centers for self-drop off services. Secure kiosks available 24/7 at select locations.</p>
-          <ul>
-            <li>Find locations near you</li>
-            <li>Extended hours operation</li>
-            <li>Immediate processing and documentation</li>
-            <li>Competitive pricing per unit</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="service-categories" class="categories-section">
-    <div class="container">
-      <h2>Additional Services</h2>
-      <div class="service-cards">
-        <ServiceCard
-          title="Desktop Computer Recycling"
-          description="Complete recycling service for desktop towers, monitors, keyboards, and accessories."
-          icon="desktop"
-        />
-        <ServiceCard
-          title="Tablet & Phone Recycling"
-          description="Secure disposal of tablets, smartphones, and mobile devices with data destruction."
-          icon="tablet"
-        />
-        <ServiceCard
-          title="Hard Drive Destruction"
-          description="Physical destruction of hard drives and solid-state drives for maximum security."
-          icon="shield"
-        />
-        <ServiceCard
-          title="Printer & Copier Recycling"
-          description="Environmentally responsible disposal of office equipment and imaging devices."
-          icon="printer"
-        />
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="contact-section">
-    <div class="container">
-      <h2>Ready to Recycle Your Laptop?</h2>
-      <p>Contact us today to schedule your laptop recycling with local pickup. Get a competitive quote and certificate of destruction.</p>
-      <ContactForm />
-    </div>
-  </section>
-</Layout>
-
-<style>
-  .hero {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3a7bd5 100%);
-    color: white;
-    padding: 120px 0;
-    text-align: center;
-  }
-
-  .hero-content h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
-
-  .hero-content p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .process-section,
-  .security-section,
-  .battery-section,
-  .pickup-section,
-  .categories-section,
-  .contact-section {
-    padding: 80px 0;
-  }
-
-  .process-section h2,
-  .security-section h2,
-  .battery-section h2,
-  .pickup-section h2,
-  .categories-section h2,
-  .contact-section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: #1e3c72;
-  }
-
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-
-  .step {
-    background: #f8f9fa;
-    padding: 2rem;
-    border-radius: 8px;
-    border-left: 4px solid #2a5298;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-
-  .step:hover {
-    transform: translateY(-5px);
-  }
-
-  .step-number {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background: #2a5298;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-
-  .step h3 {
-    margin-bottom: 1rem;
-    color: #1e3c72;
-  }
-
-  .security-features,
-  .battery-process,
-  .pickup-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .feature-card,
-  .safety-certifications {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  .feature-card h3,
-  .safety-certifications h3 {
-    color: #1e3c72;
-    margin-bottom: 1rem;
-  }
-
-  .battery-process ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .battery-process li {
-    padding: 0.5rem 0;
-    position: relative;
-    padding-left: 1.5rem;
-  }
-
-  .battery-process li:before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #2a5298;
-    font-weight: bold;
-  }
-
-  .pickup-option {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  .pickup-option h3 {
-    color: #1e3c72;
-    margin-bottom: 1rem;
-  }
-
-  .categories-section {
-    background: #f8f9fa;
-  }
-
-  .service-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-
-  .contact-section {
-    background: #1e3c72;
-    color: white;
-  }
-
-  .contact-section h2 {
-    color: white;
-  }
-
-  @media (max-width: 768px) {
-    .hero-content h1 {
-      font-size: 2.5rem;
-    }
-
-    .process-steps,
-    .security-features,
-    .battery-process,
-    .pickup-options {
-      grid-template-columns: 1fr;
-    }
-
-    .cta-buttons {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-</style>
+  <Footer />
+</BaseLayout>

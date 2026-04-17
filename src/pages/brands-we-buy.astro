@@ -1,17 +1,74 @@
 ---
+// brands-we-buy.astro — Brands We Purchase
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-const title = 'Brands We Buy | EWaste Kochi Buyback Program';
-const description = 'We buy Apple, Dell, HP, Lenovo, Cisco, and all major brands. Get the best buyback prices for your old electronics in Kochi.';
----
+const title = "Brands We Buy | IT Asset Buyback Kochi";
+const description = "Sell your used IT assets in Kochi. We offer top buyback value for Apple, Cisco, Dell, HP, and Lenovo equipment with certified data destruction.";
 
+const brands = [
+  {
+    name: "Apple",
+    items: "MacBook Pro, MacBook Air, iMac, Mac Mini, iPhones, iPads",
+  },
+  {
+    name: "Cisco",
+    items: "Catalyst Switches (2960, 3750, 3850), ISR Routers, Firewalls, IP Phones",
+  },
+  {
+    name: "Dell",
+    items: "Latitude Laptops, OptiPlex Desktops, PowerEdge Servers, Precision Workstations",
+  },
+  {
+    name: "HP",
+    items: "EliteBook, ProBook, ProLiant Servers, LaserJet Printers (Bulk Only)",
+  },
+  {
+    name: "Lenovo",
+    items: "ThinkPad T/X/P Series, ThinkCentre Desktops, System x Servers",
+  },
+  { name: "Networking", items: "Juniper, Aruba, Fortinet, Ubiquiti, Arista" },
+];
+---
 <BaseLayout title={title} description={description}>
   <Navbar currentPath="/brands-we-buy/" />
-  <section class="py-20 text-center">
-    <h1 class="text-4xl font-bold mb-4">Brands We Buy</h1>
-    <p class="text-xl">Apple, Dell, HP, Lenovo, Cisco - all major brands accepted</p>
-  </section>
+  <main class="max-w-5xl mx-auto px-6 py-20">
+    <header class="mb-16">
+      <h1 class="text-5xl font-bold text-white mb-4">Brands We Buy</h1>
+      <p class="text-xl text-text">
+        We pay premium rates for corporate-grade hardware and premium consumer electronics.
+      </p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      {brands.map((brand) => (
+        <div class="p-8 bg-card border border-border rounded-card hover:border-green/50 transition-all">
+          <h3 class="text-2xl font-bold text-green mb-2">{brand.name}</h3>
+          <p class="text-text mb-4">Commonly accepted: {brand.items}</p>
+          <div class="text-sm text-muted">
+            Includes NIST-certified data wipe as standard.
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <section
+      class="mt-20 p-10 bg-surface border-2 border-dashed border-border rounded-card-lg text-center"
+    >
+      <h2 class="text-2xl font-bold text-white mb-4">Don't see your brand?</h2>
+      <p class="text-text mb-8 max-w-2xl mx-auto">
+        We buy almost all enterprise-grade hardware including APC UPS, Sun/Oracle servers, and high-end medical electronics. WhatsApp us a photo of your inventory for an instant quote.
+      </p>
+      <a
+        href="https://wa.me/917500555454?text=Hi%2C%20I%20need%20to%20sell%20IT%20equipment"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-green text-bg px-10 py-4 font-bold rounded-full"
+      >
+        WhatsApp Inventory List
+      </a>
+    </section>
+  </main>
   <Footer />
 </BaseLayout>

@@ -1,0 +1,258 @@
+---
+// secure-laptop-disposal.astro — High-Intent Secure Laptop Disposal Landing Page
+// GSC targets: "secure laptop disposal", "secure laptop recycling", "laptop data destruction kochi"
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
+
+const pageTitle = "Secure Laptop Disposal Kochi | NIST 800-88 Certified Data Destruction | EWaste Kochi";
+const pageDesc = "Secure laptop disposal in Kochi with NIST 800-88 certified data destruction. On-site mobile shredding available. Certificate of Destruction. DPDP Act compliant. For banks, IT, healthcare, government.";
+
+const disposalFeatures = [
+  { icon: '🔐', title: 'NIST 800-88 Compliance', desc: 'Media sanitization to Purge or Destroy level using certified software & physical shredding.' },
+  { icon: '🔋', title: 'Battery Safety & Handling', desc: 'Safe removal and certified recycling of laptop batteries following UN 38.3 and RoHS standards.' },
+  { icon: '📜', title: 'Certificate of Destruction', desc: 'Instant PDF CoD listing serial numbers, method, date and our KSPCB auth number. RBI/SEBI audit ready.' },
+  { icon: '🚗', title: 'On-Site Mobile Shredding', desc: 'Our mobile unit comes to your premises. Witness destruction. Data never leaves your building.' },
+  { icon: '📦', title: 'Chain of Custody', desc: 'Barcode-tracked containers, GPS-tracked vehicles, tamper-evident seals. Full audit trail from pickup to destruction.' },
+  { icon: '⚖️', title: 'DPDP Act 2023 Ready', desc: 'Meets India\'s data protection law requirements for personal data erasure. Legal documentation provided.' },
+  { icon: '🏥', title: 'Industry Specialization', desc: 'Tailored processes for banks, hospitals, IT companies, government agencies with strict compliance needs.' },
+];
+
+const pricing = [
+  { tier: 'In-Facility Wipe', price: '₹299', per: '/laptop', featured: false, features: ['NIST 800-88 Purge (software wipe)', 'Certificate of Destruction', 'Chain of custody', '10+ units: ₹249 each', 'Includes battery removal'] },
+  { tier: 'In-Facility Shred', price: '₹499', per: '/laptop', featured: false, features: ['Physical shredding <5mm', 'NIST 800-88 Destroy', 'Video evidence', 'HDD & SSD', 'Battery recycling included'] },
+  { tier: 'On-Site Shred', price: '₹699', per: '/laptop', desc: 'Minimum 25 laptops', featured: true, features: ['Mobile unit at your location', 'You witness live', 'DPDP compliance report', 'No data transit risk', 'On-site battery handling'] },
+];
+
+const faqs = [
+  { q: 'What is secure laptop disposal?', a: 'Secure laptop disposal is the certified, auditable process of permanently destroying all data on laptops before they are recycled or disposed. We use NIST 800-88 approved methods: either cryptographic wiping or physical shredding, and provide a Certificate of Destruction for every device.' },
+  { q: 'Why not just format my laptop?', a: 'Formatting or deleting files is not secure — data can be recovered with simple software. Secure disposal requires either multi-pass overwriting (NIST Purge) or physical destruction (NIST Destroy). Our methods are verified and legally compliant with DPDP Act 2023.' },
+  { q: 'Do you offer on-site laptop shredding?', a: 'Yes. Our mobile hard drive shredding unit visits your office for on-site destruction. This is the highest security option — data never leaves your premises. Minimum 25 laptops. Ideal for banks, hospitals, government offices.' },
+  { q: 'How do you handle laptop batteries safely?', a: 'We follow UN 38.3 and RoHS-compliant battery removal and recycling procedures. Trained technicians safely remove batteries to prevent thermal runaway. Certified recyclers process batteries to recover lithium and other materials safely.' },
+  { q: 'How long does the process take?', a: 'For on-site pickup and in-facility destruction: 3–5 business days. For on-site mobile shredding: we can schedule within 48–72 hours. Certificate of Destruction issued within 24 hours after processing.' },
+  { q: 'Is this required for DPDP Act 2023?', a: 'Yes. The DPDP Act mandates that personal data must be permanently destroyed when no longer needed. Our NIST-compliant destruction with Certificate of Destruction provides legal evidence of compliance, protecting your organization from regulatory penalties.' },
+  { q: 'What types of laptops do you accept?', a: 'All laptops and notebooks: Dell, HP, Lenovo, Apple MacBook, Asus, Acer, MSI, Samsung, Microsoft Surface, etc. Any brand, any condition. We also accept tablets and 2-in-1 devices.' },
+  { q: 'Can we witness the destruction?', a: 'Yes. For in-facility shredding, you can arrange to witness (subject to safety protocols). For on-site shredding, your team can watch live. Video recording is provided for all witnessed jobs.' },
+  { q: 'Do you handle bulk corporate disposals?', a: 'Yes, we specialize in bulk IT decommissioning for corporate offices in Infopark, Smart City, and across Kochi. We provide asset inventory, data destruction, and full ITAD audit reports.' },
+  { q: 'What certifications do your destruction methods have?', a: 'Our processes are NIST 800-88 certified for data destruction and R2/RIOS certified for electronics recycling. We maintain full chain-of-custody documentation and provide audit-ready Certificates of Destruction.' },
+];
+
+const process = [
+  { step: '1', title: 'Inventory & Booking', desc: 'Provide laptop inventory (make, model, serial). Schedule pickup via WhatsApp or phone.' },
+  { step: '2', title: 'Secure Transport', desc: 'Tamper-evident sealed containers, GPS-tracked vehicles, chain-of-custody documentation.' },
+  { step: '3', title: 'Data Sanitization', desc: 'Choose: NIST 800-88 software wipe or physical shredding. Serial numbers captured.' },
+  { step: '4', title: 'Battery Removal', desc: 'Safe battery extraction following UN 38.3 protocols. Hazardous materials handled separately.' },
+  { step: '5', title: 'Certificate & Recycling', desc: 'Certificate of Destruction issued within 24h. Residual materials responsibly recycled.' },
+];
+
+const batterySafetyInfo = {
+  title: 'Battery Safety & Handling',
+  procedures: [
+    'UN 38.3 certified battery removal procedures',
+    'Thermal runaway prevention protocols',
+    'Isolation of damaged or swollen batteries',
+    'RoHS-compliant recycling of lithium-ion cells',
+    'Certified e-waste facility processing',
+    'Full documentation of battery chain-of-custody'
+  ],
+  certifications: [
+    'UN 38.3 Transportation',
+    'RoHS Compliance',
+    'R2 Certified Recycling',
+    'ISO 14001 Environmental Management'
+  ]
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'Secure Laptop Disposal', url: 'https://ewastekochi.com/secure-laptop-disposal/' },
+];
+
+const serviceSchema = {
+  '@type': 'ProfessionalService',
+  name: 'Secure Laptop Disposal Kochi',
+  description: pageDesc,
+  provider: { '@id': 'https://ewastekochi.com/#organization' },
+  areaServed: { '@type': 'City', name: 'Kochi' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '299',
+    highPrice: '699',
+    priceCurrency: 'INR',
+    description: 'In-facility wipe from ₹299, shred from ₹499, on-site from ₹699 per laptop',
+  },
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} schema={serviceSchema} faqs={faqs} breadcrumbs={breadcrumbs}>
+  <Navbar currentPath="/secure-laptop-disposal/" />
+
+  <!-- HERO -->
+  <section style="padding:80px 0 60px;background:radial-gradient(circle at 70% 30%,rgba(59,130,246,.07),transparent),var(--bg)">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" style="font-size:.8rem;color:var(--muted);margin-bottom:20px">
+        <a href="/" style="color:var(--green)">Home</a> › Secure Laptop Disposal
+      </nav>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
+        <span class="badge badge-b badge-primary">🔐 NIST 800-88</span>
+        <span class="badge badge-g">On-Site Available</span>
+        <span class="badge badge-a">CoD for Every Device</span>
+        <span class="badge badge-badge">🔋 Battery Safe</span>
+      </div>
+      <h1 style="font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;margin-bottom:18px;font-weight:800;letter-spacing:-.03em">
+        Secure <span style="color:var(--green)">Laptop Disposal</span><br/>in Kochi
+      </h1>
+      <p style="font-size:1rem;color:var(--text);max-width:620px;line-height:1.7;margin-bottom:35px;font-family:var(--serif);font-style:italic">
+        NIST 800-88 certified data destruction for laptops. On-site mobile shredding available. Certificate of Destruction every device. DPDP Act 2023 compliant. Trusted by banks, hospitals, and IT companies in Infopark and across Kochi.
+      </p>
+      <div style="display:flex;gap:15px;flex-wrap:wrap">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg">💬 Get a Quote</a>
+        <a href={contact.phoneLink} class="btn btn-primary btn-lg">📞 Call Now</a>
+        <a href="/secure-computer-recycling/" class="btn btn-outline">Also for Desktops →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Why Secure Laptop Disposal Matters</div>
+      <h2 class="sec-title">Data Security + <em>Environmental</em> Responsibility</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:30px">
+        {disposalFeatures.map(f => (
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px">
+            <div style="font-size:2rem;margin-bottom:12px">{f.icon}</div>
+            <h3 style="font-size:1rem;margin-bottom:8px;color:var(--text)">{f.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BATTERY SAFETY SECTION -->
+  <section class="section" style="background:linear-gradient(135deg,rgba(37,99,235,.05),transparent)">
+    <div class="wrap">
+      <div class="sec-eyebrow">Specialized Handling</div>
+      <h2 class="sec-title">Laptop <em>Battery Safety</em> Protocols</h2>
+      <p style="max-width:700px;margin-bottom:2rem">
+        Laptop batteries require specialized handling to prevent thermal incidents. We follow strict UN 38.3 and RoHS-compliant procedures to ensure safe removal, transport, and certified recycling of all battery types including lithium-ion and lithium-polymer cells.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+        <div>
+          <h3 style="font-size:1.1rem;margin-bottom:12px;color:var(--green)">Safety Procedures</h3>
+          <ul style="list-style:none;padding:0;display:grid;gap:10px">
+            {batterySafetyInfo.procedures.map(p => (
+              <li style="padding:10px 0;border-bottom:1px solid var(--border)">• {p}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:1.1rem;margin-bottom:12px;color:var(--green)">Certifications</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            {batterySafetyInfo.certifications.map(cert => (
+              <span class="badge badge-b" style="background:var(--blue);color:var(--white)">{cert}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Transparent Pricing</div>
+      <h2 class="sec-title">Secure Laptop Disposal <em>Costs</em></h2>
+      <p class="sec-sub" style="margin-bottom:2rem">Pricing per laptop. Bulk discounts for 25+ units. All options include Certificate of Destruction and battery handling.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1000px;margin:0 auto">
+        {pricing.map(p => (
+          <div style={`background:var(--card);border:2px solid ${p.featured ? 'var(--green)' : 'var(--border)'};border-radius:16px;padding:28px;text-align:center${p.featured ? ';box-shadow:0 8px 30px rgba(0,232,150,.15)' : ''}`}>
+            {p.featured && <div class="badge badge-g" style="position:absolute;top:-12px;left:50%;transform:translateX(-50%)">Most Popular</div>}
+            <h3 style="font-size:1.1rem;margin-bottom:8px">{p.tier}</h3>
+            <div style="font-size:2.5rem;color:var(--green);font-weight:800;margin-bottom:4px">{p.price}<span style="font-size:1rem;color:var(--muted);font-weight:400">{p.per}</span></div>
+            {p.desc && <p style="font-size:.8rem;color:var(--muted);margin-bottom:16px">{p.desc}</p>}
+            <ul style="list-style:none;padding:0;margin:0;text-align:left;display:grid;gap:8px;font-size:.9rem;color:var(--text)">
+              {p.features.map(f => (
+                <li>✓ {f}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Our Process</div>
+      <h2 class="sec-title">How Secure Laptop Disposal <em>Works</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:30px">
+        {process.map(p => (
+          <div style="background:var(--card);border-radius:16px;padding:28px;text-align:center;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;color:var(--green);font-weight:800;margin-bottom:12px">{p.step}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px">{p.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Service Area</div>
+      <h2 class="sec-title">Covering All of <em>Kochi & Ernakulam</em></h2>
+      <p style="max-width:700px">
+        Secure laptop disposal available across Kochi: Infopark, Smart City, Kakkanad, Edapally, Vyttila, Palarivattom, Aluva, Angamaly, Thrippunithura, Maradu, Kalamassery, Eloor, and all Ernakulam district. On-site shredding requires minimum 25 laptops.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <span class="badge">Infopark</span>
+        <span class="badge">Smart City</span>
+        <span class="badge">Kakkanad</span>
+        <span class="badge">Edapally</span>
+        <span class="badge">Vyttila</span>
+        <span class="badge">Aluva</span>
+        <span class="badge">Thrippunithura</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div style="background:linear-gradient(135deg,var(--blue),#1e40af);color:var(--white);border-radius:20px;padding:50px;text-align:center;margin:60px 0">
+        <h2 style="font-size:2rem;margin-bottom:20px">Ready to Dispose of Your Laptops Securely?</h2>
+        <p style="font-size:1.1rem;margin-bottom:30px;opacity:0.9">Get a quote in minutes. On-site shredding available. NIST-certified. DPDP compliant. Certificate of Destruction and battery safety handling included.</p>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+          <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn" style="background:var(--white);color:var(--blue);font-weight:800;font-size:1.1rem;padding:16px 32px">💬 WhatsApp Us</a>
+          <a href={contact.phoneLink} class="btn" style="background:transparent;border:2px solid var(--white);color:var(--white);font-size:1.1rem;padding:14px 30px">📞 Call Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Questions?</div>
+      <h2 class="sec-title">Secure Laptop Disposal — <em>FAQs</em></h2>
+      <div style="display:grid;gap:16px;max-width:800px;margin:0 auto">
+        {faqs.map((faq, i) => (
+          <details style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px">
+            <summary style="font-weight:600;cursor:pointer;font-size:1.05rem">{faq.q}</summary>
+            <p style="margin-top:12px;color:var(--muted);line-height:1.7">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+      <p style="text-align:center;margin-top:30px">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Ask us on WhatsApp →</a>
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

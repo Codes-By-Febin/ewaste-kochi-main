@@ -1,17 +1,86 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
-const title = 'DPDP Act 2023 Compliance Checklist | Data Destruction Requirements';
-const description = 'Complete DPDP Act 2023 compliance checklist for IT disposal. Data destruction requirements, documentation, and audit preparation guide.';
+const title =
+  "DPDP Act 2023 Compliance Checklist | IT Asset Disposal & Data Destruction";
+const description =
+  "Verify your IT disposal workflow against India's DPDP Act 2023. Learn mandatory data destruction requirements, audit evidence, and KSPCB authorized recycling paths.";
+
+const breadcrumbs = [
+  { name: "E-Waste", url: "https://ewastekochi.com/ewaste/" },
+  { name: "DPDP Compliance Checklist" },
+];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
   <Navbar currentPath="/ewaste/dpdp-act-2023-compliance-checklist/" />
-  <section class="py-20 text-center">
-    <h1 class="text-4xl font-bold mb-4">DPDP Act 2023 Compliance Checklist</h1>
-    <p class="text-xl">Data destruction requirements for Indian businesses</p>
-  </section>
+
+  <main class="max-w-4xl mx-auto px-6 py-20">
+    <Breadcrumbs
+      items={[
+        { label: "E-Waste", href: "/ewaste/" },
+        { label: "DPDP Checklist" },
+      ]}
+    />
+
+    <header class="mb-12">
+      <h1 class="text-4xl md:text-6xl font-sans font-bold text-white mb-6">
+        DPDP Act 2023 <span class="text-green">Compliance Checklist</span>
+      </h1>
+      <p class="text-xl text-text leading-relaxed">
+        India's Digital Personal Data Protection (DPDP) Act 2023 mandates that
+        Data Fiduciaries (businesses) irrecoverably delete personal data when
+        its purpose is served. For retired IT assets, this requires a certified
+        destruction workflow.
+      </p>
+    </header>
+
+    <div class="prose prose-invert max-w-none space-y-12">
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-4">
+          1. Data Sanitization Standards
+        </h2>
+        <p>
+          Ensure your vendor uses recognized media sanitization standards like <strong
+            >NIST 800-88 R1</strong
+          > or <strong>DoD 5220.22-M</strong>.
+        </p>
+        <ul class="list-disc pl-6 space-y-2 text-text">
+          <li>Is logical erasure (wiping) verified for every sector?</li>
+          <li>
+            Are non-functional drives physically shredded to particles &lt;
+            20mm?
+          </li>
+          <li>Do you receive a serial-numbered Certificate of Destruction?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-4">
+          2. Chain of Custody Documentation
+        </h2>
+        <p>A leak during transit is still your liability under the DPDP Act.</p>
+        <ul class="list-disc pl-6 space-y-2 text-text">
+          <li>Is the transport vehicle GPS-tracked and sealed?</li>
+          <li>
+            Is there a signed manifest for every device leaving your premises?
+          </li>
+          <li>Is the recycler KSPCB authorized (Verify Auth No: KL/EW/628)?</li>
+        </ul>
+      </section>
+
+      <section class="bg-card p-8 rounded-card border border-border">
+        <h2 class="text-xl font-bold text-green mb-4">Ready for an Audit?</h2>
+        <p class="mb-6">
+          Failure to comply with data disposal mandates can attract penalties up
+          to <strong>₹250 Crore</strong>. Get a certified ITAD assessment today.
+        </p>
+        <a href="/contact/" class="btn btn-primary">Book Compliance Audit</a>
+      </section>
+    </div>
+  </main>
   <Footer />
 </BaseLayout>

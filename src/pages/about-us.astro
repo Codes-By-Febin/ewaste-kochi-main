@@ -1,17 +1,74 @@
 ---
+// about-us.astro — About EWaste Kochi
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
 
-const title = 'About Us | EWaste Kochi - Kerala Trusted E-Waste Recycler';
-const description = 'Learn about EWaste Kochi, Kerala leading KSPCB-authorized e-waste recycling company. Our facility, team, certifications, and commitment to responsible recycling.';
+const title = "About EWaste Kochi | Kerala's Authorized ITAD & Recycling Partner";
+const description = "Learn about EWaste Kochi, our KSPCB-authorized recycling facility in Thrippunithura, and our mission to provide secure, zero-landfill e-waste solutions in Kerala.";
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'About Us', url: 'https://ewastekochi.com/about-us/' },
+];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
   <Navbar currentPath="/about-us/" />
-  <section class="py-20 text-center">
-    <h1 class="text-4xl font-bold mb-4">About EWaste Kochi</h1>
-    <p class="text-xl">Kerala's most trusted certified e-waste recycler since 2018</p>
-  </section>
+
+  <main class="max-w-4xl mx-auto px-6 py-20">
+    <header class="mb-16 text-center">
+      <h1 class="text-4xl md:text-6xl font-sans font-bold text-white mb-4">
+        Authorized. <span class="text-green">Accountable.</span> Local.
+      </h1>
+      <p class="text-xl text-text max-w-2xl mx-auto">
+        Kerala's only full-service electronic waste recycler with KSPCB authorization, EPR compliance, and a zero-landfill commitment.
+      </p>
+    </header>
+
+    <div class="prose prose-invert max-w-none space-y-8 text-text">
+      <section>
+        <p class="text-xl leading-relaxed">
+          Founded in {contact.founded}, EWaste Kochi was established to solve a critical problem: the dangerous, uncertified disposal of electronics in Kerala's backwaters. Today, we operate as one of the few <strong>KSPCB Authorized</strong> facilities (Auth No: {contact.kspcbAuth}) in the Ernakulam district.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-3xl font-bold text-white mb-4">Our Mission</h2>
+        <p class="text-lg">
+          To make certified e-waste recycling accessible to every business and household in Kerala, eliminating informal dumping and protecting the environment through responsible material recovery and data security.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-3xl font-bold text-white mb-4">Why Certified Recycling Matters</h2>
+        <p class="text-lg">
+          Informal recyclers often extract valuable metals using open burning and acid baths, releasing lead, mercury, and cadmium into the environment. Certified recyclers like EWaste Kochi follow strict processes: safe dismantling, proper hazardous waste handling, and maximum material recovery with zero landfill commitment.
+        </p>
+        <p class="text-lg">
+          For businesses, using an authorized recycler is also a legal requirement under India's E-Waste Rules 2022. Non-compliance can result in fines and liability for data breaches. We provide full documentation: pickup manifests, Certificates of Destruction, and EPR compliance reports.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-3xl font-bold text-white mb-4">Our Facility — Thrippunithura</h2>
+        <p class="text-lg">
+          Our processing center in Thrippunithura spans 15,000 sq ft and houses state-of-the-art dismantling lines, hard drive shredders, magnetic separators, and ESD-safe workstations. All operations are audited quarterly by KSPCB and maintain R2v3-equivalent standards.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-3xl font-bold text-white mb-4">Trusted Across Industries</h2>
+        <p class="text-lg">
+          From IT companies in Infopark to hospitals, banks, government offices, educational institutions, and residential complexes — we serve all sectors with tailored ITAD and recycling programs. Our clients rely on us for DPDP Act compliance, RBI-ready documentation, and ESG impact reporting.
+        </p>
+      </section>
+    </div>
+
+    <div class="mt-20 text-center">
+      <a href="/contact/" class="btn btn-primary btn-lg">Get in Touch</a>
+    </div>
+  </main>
+
   <Footer />
 </BaseLayout>

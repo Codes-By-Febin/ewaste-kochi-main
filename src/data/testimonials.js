@@ -84,9 +84,5 @@ export const testimonials = [
   },
 ];
 
-export const aggregateRating = {
-  value: '4.9',
-  count: 127,
-  best: '5',
-  worst: '1',
-};
+// AggregateRating removed until verified by structured Google Review feed 
+// to avoid manual markup penalty risks.

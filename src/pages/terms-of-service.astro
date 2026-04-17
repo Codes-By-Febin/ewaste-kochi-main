@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contact } from "../data/contact";
+
+const title = "Terms of Service | EWaste Kochi";
+const description =
+    "Terms and conditions for electronics recycling and ITAD services provided by EWaste Kochi.";
+---
+
+<BaseLayout title={title} description={description}>
+    <main class="max-w-3xl mx-auto px-6 py-20 prose prose-invert">
+        <h1>Terms of Service</h1>
+        <p class="text-muted">Last updated: April 2026</p>
+
+        <section>
+            <h2>1. Service Agreement</h2>
+            <p>
+                By scheduling a pickup or dropping off items at our
+                Thrippunithura facility, you agree to comply with the E-Waste
+                (Management) Rules, 2022. All items must be surrendered for
+                authorized recycling or disposal.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Data Liability</h2>
+            <p>
+                EWaste Kochi provides certified data destruction following NIST
+                800-88 standards. While we guarantee irrecoverable destruction,
+                clients are responsible for backing up necessary data prior to
+                handover. We are not liable for data loss once destruction is
+                performed.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Pickup Policy</h2>
+            <p>
+                Free pickup is offered for 10 or more devices within our service
+                areas. Standard handling fees may apply for specialized items
+                like CRT monitors or non-standard industrial hardware as
+                specified during the booking process.
+            </p>
+        </section>
+
+        <section>
+            <h2>4. Certifications</h2>
+            <p>
+                Certificates of Destruction (CoD) are issued within 24-48 hours
+                of processing. These documents are serial-numbered and serve as
+                legal proof of compliant disposal for audit purposes.
+            </p>
+        </section>
+
+        <section class="mt-12 pt-8 border-t border-border">
+            <p>
+                For inquiries regarding these terms, please contact our
+                compliance team at <a
+                    href={`mailto:${contact.email}`}
+                    class="text-green">{contact.email}</a
+                >.
+            </p>
+        </section>
+    </main>
+</Layout>

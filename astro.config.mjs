@@ -33,6 +33,14 @@ export default defineConfig({
         'https://ewastekochi.com/services/computer-recycling-near-me',
         'https://ewastekochi.com/services/electronics-recycling-near-me',
         'https://ewastekochi.com/services/business-it-decommissioning',
+        // New standalone high-intent landing pages (April 2026)
+        'https://ewastekochi.com/laptop-recycling-near-me/',
+        'https://ewastekochi.com/electronic-waste-disposal/',
+        'https://ewastekochi.com/old-computer-disposal/',
+        'https://ewastekochi.com/sell-old-electronics/',
+        'https://ewastekochi.com/secure-laptop-disposal/',
+        'https://ewastekochi.com/battery-recycling-near-me/',
+        'https://ewastekochi.com/business-it-decommissioning/',
         // Comprehensive pillar guides
         'https://ewastekochi.com/blog/complete-guide-ewaste-recycling-kochi/',
         'https://ewastekochi.com/blog/complete-guide-battery-recycling-kochi/',

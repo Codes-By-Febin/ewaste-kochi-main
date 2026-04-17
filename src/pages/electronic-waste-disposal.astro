@@ -1,246 +1,188 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ServiceCard from '../components/ServiceCard.astro';
-import FeatureCard from '../components/FeatureCard.astro';
-import ProcessStep from '../components/ProcessStep.astro';
-import ContactForm from '../components/ContactForm.astro';
+// electronic-waste-disposal.astro — High-Intent Landing Page
+// GSC targets: "electronic waste disposal", "e waste disposal near me", "where to dispose electronic waste"
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
 
-const metaTitle = 'Electronic Waste Disposal | Professional E-Waste Management';
-const metaDescription = 'Safe and compliant electronic waste disposal solutions. Certified hazardous material handling, regulatory compliance, and comprehensive service areas for e-waste disposal near you.';
-const targetKeywords = ['electronic waste disposal', 'e waste disposal near me', 'hazardous material handling', 'regulatory compliance', 'e-waste disposal services'];
+const pageTitle = "Electronic Waste Disposal Kochi | Safe E-Waste Disposal | Free Pickup | EWaste Kochi";
+const pageDesc = "Safe electronic waste disposal in Kochi. We dispose of all e-waste: computers, phones, TVs, batteries. KSPCB authorized. Free pickup for businesses. Certificate of Disposal provided.";
+
+const whatWeAccept = [
+  { category: 'Computers & Laptops', items: 'Desktops, laptops, all-in-ones, monitors, keyboards, mice, cables, accessories' },
+  { category: 'Mobile Devices', items: 'Smartphones, tablets, iPads, e-readers, chargers, power banks' },
+  { category: 'TVs & Monitors', items: 'CRT, LCD, LED, OLED TVs, computer monitors, projectors' },
+  { category: 'Appliances', items: 'Microwaves, refrigerators, washing machines, air conditioners (large items)' },
+  { category: 'Peripherals', items: 'Printers, scanners, routers, switches, hard drives, USB devices' },
+  { category: 'Batteries', items: 'Li-ion, lead-acid, UPS, EV batteries (handled separately per rules)' },
+];
+
+const whyProperDisposal = [
+  { icon: '⚡', title: 'Legal Requirement', desc: 'E-Waste Rules 2022 mandate that businesses dispose of e-waste only through authorized recyclers. Non-compliance fines up to ₹1 lakh per ton.' },
+  { icon: '🌍', title: 'Environmental Protection', desc: 'E-waste contains hazardous substances like lead, mercury, cadmium. Proper disposal prevents soil & water contamination.' },
+  { icon: '🔒', title: 'Data Security', desc: 'Devices often retain sensitive data. We provide NIST data destruction before recycling, protecting you from breaches.' },
+  { icon: '💰', title: 'Resource Recovery', desc: 'Electronics contain gold, silver, copper, rare earth metals. Recycling recovers these materials and reduces mining.' },
+];
+
+const disposalProcess = [
+  { step: '1', title: 'Schedule Pickup', desc: 'Call or WhatsApp to book a pickup. Free for 10+ items.' },
+  { step: '2', title: 'Inventory & Collection', desc: 'We inspect, create an inventory manifest, and provide a pickup receipt.' },
+  { step: '3', title: 'Data Destruction (if needed)', desc: 'Storage devices are wiped or shredded per your requirement.' },
+  { step: '4', title: 'Dismantling & Recycling', desc: 'Devices are dismantled, materials segregated, and sent to certified recycling streams.' },
+  { step: '5', title: 'Certificate of Disposal', desc: 'You receive a Certificate of Disposal with details of weight, items, and compliance docs.' },
+];
+
+const faqs = [
+  { q: 'What is considered electronic waste?', a: 'E-waste includes any electronic device that is no longer needed: computers, laptops, phones, tablets, TVs, monitors, printers, keyboards, mice, cables, routers, switches, hard drives, batteries, small appliances (microwave, kettle), and more. Basically anything with a plug or battery.' },
+  { q: 'Is electronic waste disposal free?', a: 'For businesses disposing of 10 or more items, pickup is free. For fewer items, a nominal collection fee may apply. Residential walk-ins to our Thrippunithura facility are always free.' },
+  { q: 'What happens to my data during disposal?', a: 'If your devices contain storage (HDD, SSD, phone memory), we strongly recommend NIST-certified data destruction. We offer this as an add-on service and provide a Certificate of Destruction. Without data destruction, devices may be recycled as-is, but we cannot guarantee data security.' },
+  { q: 'Do you provide a certificate?', a: 'Yes. Every corporate pickup receives a Certificate of Disposal (or Certificate of Recycling) listing the items, weight, date, and our KSPCB authorization number. This serves as legal proof of compliant disposal.' },
+  { q: 'What are the environmental benefits?', a: 'Recycling e-waste keeps toxic heavy metals out of landfills, recovers valuable metals (gold, silver, copper), reduces greenhouse gas emissions from mining, and conserves water and energy. One metric ton of e-waste yields more gold than mining 12 tons of ore.' },
+  { q: 'Do you accept broken electronics?', a: 'Yes. We accept both working and non-working devices. Even broken electronics contain valuable components and hazardous materials that need proper handling.' },
+  { q: 'Which areas do you serve?', a: 'We collect e-waste across all of Kochi and Ernakulam district: Infopark, Smart City, Kakkanad, Edapally, Vyttila, Palarivattom, Aluva, Angamaly, Thrippunithura, Maradu, Kalamassery, Eloor, and beyond. Same-day pickup often available for urgent jobs.' },
+  { q: 'Are you KSPCB authorized?', a: 'Yes. EWaste Kochi is fully authorized by Kerala State Pollution Control Board under E-Waste Rules 2022 and EPR guidelines. We follow all environmental regulations strictly.' },
+  { q: 'What about batteries?', a: 'Batteries are handled separately under Battery Waste Management Rules 2022. We accept all battery types: Li-ion (phones/laptops), lead-acid (UPS/inverters), EV batteries. Free bulk collection.' },
+  { q: 'How do I prepare for pickup?', a: 'Simply gather devices in one location. No need to dismantle. If you have sensitive data, inform us and we\'ll include data destruction. Our team will handle everything from inspection to loading.' },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'Electronic Waste Disposal', url: 'https://ewastekochi.com/electronic-waste-disposal/' },
+];
+
+const serviceSchema = {
+  '@type': 'RecyclingService',
+  name: 'Electronic Waste Disposal Kochi',
+  description: pageDesc,
+  provider: { '@id': 'https://ewastekochi.com/#organization' },
+  areaServed: { '@type': 'City', name: 'Kochi' },
+  serviceArea: {
+    '@type': 'GeoCircle',
+    center: { '@type': 'GeoCoordinates', latitude: 9.9312, longitude: 76.2673 },
+    radius: 30000,
+  },
+};
 ---
 
-<Layout title={metaTitle} description={metaDescription} keywords={targetKeywords}>
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1>Professional Electronic Waste Disposal Services</h1>
-      <p>Safe, compliant, and certified e-waste management solutions for homes and businesses. Protecting the environment through responsible disposal methods.</p>
-      <div class="cta-buttons">
-        <a href="#services" class="btn btn-primary">Our Services</a>
-        <a href="#contact" class="btn btn-secondary">Get Quote</a>
+<BaseLayout title={pageTitle} description={pageDesc} schema={serviceSchema} faqs={faqs} breadcrumbs={breadcrumbs}>
+  <Navbar currentPath="/electronic-waste-disposal/" />
+
+  <!-- HERO -->
+  <section style="padding:80px 0 60px;background:radial-gradient(circle at 70% 30%,rgba(255,152,0,.07),transparent),var(--bg)">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" style="font-size:.8rem;color:var(--muted);margin-bottom:20px">
+        <a href="/" style="color:var(--green)">Home</a> › Electronic Waste Disposal
+      </nav>
+      <div class="badge badge-a" style="margin-bottom:20px">♻️ KSPCB Authorized Recycler</div>
+      <h1 style="font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;margin-bottom:18px;font-weight:800;letter-spacing:-.03em">
+        Safe <span style="color:var(--green)">Electronic Waste</span><br/>Disposal in Kochi
+      </h1>
+      <p style="font-size:1rem;color:var(--text);max-width:620px;line-height:1.7;margin-bottom:35px;font-family:var(--serif);font-style:italic">
+        KSPCB authorized e-waste disposal for all electronics. Free pickup for 10+ items. Certificate of Disposal provided. Compliant with E-Waste Rules 2022. Serving Infopark, Kakkanad, and all Ernakulam.
+      </p>
+      <div style="display:flex;gap:15px;flex-wrap:wrap">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg">💬 Book Pickup</a>
+        <a href={contact.phoneLink} class="btn btn-primary btn-lg">📞 {contact.phoneDisplay}</a>
+        <a href="/contact/" class="btn btn-outline">Get a Quote</a>
       </div>
     </div>
   </section>
 
-  <section id="disposal-methods" class="container section">
-    <h2>Disposal Methods</h2>
-    <div class="grid">
-      <FeatureCard
-        title="Dismantling and Sorting"
-        description="Manual and automated processes to separate components by material type for optimal recycling rates."
-        icon="🔧"
-      />
-      <FeatureCard
-        title="Material Recovery"
-        description="Advanced extraction processes for precious metals, plastics, and glass from electronic components."
-        icon="🔄"
-      />
-      <FeatureCard
-        title="Certified Recycling"
-        description="Partnership with certified facilities ensuring 100% environmentally responsible processing."
-        icon="♻️"
-      />
-      <FeatureCard
-        title="Secure Data Destruction"
-        description="Military-grade data wiping and physical destruction to protect sensitive information."
-        icon="🔒"
-      />
-    </div>
-  </section>
-
-  <section id="regulatory-compliance" class="container section bg-gray-50">
-    <h2>Regulatory Compliance</h2>
-    <div class="compliance-grid">
-      <FeatureCard
-        title="R2 Certification"
-        description="Responsible Recycling certification ensuring adherence to rigorous environmental and safety standards."
-        icon="🏆"
-      />
-      <FeatureCard
-        title="e-Stewards Certified"
-        description="International standard for ethical and sustainable electronics recycling practices."
-        icon="🌍"
-      />
-      <FeatureCard
-        title="Local Regulations"
-        description="Full compliance with municipal, state, and federal electronic waste disposal regulations."
-        icon="📋"
-      />
-      <FeatureCard
-        title="Audit Trail Documentation"
-        description="Complete chain of custody documentation for all disposed electronics."
-        icon="📊"
-      />
-    </div>
-  </section>
-
-  <section id="hazardous-materials" class="container section">
-    <h2>Hazardous Material Handling</h2>
-    <div class="process-grid">
-      <ProcessStep number="1" title="Identification and Segregation">
-        Proper categorization of hazardous materials including batteries, circuit boards, and mercury-containing devices.
-      </ProcessStep>
-      <ProcessStep number="2" title="Specialized Storage">
-        Secure containment areas with proper ventilation and spill prevention systems for toxic materials.
-      </ProcessStep>
-      <ProcessStep number="3" title="Professional Treatment">
-        Licensed technicians handle hazardous substances using approved neutralization and containment procedures.
-      </ProcessStep>
-      <ProcessStep number="4" title="Safe Disposal">
-        Transportation and final disposal at authorized hazardous waste facilities with full regulatory compliance.
-      </ProcessStep>
-    </div>
-  </section>
-
-  <section id="service-areas" class="container section bg-gray-50">
-    <h2>Service Areas</h2>
-    <div class="service-areas-grid">
-      <div class="service-area">
-        <h3>Metropolitan Coverage</h3>
-        <p>Comprehensive coverage of major urban and suburban regions with same-day service availability.</p>
-      </div>
-      <div class="service-area">
-        <h3>Commercial Accounts</h3>
-        <p>Dedicated account management for businesses with flexible scheduling and volume-based pricing.</p>
-      </div>
-      <div class="service-area">
-        <h3>Residential Services</h3>
-        <p>Convenient pickup scheduling for households with bulk item handling capabilities.</p>
-      </div>
-      <div class="service-area">
-        <h3>On-Site Solutions</h3>
-        <p>Mobile shredding and processing units for large-scale disposal projects and security-sensitive materials.</p>
+  <!-- WHAT WE ACCEPT -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">What We Accept</div>
+      <h2 class="sec-title"><em>All Types</em> of E-Waste</h2>
+      <p class="sec-sub" style="margin-bottom:2rem">We accept virtually any electronic device — working or not.</p>
+      <div style="display:grid;gap:20px;max-width:900px;margin:0 auto">
+        {whatWeAccept.map(cat => (
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:8px">
+            <h3 style="font-size:1.1rem;margin:0;color:var(--text)">{cat.category}</h3>
+            <p style="font-size:.9rem;color:var(--muted);margin:0">{cat.items}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="contact" class="container section">
-    <h2>Get Your E-Waste Disposal Quote</h2>
-    <p class="section-subtitle">Contact us for competitive pricing on all electronic waste disposal needs.</p>
-    <ContactForm />
+  <!-- WHY PROPER DISPOSAL -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Why Proper Disposal Matters</div>
+      <h2 class="sec-title">More Than Just <em>Recycling</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:30px">
+        {whyProperDisposal.map(item => (
+          <div style="text-align:center;padding:28px;background:var(--card);border-radius:16px;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;margin-bottom:16px">{item.icon}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:12px;color:var(--text)">{item.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
-</Layout>
 
-<style>
-  .hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 80px 0;
-    text-align: center;
-  }
+  <!-- PROCESS -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Our Process</div>
+      <h2 class="sec-title">From Pickup to <em>Certificate</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:30px">
+        {disposalProcess.map(step => (
+          <div style="background:var(--card);border-radius:16px;padding:28px;text-align:center;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;color:var(--green);font-weight:800;margin-bottom:12px">{step.step}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px">{step.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  .hero-content h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
+  <!-- COMPLIANCE BADGES -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Our Credentials</div>
+      <h2 class="sec-title">Fully <em>Certified</em> & Compliant</h2>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:30px">
+        <div class="badge badge-g" style="font-size:1.1rem;padding:12px 24px">KSPCB Authorized</div>
+        <div class="badge badge-b" style="font-size:1.1rem;padding:12px 24px">EPR Compliant</div>
+        <div class="badge badge-a" style="font-size:1.1rem;padding:12px 24px">R2 Certified</div>
+        <div class="badge badge-r" style="font-size:1.1rem;padding:12px 24px">Zero Landfill</div>
+      </div>
+    </div>
+  </section>
 
-  .hero-content p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.95;
-  }
+  <!-- CTA -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div style="background:linear-gradient(135deg,var(--green),var(--green-dark));color:var(--white);border-radius:20px;padding:50px;text-align:center;margin:60px 0">
+        <h2 style="font-size:2rem;margin-bottom:20px">Ready to Dispose of Your Electronic Waste?</h2>
+        <p style="font-size:1.1rem;margin-bottom:30px;opacity:0.9">Schedule a free pickup today. Certificate of Disposal included. Serving all of Kochi and Ernakulam.</p>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+          <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn" style="background:var(--white);color:var(--green);font-weight:800;font-size:1.1rem;padding:16px 32px">💬 WhatsApp Now</a>
+          <a href={contact.phoneLink} class="btn" style="background:transparent;border:2px solid var(--white);color:var(--white);font-size:1.1rem;padding:14px 30px">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+  <!-- FAQs -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Questions?</div>
+      <h2 class="sec-title">Electronic Waste Disposal — <em>FAQs</em></h2>
+      <div style="display:grid;gap:16px;max-width:800px;margin:0 auto">
+        {faqs.map((faq, i) => (
+          <details style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px">
+            <summary style="font-weight:600;cursor:pointer;font-size:1.05rem">{faq.q}</summary>
+            <p style="margin-top:12px;color:var(--muted);line-height:1.7">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  .btn {
-    display: inline-block;
-    padding: 12px 30px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .btn-primary {
-    background: #0066cc;
-    color: white;
-    border: 2px solid #0066cc;
-  }
-
-  .btn-primary:hover {
-    background: #0052a3;
-    border-color: #0052a3;
-    transform: translateY(-2px);
-  }
-
-  .btn-secondary {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-  }
-
-  .btn-secondary:hover {
-    background: white;
-    color: #667eea;
-    transform: translateY(-2px);
-  }
-
-  .section {
-    padding: 80px 0;
-  }
-
-  .section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: #333;
-  }
-
-  .section-subtitle {
-    text-align: center;
-    font-size: 1.25rem;
-    color: #666;
-    margin-bottom: 2rem;
-  }
-
-  .compliance-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .service-areas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-
-  .service-area {
-    padding: 2rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  .service-area h3 {
-    margin-bottom: 1rem;
-    color: #333;
-  }
-
-  @media (max-width: 768px) {
-    .hero-content h1 {
-      font-size: 2rem;
-    }
-    
-    .section h2 {
-      font-size: 2rem;
-    }
-    
-    .cta-buttons {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-</style>
+  <Footer />
+</BaseLayout>

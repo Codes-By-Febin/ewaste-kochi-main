@@ -1,334 +1,222 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ContactForm from '../components/ContactForm.astro';
+// old-computer-disposal.astro — High-Intent Landing Page
+// GSC targets: "old computer disposal", "dispose old computers", "old computer disposal near me"
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
 
-const meta = {
-  title: 'Old Computer Disposal | Where to Dispose Old Computers in Kochi',
-  description: 'Professional old computer disposal services with secure data destruction, environmental compliance, and local pickup across Kerala. Certified e-waste management for businesses and households.',
-  keywords: ['where to dispose old computers', 'old computer disposal', 'computer disposal kochi', 'secure computer recycling', 'e-waste disposal kochi', 'old laptop disposal'],
-  canonical: 'https://ewaste-kochi.com/old-computer-disposal'
+const pageTitle = "Old Computer Disposal Kochi | Safe Disposal | Free Pickup | Data Wiped | EWaste Kochi";
+const pageDesc = "Dispose of old computers safely in Kochi. Desktops, laptops, all brands. Free business pickup. NIST data destruction. KSPCB authorized. Certificate provided. Call 24/7.";
+
+const whyDispose = [
+  { icon: '🔐', title: 'Data Security Risk', desc: 'Old computers store personal & business data. Simple deletion is not enough. Certified data destruction prevents identity theft and legal liability.' },
+  { icon: '⚖️', title: 'Legal Compliance', desc: 'E-Waste Rules 2022 require authorized disposal. Non-compliance can lead to fines up to ₹1 lakh per ton. We provide Certificates of Disposal.' },
+  { icon: '🌱', title: 'Environmental Harm', desc: 'Computers contain hazardous substances like lead, mercury, cadmium. Proper disposal prevents soil & water contamination.' },
+  { icon: '💰', title: 'Cost Savings', desc: 'Free pickup for 10+ computers. No disposal fees. Avoid potential regulatory penalties.' },
+];
+
+const whatWeAccept = [
+  'Desktop PCs (towers, small form factor, all-in-ones)',
+  'Laptops & notebooks (any brand, any condition)',
+  'CRT & flat-panel monitors',
+  'Servers & rack units',
+  'Computer peripherals (keyboards, mice, cables, chargers)',
+  'Tablets & e-readers',
+  'Gaming consoles & accessories',
+];
+
+const processSteps = [
+  { step: '1', title: 'Schedule Pickup', desc: 'Call or WhatsApp with number of computers, types, and location across Kochi.' },
+  { step: '2', title: 'Inventory & Documentation', desc: 'We create an inventory list with serial numbers, condition, and photographs. Provides chain of custody.' },
+  { step: '3', title: 'Secure Data Destruction', desc: 'All storage drives undergo NIST 800-88 certified wiping or physical destruction. You receive a Certificate of Destruction.' },
+  { step: '4', title: 'Responsible Recycling', desc: 'Computers are dismantled. Valuable materials recovered; hazardous components disposed safely. Zero landfill commitment.' },
+  { step: '5', title: 'Certificate of Disposal', desc: 'You receive a Certificate of Disposal with weight, item list, and KSPCB authorization details.' },
+];
+
+const pricing = [
+  { title: 'Business Pickup (10+ computers)', price: 'Free', includes: ['Free pickup anywhere in Kochi', 'NIST data destruction', 'Certificate of Disposal', 'Full audit documentation'] },
+  { title: 'Residential Drop-off (<10 items)', price: 'Free', includes: ['Drop-off at Thrippunithura facility', 'Optional data destruction ₹299/drive', 'Eco-friendly recycling'] },
+  { title: 'Data Destruction Only', price: '₹299/drive', includes: ['NIST 800-88 Purge', 'Certificate of Destruction', 'Chain of custody logs'] },
+];
+
+const faqs = [
+  { q: 'How do I dispose of an old computer?', a: 'Contact EWaste Kochi to schedule a free pickup (10+ items). We collect, securely destroy data, recycle responsibly, and issue a Certificate of Disposal. For fewer items, drop-off at our Thrippunithura facility is free.' },
+  { q: 'Is it safe to throw away an old computer?', a: 'No. Never throw computers in regular trash. They contain hazardous materials and store personal data. Use an authorized recycler like EWaste Kochi for safe, compliant disposal.' },
+  { q: 'Will my data be wiped?', a: 'Yes. We provide NIST 800-88 certified data destruction on all storage devices. You receive a Certificate of Destruction with serial numbers, method, and date. Legally valid for DPDP Act 2023.' },
+  { q: 'Do you pickup old computers from homes?', a: 'Yes, we serve both residential and commercial clients across Kochi. For 10+ computers, pickup is free. For <10, you can drop off at our facility for free or request a paid collect.' },
+  { q: 'What happens to old computers?', a: 'After data destruction, computers are dismantled. Reusable materials (metals, plastics) are recycled. Hazardous components (batteries, CRTs) are handled separately per E-Waste Rules 2022.' },
+  { q: 'Can you destroy hard drives only?', a: 'Yes. If you only need data destruction, we can shred drives and recycle the rest of the computer or return it to you.' },
+  { q: 'Do you provide a certificate?', a: 'Yes. Every disposal gets a Certificate of Disposal listing items, weight, date, and our KSPCB authorization number. Essential for corporate ESG reporting.' },
+  { q: 'Which brands do you accept?', a: 'All brands: Dell, HP, Lenovo, Apple, Asus, Acer, Samsung, Microsoft, and more. Any condition, any age.' },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'Old Computer Disposal', url: 'https://ewastekochi.com/old-computer-disposal/' },
+];
+
+const serviceSchema = {
+  '@type': 'RecyclingService',
+  name: 'Old Computer Disposal Kochi',
+  description: pageDesc,
+  provider: { '@id': 'https://ewastekochi.com/#organization' },
+  areaServed: { '@type': 'City', name: 'Kochi' },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'INR',
+    description: 'Free pickup for 10+ computers; drop-off always free',
+  },
 };
 ---
 
-<Layout meta={meta}>
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Old Computer Disposal</h1>
-      <p>Professional, certified, and secure disposal of old computers and laptops. Complete data destruction, environmental compliance, and local pickup services across Kochi and Kerala.</p>
-      <div class="cta-buttons">
-        <a href="#disposal-process" class="btn btn-primary">Disposal Process</a>
-        <a href="#data-security" class="btn btn-secondary">Data Security</a>
-        <a href="#local-services" class="btn btn-primary">Local Services</a>
+<BaseLayout title={pageTitle} description={pageDesc} schema={serviceSchema} faqs={faqs} breadcrumbs={breadcrumbs}>
+  <Navbar currentPath="/old-computer-disposal/" />
+
+  <!-- HERO -->
+  <section style="padding:80px 0 60px;background:radial-gradient(circle at 70% 30%,rgba(0,232,150,.07),transparent),var(--bg)">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" style="font-size:.8rem;color:var(--muted);margin-bottom:20px">
+        <a href="/" style="color:var(--green)">Home</a> › Old Computer Disposal
+      </nav>
+      <div class="badge badge-g" style="margin-bottom:20px">♻️ KSPCB Authorized · Data Wiped</div>
+      <h1 style="font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;margin-bottom:18px;font-weight:800;letter-spacing:-.03em">
+        Safe <span style="color:var(--green)">Old Computer</span><br/>Disposal in Kochi
+      </h1>
+      <p style="font-size:1rem;color:var(--text);max-width:620px;line-height:1.7;margin-bottom:35px;font-family:var(--serif);font-style:italic">
+        Free pickup for 10+ computers. NIST-certified data destruction included. KSPCB authorized recycler. Certificate of Disposal provided. Serving all of Ernakulam — Infopark, Smart City, Kakkanad, and more.
+      </p>
+      <div style="display:flex;gap:15px;flex-wrap:wrap">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg">💬 Book Pickup</a>
+        <a href={contact.phoneLink} class="btn btn-primary btn-lg">📞 {contact.phoneDisplay}</a>
+        <a href="/contact/" class="btn btn-outline">Get Quote</a>
       </div>
     </div>
   </section>
 
-  <section id="disposal-process" class="container">
-    <h2>Disposal Process</h2>
-    <div class="process-grid">
-      <div class="process-step">
-        <h3>1. Collection & Assessment</h3>
-        <p>Our team collects your old computers from your location and performs a comprehensive assessment. We document the condition, specifications, and identify reusable components for maximum recovery value.</p>
-      </div>
-      <div class="process-step">
-        <h3>2. Data Security & Wiping</h3>
-        <p>Before any physical disposal, we ensure complete data destruction using NIST 800-88 compliant methods. All personal and business data is permanently wiped from storage devices.</p>
-      </div>
-      <div class="process-step">
-        <h3>3. Component Separation</h3>
-        <p>Computers are carefully disassembled to separate valuable materials: circuit boards, memory chips, processors, plastics, and metals are sorted for optimal recycling.</p>
-      </div>
-      <div class="process-step">
-        <h3>4. Material Recovery</h3>
-        <p>Advanced recovery processes extract precious metals (gold, silver, copper) and valuable materials from components, reducing the need for virgin resource extraction.</p>
-      </div>
-      <div class="process-step">
-        <h3>5. Environmentally Responsible Disposal</h3>
-        <p>Non-recyclable materials are disposed of through certified hazardous waste facilities, ensuring full environmental compliance and zero landfill dumping.</p>
-      </div>
-      <div class="process-step">
-        <h3>6. Certificate of Destruction</h3>
-        <p>Receive a detailed certificate documenting the entire disposal process, including serial numbers, timestamps, and chain of custody for audit and compliance purposes.</p>
+  <!-- WHY DISPOSE -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Why Proper Disposal Matters</div>
+      <h2 class="sec-title">Computers Aren’t <em>Trash</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:30px">
+        {whyDispose.map(item => (
+          <div style="text-align:center;padding:24px;background:var(--card);border-radius:14px;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;margin-bottom:12px">{item.icon}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px;color:var(--text)">{item.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{item.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="data-security" class="container bg-gray-50">
-    <h2>Data Security & Privacy</h2>
-    <div class="security-features">
-      <div class="feature-card">
-        <h3>Certified Data Destruction</h3>
-        <p>Following NIST 800-88 guidelines for media sanitization, we ensure your personal and business data is permanently unrecoverable through multiple destruction methods.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Chain of Custody Documentation</h3>
-        <p>Complete tracking from pickup through processing, with detailed logs for your compliance, audit requirements, and regulatory documentation.</p>
-      </div>
-      <div class="feature-card">
-        <h3>On-Site Data Wiping</h3>
-        <p>Available for enterprise clients who require data destruction to be performed at their location under supervision with full video documentation.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Certificate of Destruction</h3>
-        <p>Receive detailed certificates for each device including serial numbers, destruction timestamps, methods used, and compliance certifications.</p>
+  <!-- WHAT WE ACCEPT -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">What We Accept</div>
+      <h2 class="sec-title">All Old Computers & <em>Peripherals</em></h2>
+      <p style="max-width:700px;margin-bottom:24px">
+        From a single old desktop to hundreds of office PCs, we accept all computer equipment — any brand, any condition.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:20px">
+        {whatWeAccept.map(item => (
+          <span class="badge" style="font-size:1rem;padding:10px 18px">{item}</span>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="environmental-impact" class="container">
-    <h2>Environmental Impact</h2>
-    <div class="environmental-content">
-      <div class="environmental-info">
-        <h3>Why Proper Computer Disposal Matters</h3>
-        <p>Old computers contain hazardous materials including lead, mercury, cadmium, and brominated flame retardants. When disposed of improperly, these toxins leach into soil and groundwater, contaminating our environment and food chain.</p>
-        <p>Proper e-waste recycling recovers valuable materials like gold, silver, copper, and rare earth elements, reducing the need for destructive mining operations and conserving natural resources.</p>
+  <!-- PROCESS -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Our Process</div>
+      <h2 class="sec-title">From Pickup to <em>Certificate</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:30px">
+        {processSteps.map(step => (
+          <div style="background:var(--card);border-radius:16px;padding:28px;text-align:center;border:1px solid var(--border)">
+            <div style="font-size:2.5rem;color:var(--green);font-weight:800;margin-bottom:12px">{step.step}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px">{step.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{step.desc}</p>
+          </div>
+        ))}
       </div>
-      <div class="environmental-stats">
-        <div class="stat-box">
-          <h4>1 Computer</h4>
-          <p>Recycled prevents 250kg of CO2 emissions</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Pricing</div>
+      <h2 class="sec-title">Transparent <em>Costs</em></h2>
+      <div style="display:grid;gap:20px;max-width:800px;margin:0 auto">
+        {pricing.map(p => (
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+            <div style="flex:1;min-width:200px">
+              <h3 style="font-size:1.2rem;margin-bottom:8px;color:var(--text)">{p.title}</h3>
+              <div style="font-size:2rem;color:var(--green);font-weight:800">{p.price}</div>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:.9rem;color:var(--muted)">
+                {p.includes.map(feat => <li>✓ {feat}</li>)}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Service Area</div>
+      <h2 class="sec-title">We Pick Up Across <em>Kochi</em></h2>
+      <p style="max-width:700px;margin-bottom:16px">
+        Free pickup for businesses with 10+ computers anywhere in Kochi and Ernakulam district. Same-day or next-day service available for Infopark, Smart City, Kakkanad, Edapally, Vyttila, Palarivattom, Aluva, Angamaly, Thrippunithura, and all surrounding areas.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <span class="badge">Infopark</span>
+        <span class="badge">Smart City</span>
+        <span class="badge">Kakkanad</span>
+        <span class="badge">Edapally</span>
+        <span class="badge">Vyttila</span>
+        <span class="badge">Aluva</span>
+        <span class="badge">Thrippunithura</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="wrap">
+      <div style="background:linear-gradient(135deg,var(--green),var(--green-dark));color:var(--white);border-radius:20px;padding:50px;text-align:center;margin:60px 0">
+        <h2 style="font-size:2rem;margin-bottom:20px">Ready to Dispose of Old Computers?</h2>
+        <p style="font-size:1.1rem;margin-bottom:30px;opacity:0.9">Call or WhatsApp now for a free pickup. Certificate of Disposal included. Serving all of Kochi.</p>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+          <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn" style="background:var(--white);color:var(--green);font-weight:800;font-size:1.1rem;padding:16px 32px">💬 WhatsApp</a>
+          <a href={contact.phoneLink} class="btn" style="background:transparent;border:2px solid var(--white);color:var(--white);font-size:1.1rem;padding:14px 30px">📞 Call</a>
         </div>
-        <div class="stat-box">
-          <h4>1 Ton</h4>
-          <p>E-waste contains 80x more gold than ore</p>
-        </div>
-        <div class="stat-box">
-          <h4>100%</h4>
-          <p>Zero landfill disposal commitment</p>
-        </div>
       </div>
     </div>
   </section>
 
-  <section id="local-services" class="container bg-gray-50">
-    <h2>Local Services in Kochi</h2>
-    <div class="service-cards">
-      <div class="service-card">
-        <h3>Residential Pickup</h3>
-        <p>Free consultation and pickup for households. We serve all major areas in Kochi with no minimum quantity requirements. Schedule convenient pickup times including weekends.</p>
-        <ul>
-          <li>Free consultation and quote</li>
-          <li>Flexible scheduling including weekends</li>
-          <li>Same-day pickup available</li>
-          <li>Service for single devices to bulk collections</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <h3>Business/Office Services</h3>
-        <p>Corporate e-waste management solutions with dedicated account management and customized pickup schedules for offices, IT departments, and commercial clients.</p>
-        <ul>
-          <li>Large volume discount programs</li>
-          <li>On-site data destruction services</li>
-          <li>Compliance reporting and documentation</li>
-          <li>Scheduled recurring pickups</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <h3>Drop-Off Locations</h3>
-        <p>Visit our certified e-waste recycling centers for self-drop off services. Secure kiosks available 24/7 at select locations with immediate processing and documentation.</p>
-        <ul>
-          <li>Find locations near you</li>
-          <li>Extended hours operation</li>
-          <li>Immediate processing and documentation</li>
-          <li>Competitive pricing per unit</li>
-        </ul>
+  <!-- FAQs -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Questions?</div>
+      <h2 class="sec-title">Old Computer Disposal — <em>FAQs</em></h2>
+      <div style="display:grid;gap:16px;max-width:800px;margin:0 auto">
+        {faqs.map((faq, i) => (
+          <details style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px">
+            <summary style="font-weight:600;cursor:pointer;font-size:1.05rem">{faq.q}</summary>
+            <p style="margin-top:12px;color:var(--muted);line-height:1.7">{faq.a}</p>
+          </details>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="service-categories" class="container">
-    <h2>Additional Computer Services</h2>
-    <div class="service-cards">
-      <div class="service-card">
-        <h3>Laptop Recycling</h3>
-        <p>Complete recycling service for laptops with battery handling, screen removal, and component separation for maximum material recovery.</p>
-      </div>
-      <div class="service-card">
-        <h3>Hard Drive Destruction</h3>
-        <p>Physical destruction of hard drives and solid-state drives using industrial shredders for maximum security and compliance.</p>
-      </div>
-      <div class="service-card">
-        <h3>Desktop Computer Disposal</h3>
-        <p>Complete disposal of desktop towers, monitors, keyboards, and accessories with proper hazardous material handling.</p>
-      </div>
-      <div class="service-card">
-        <h3>Printer & Copier Recycling</h3>
-        <p>Environmentally responsible disposal of office equipment including ink cartridges and imaging devices.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="container">
-    <h2>Ready to Dispose of Your Old Computer?</h2>
-    <p>Contact us today for secure, certified, and affordable old computer disposal with local pickup across Kochi. Get your free quote and certificate of destruction.</p>
-    <ContactForm />
-  </section>
-</Layout>
-
-<style>
-  .hero {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3a7bd5 100%);
-    color: white;
-    padding: 120px 0;
-    text-align: center;
-  }
-
-  .hero-content h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
-
-  .hero-content p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-  }
-
-  .process-step {
-    background: #f8f9fa;
-    padding: 2rem;
-    border-radius: 8px;
-    border-left: 4px solid #2a5298;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-
-  .process-step:hover {
-    transform: translateY(-5px);
-  }
-
-  .process-step h3 {
-    margin-bottom: 1rem;
-    color: #1e3c72;
-  }
-
-  .environmental-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  .environmental-info h3 {
-    color: #1e3c72;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-  }
-
-  .environmental-info p {
-    line-height: 1.9;
-    color: #555;
-    margin-bottom: 1rem;
-  }
-
-  .environmental-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .stat-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-
-  .stat-box h4 {
-    color: #2a5298;
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-  }
-
-  .stat-box p {
-    color: #666;
-    margin: 0;
-    font-size: 0.95rem;
-  }
-
-  .service-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .service-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  .service-card h3 {
-    color: #2a5298;
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-  }
-
-  .service-card ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
-  }
-
-  .service-card li {
-    padding: 0.5rem 0;
-    position: relative;
-    padding-left: 1.5rem;
-    color: #555;
-  }
-
-  .service-card li:before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #2a5298;
-    font-weight: bold;
-  }
-
-  .section {
-    padding: 80px 0;
-  }
-
-  .section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: #1e3c72;
-  }
-
-  .bg-gray-50 {
-    background: #f8f9fa;
-  }
-
-  @media (max-width: 768px) {
-    .hero-content h1 {
-      font-size: 2.5rem;
-    }
-
-    .environmental-content {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .section h2 {
-      font-size: 2rem;
-    }
-  }
-</style>
+  <Footer />
+</BaseLayout>

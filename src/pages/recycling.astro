@@ -1470,27 +1470,46 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:64px
 <script>
 // NAV
 function toggleNav(){
-  const n=document.getElementById('mob-nav'),o=document.getElementById('nav-overlay'),b=document.getElementById('ham-btn'),open=n.classList.contains('open');
-  n.classList.toggle('open');n.setAttribute('aria-hidden',open?'true':'false');
-  b.setAttribute('aria-expanded',open?'false':'true');
+  const n=document.getElementById('mob-nav'),o=document.getElementById('nav-overlay'),b=document.getElementById('ham-btn');
+  if (!n || !o || !b) return;
+  const open=n.classList.contains('open');
+  n.classList.toggle('open');
+  n.setAttribute('aria-hidden', open ? 'true' : 'false');
+  b.setAttribute('aria-expanded', open ? 'false' : 'true');
   o.style.display=open?'none':'block';
   document.body.style.overflow=open?'':'hidden';
 }
 document.querySelectorAll('#mob-nav a').forEach(a=>a.addEventListener('click',()=>{
   const n=document.getElementById('mob-nav'),o=document.getElementById('nav-overlay');
-  n.classList.remove('open');n.setAttribute('aria-hidden','true');
-  o.style.display='none';document.body.style.overflow='';
+  if (!n || !o) return;
+  n.classList.remove('open');
+  n.setAttribute('aria-hidden','true');
+  o.style.display='none';
+  document.body.style.overflow='';
 }));
 window.addEventListener('scroll',()=>{
   const nav=document.getElementById('nav');
+  if (!nav) return;
   nav.style.boxShadow=window.scrollY>50?'0 4px 32px rgba(0,0,0,.7)':'none';
 },{passive:true});
 
 // FAQ ACCORDION
 function tf(btn){
-  const item=btn.closest('.faq-item'),body=item.querySelector('.faq-a'),ic=item.querySelector('.faq-ic'),open=item.classList.contains('open');
+  const item=btn.closest('.faq-item');
+  if (!item) return;
+  const body=item.querySelector('.faq-a');
+  const ic=item.querySelector('.faq-ic');
+  if (!body || !ic) return;
+  if (!(body instanceof HTMLElement)) return;
+  if (!(ic instanceof HTMLElement)) return;
+  const open=item.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(el=>{
-    if(el!==item){el.classList.remove('open');el.querySelector('.faq-a').style.maxHeight='0';el.querySelector('.faq-ic').textContent='+';}
+    if(el===item) return;
+    el.classList.remove('open');
+    const elBody=el.querySelector('.faq-a');
+    const elIc=el.querySelector('.faq-ic');
+    if (elBody instanceof HTMLElement) elBody.style.maxHeight='0';
+    if (elIc instanceof HTMLElement) elIc.textContent='+';
   });
   item.classList.toggle('open',!open);
   body.style.maxHeight=open?'0':body.scrollHeight+'px';
@@ -1499,12 +1518,31 @@ function tf(btn){
 }
 
 // SCROLL ANIMATE
-const obs=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting){en.target.style.opacity='1';en.target.style.transform='translateY(0)'}}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.proc-card,.mat-card,.wiki-chapter').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .55s ease,transform .55s ease';obs.observe(el);});
+const obs=new IntersectionObserver(e=>e.forEach(en=>{
+  if(en.isIntersecting && en.target instanceof HTMLElement){
+    en.target.style.opacity='1';
+    en.target.style.transform='translateY(0)';
+  }
+}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.proc-card,.mat-card,.wiki-chapter').forEach(el=>{
+  if (el instanceof HTMLElement) {
+    el.style.opacity='0';
+    el.style.transform='translateY(16px)';
+    el.style.transition='opacity .55s ease,transform .55s ease';
+    obs.observe(el);
+  }
+});
 
 // KEYBOARD FAQ ACCESS
 document.querySelectorAll('.faq-q').forEach(btn=>{
-  btn.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tf(btn);}});
+  btn.addEventListener('keydown', e => {
+    if (e instanceof KeyboardEvent) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tf(btn);
+      }
+    }
+  });
 });
 </script>
 </body>

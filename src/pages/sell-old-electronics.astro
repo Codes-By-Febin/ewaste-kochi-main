@@ -1,0 +1,291 @@
+---
+// sell-old-electronics.astro — High-Intent Buyback Landing Page
+// GSC targets: "sell old electronics" (high volume), "sell used electronics kochi", "electronics buyback kochi"
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
+
+const pageTitle = "Sell Old Electronics Kochi 2026 — Best Prices | Up to ₹75K Phones · ₹65K Laptops | EWaste Kochi";
+const pageDesc = "Best place to sell old electronics in Kochi. We buy laptops, phones, tablets, desktops, gaming consoles, smartwatches. Better than Cashify. Instant payment. Free pickup. NIST data wipe included.";
+
+const buybackRates = [
+  {
+    category: 'Smartphones',
+    items: [
+      { device: 'iPhone 15 Pro Max (256GB+)', working: '₹65,000 – ₹75,000', minor: '₹48,000 – ₹65,000', broken: '₹12,000 – ₹25,000' },
+      { device: 'iPhone 15 / Pro (128–256GB)', working: '₹40,000 – ₹60,000', minor: '₹28,000 – ₹40,000', broken: '₹8,000 – ₹18,000' },
+      { device: 'iPhone 14 Pro Max', working: '₹48,000 – ₹58,000', minor: '₹32,000 – ₹48,000', broken: '₹7,000 – ₹15,000' },
+      { device: 'Samsung Galaxy S24 Ultra', working: '₹35,000 – ₹50,000', minor: '₹22,000 – ₹35,000', broken: '₹5,000 – ₹12,000' },
+      { device: 'Google Pixel 8 Pro', working: '₹28,000 – ₹42,000', minor: '₹18,000 – ₹28,000', broken: '₹4,000 – ₹10,000' },
+      { device: 'OnePlus 12', working: '₹22,000 – ₹35,000', minor: '₹14,000 – ₹22,000', broken: '₹3,500 – ₹8,000' },
+    ]
+  },
+  {
+    category: 'Laptops & Notebooks',
+    items: [
+      { device: 'MacBook Pro M3 (2023–24)', working: '₹50,000 – ₹65,000', minor: '₹35,000 – ₹50,000', broken: '₹8,000 – ₹18,000' },
+      { device: 'MacBook Pro M1/M2 (2021–22)', working: '₹35,000 – ₹52,000', minor: '₹22,000 – ₹35,000', broken: '₹5,000 – ₹12,000' },
+      { device: 'MacBook Air M2/M3 (2022–24)', working: '₹25,000 – ₹45,000', minor: '₹15,000 – ₹25,000', broken: '₹4,000 – ₹10,000' },
+      { device: 'Dell Latitude i7 (2020–23)', working: '₹12,000 – ₹18,000', minor: '₹7,000 – ₹12,000', broken: '₹800 – ₹2,500' },
+      { device: 'HP EliteBook i7 (2020–23)', working: '₹11,000 – ₹17,000', minor: '₹6,500 – ₹11,000', broken: '₹800 – ₹2,500' },
+      { device: 'Lenovo ThinkPad i7 (2020–23)', working: '₹12,000 – ₹17,000', minor: '₹7,000 – ₹12,000', broken: '₹800 – ₹2,500' },
+      { device: 'Gaming Laptop (RTX 3060+)', working: '₹15,000 – ₹30,000', minor: '₹8,000 – ₹15,000', broken: '₹2,000 – ₹6,000' },
+    ]
+  },
+  {
+    category: 'Desktops & Workstations',
+    items: [
+      { device: 'Desktop PC i7/Ryzen 7 (2019+)', working: '₹6,000 – ₹12,000', minor: '₹3,000 – ₹6,000', broken: '₹500 – ₹2,000' },
+      { device: 'Apple iMac (M1/M2, 2021+)', working: '₹18,000 – ₹35,000', minor: '₹10,000 – ₹18,000', broken: '₹3,000 – ₹8,000' },
+      { device: 'Workstation Dell/HP (Xeon)', working: '₹10,000 – ₹25,000', minor: '₹5,000 – ₹10,000', broken: '₹1,000 – ₹4,000' },
+      { device: 'Server Dell/HP Rack (2017–21)', working: '₹15,000 – ₹45,000', minor: '₹8,000 – ₹20,000', broken: '₹2,000 – ₹8,000' },
+    ]
+  },
+  {
+    category: 'Tablets & iPads',
+    items: [
+      { device: 'iPad Pro 12.9" (M2, 2022+)', working: '₹25,000 – ₹45,000', minor: '₹15,000 – ₹25,000', broken: '₹3,000 – ₹8,000' },
+      { device: 'iPad Air (M1, 2023)', working: '₹18,000 – ₹30,000', minor: '₹12,000 – ₹18,000', broken: '₹2,500 – ₹6,000' },
+      { device: 'Samsung Galaxy Tab S9+', working: '₹20,000 – ₹35,000', minor: '₹13,000 – ₹20,000', broken: '₹3,000 – ₹7,000' },
+    ]
+  },
+  {
+    category: 'Gaming & Consoles',
+    items: [
+      { device: 'PS5 (Disc Edition)', working: '₹28,000 – ₹40,000', minor: '₹18,000 – ₹28,000', broken: '₹4,000 – ₹10,000' },
+      { device: 'Xbox Series X', working: '₹25,000 – ₹38,000', minor: '₹16,000 – ₹25,000', broken: '₹3,500 – ₹9,000' },
+      { device: 'Nintendo Switch OLED', working: '₹12,000 – ₹20,000', minor: '₹7,000 – ₹12,000', broken: '₹1,500 – ₹4,000' },
+    ]
+  },
+];
+
+const whyChoose = [
+  { icon: '💰', title: 'Best Prices in Kerala', desc: 'We pay 30–80% more than Cashify/OLX for corporate laptops and Apple devices because we sell directly to verified business buyers.' },
+  { icon: '⚡', title: 'Instant Payment', desc: 'Payment via UPI/bank transfer within 2 hours of device verification. No waiting periods.' },
+  { icon: '🔒', title: 'Certified Data Wipe', desc: 'NIST 800-88 certified data destruction included free. Certificate of Destruction provided.' },
+  { icon: '🚚', title: 'Free Pickup', desc: 'Free doorstep pickup across Kochi for 5+ items. Same-day service for Infopark & Smart City.' },
+];
+
+const howItWorks = [
+  { step: '1', title: 'Get a Quote', desc: 'WhatsApp us your device details (brand, model, condition) for an instant estimate.' },
+  { step: '2', title: 'Book Pickup', desc: 'Schedule a free pickup at your convenience. We come to your home/office across Kochi.' },
+  { step: '3', title: 'Device Verification', desc: 'Our technician inspects the device (15 min). Final price confirmed on spot.' },
+  { step: '4', title: 'Data Wipe & Payment', desc: 'NIST-certified data wipe performed. Instant payment via UPI/bank transfer. Done.' },
+];
+
+const faqs = [
+  { q: 'Where can I sell old electronics locally in Kochi?', a: 'EWaste Kochi is the best place to sell old electronics locally in Kochi. We offer the highest prices for laptops, phones, tablets, and desktops — better than Cashify or OLX — because we sell directly to business buyers. Our process is transparent, fast, and includes NIST data destruction.' },
+  { q: 'What electronics do you buy?', a: 'We buy laptops (all brands), smartphones (iPhone, Samsung, Pixel, OnePlus, etc.), tablets/iPads, desktop computers, gaming consoles (PS5, Xbox, Switch), smartwatches, and even broken devices. If it’s electronic, we likely buy it.' },
+  { q: 'How much can I get for my old iPhone?', a: 'Depending on model and condition: iPhone 15 Pro Max up to ₹75,000; iPhone 15/Pro up to ₹60,000; iPhone 14 Pro Max up to ₹58,000. Broken iPhones still fetch ₹12,000–₹25,000 due to component value.' },
+  { q: 'Do you buy broken or non-working electronics?', a: 'Yes. We buy broken, water-damaged, and non-working devices. Even dead electronics contain valuable gold, silver, copper, and other metals. Non-working MacBooks typically ₹2,000–₹18,000; non-working iPhones ₹1,000–₹5,000; dead laptops ₹500–₹2,500.' },
+  { q: 'Is my data securely wiped before you take my device?', a: 'Yes. Every device undergoes NIST 800-88 certified data destruction before it leaves our custody. You receive a Certificate of Destruction listing device serial number, method, and date. This is DPDP Act 2023 compliant.' },
+  { q: 'How quickly will I get paid?', a: 'For most devices, we pay instantly via UPI or bank transfer after verification — typically within 2 hours. For bulk sales (10+ items), payment is processed same-day.' },
+  { q: 'Do you offer free pickup?', a: 'Yes, free pickup across Kochi for 5+ items. Same-day pickup available for Infopark, Smart City, Kakkanad, Edapally, and all Ernakulam areas.' },
+  { q: 'How does EWaste Kochi compare to Cashify?', a: 'We typically pay 30–80% more for corporate laptops and Apple devices because we cut out the middleman and sell directly to business buyers. We also provide certified data destruction (Cashify doesn’t). For consumer phones, prices may be similar — compare and you’ll see the difference.' },
+  { q: 'What if I have many devices to sell?', a: 'We offer special bulk rates for 10+ devices. A dedicated account manager will handle the entire process with priority scheduling and consolidated payment.' },
+  { q: 'Do you buy vintage or rare electronics?', a: 'Yes. Vintage cameras, classic game consoles, rare smartphones, and collector electronics often command premium prices. WhatsApp us with details for a custom valuation.' },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'Sell Old Electronics', url: 'https://ewastekochi.com/sell-old-electronics/' },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: 'Sell Old Electronics Kochi',
+  description: pageDesc,
+  provider: { '@id': 'https://ewastekochi.com/#organization' },
+  areaServed: { '@type': 'City', name: 'Kochi' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '500',
+    highPrice: '75000',
+    priceCurrency: 'INR',
+    description: 'Laptops up to ₹65K, Phones up to ₹75K, Desktops up to ₹12K, Consoles up to ₹40K',
+  },
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} schema={serviceSchema} faqs={faqs} breadcrumbs={breadcrumbs}>
+  <Navbar currentPath="/sell-old-electronics/" />
+
+  <!-- HERO -->
+  <section style="padding:80px 0 60px;background:radial-gradient(circle at 70% 30%,rgba(0,232,150,.07),transparent),var(--bg)">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" style="font-size:.8rem;color:var(--muted);margin-bottom:20px">
+        <a href="/" style="color:var(--green)">Home</a> › Sell Old Electronics
+      </nav>
+      <div class="badge badge-g" style="margin-bottom:20px">💰 Best Buyback Prices in Kerala · Updated April 2026</div>
+      <h1 style="font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;margin-bottom:20px;font-weight:800;letter-spacing:-.03em">
+        Sell Old <span style="color:var(--green)">Electronics</span> in Kochi<br/>
+        <span style="font-size:60%;color:var(--muted);font-weight:400">Top cash for phones, laptops, tablets, desktops, consoles</span>
+      </h1>
+      <p style="font-size:1.1rem;color:var(--text);max-width:620px;line-height:1.65;margin-bottom:35px;font-family:var(--serif);font-style:italic">
+        Better than Cashify. MacBook up to ₹65K · iPhone up to ₹75K · Gaming consoles up to ₹40K. Instant bank transfer. Free pickup for 5+ items. NIST-certified data wipe included.
+      </p>
+      <div style="display:flex;gap:15px;flex-wrap:wrap">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg">💬 WhatsApp — Get Quote in 15 min</a>
+        <a href={contact.phoneLink} class="btn btn-primary btn-lg">📞 Call Now</a>
+        <a href="/cashify-vs-ewastekochi/" class="btn btn-outline">vs Cashify →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUYBACK RATES TABLE -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">April 2026 Live Rates</div>
+      <h2 class="sec-title">Current <em>Buyback Prices</em> in Kochi</h2>
+      <p class="sec-sub" style="margin-bottom:2rem">Prices updated weekly. WhatsApp for exact quote based on your specific model, storage, and condition.</p>
+      {buybackRates.map(category => (
+        <div style="margin-bottom:40px">
+          <h3 style="font-size:1.3rem;margin-bottom:20px;color:var(--text)">{category.category}</h3>
+          <div style="overflow-x:auto;border:1px solid var(--border);border-radius:16px">
+            <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+              <thead>
+                <tr style="background:rgba(0,232,150,.07)">
+                  <th style="padding:14px 20px;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">Device</th>
+                  <th style="padding:14px 20px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">Working</th>
+                  <th style="padding:14px 20px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--amber)">Minor Issues</th>
+                  <th style="padding:14px 20px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Non-Working</th>
+                </tr>
+              </thead>
+              <tbody>
+                {category.items.map(item => (
+                  <tr style="border-top:1px solid var(--border)">
+                    <td style="padding:12px 20px;font-weight:500">{item.device}</td>
+                    <td style="padding:12px 20px;text-align:right;color:var(--green);font-weight:600">{item.working}</td>
+                    <td style="padding:12px 20px;text-align:right;color:var(--amber);font-weight:500">{item.minor}</td>
+                    <td style="padding:12px 20px;text-align:right;color:var(--muted);font-weight:400">{item.broken}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Simple 4-Step Process</div>
+      <h2 class="sec-title">How to <em>Sell</em> Your Old Electronics</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:30px">
+        {howItWorks.map(step => (
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center">
+            <div style="font-size:2.5rem;color:var(--green);font-weight:800;margin-bottom:12px">{step.step}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:10px">{step.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">Why EWaste Kochi</div>
+      <h2 class="sec-title">Why Sellers Choose Us</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:30px">
+        {whyChoose.map(item => (
+          <div style="background:var(--card);padding:28px;border-radius:16px;border:1px solid var(--border);text-align:center">
+            <div style="font-size:2.5rem;margin-bottom:16px">{item.icon}</div>
+            <h3 style="font-size:1.1rem;margin-bottom:12px;color:var(--text)">{item.title}</h3>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.6">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA SECURITY -->
+  <section class="section">
+    <div class="wrap">
+      <div class="two-col-grid">
+        <div class="col">
+          <h2 class="sec-title">Your Data Is <em>Securely Wiped</em></h2>
+          <p style="font-size:1.05rem;line-height:1.8;color:var(--text);margin-bottom:20px">
+            Every device we buy undergoes NIST 800-88 certified data destruction before any resale or recycling. We use industry-standard wiping software that renders all personal data irrecoverable. You receive a Certificate of Destruction with device serial number, method, and date — legally valid for DPDP Act 2023 compliance.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0;display:grid;gap:12px">
+            <li>✓ Military-grade AES 256-bit wiping</li>
+            <li>✓ Physical destruction option for ultra-sensitive devices</li>
+            <li>✓ Chain-of-custody documentation</li>
+            <li>✓ Instant CoD via email (PDF)</li>
+            <li>✓ DPDP Act 2023 & RBI audit ready</li>
+          </ul>
+        </div>
+        <div class="col" style="display:flex;align-items:center;justify-content:center">
+          <div style="background:var(--surface);border-radius:20px;padding:40px;border:1px solid var(--border);text-align:center;max-width:320px">
+            <div style="font-size:4rem;margin-bottom:20px">🔐</div>
+            <h3 style="color:var(--blue);margin-bottom:12px">NIST 800-88 Certified</h3>
+            <p style="font-size:.95rem;color:var(--muted);line-height:1.6">We follow the National Institute of Standards and Technology guidelines for media sanitization. Your data is gone — permanently.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE AREAS -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="sec-eyebrow">We Cover All Kochi</div>
+      <h2 class="sec-title">Pickup Available Across <em>Ernakulam</em></h2>
+      <p style="max-width:700px;margin-bottom:20px">
+        Free pickup for 5+ electronics anywhere in Kochi and Ernakulam district. Same-day service for Infopark, Smart City, Kakkanad, Edapally, Vyttila, Palarivattom, Aluva, Angamaly, Thrissur road, Perumbavoor, Muvattupuzha, Thrippunithura, Maradu, Kalamassery, Eloor, and all surrounding areas.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <span class="badge">Infopark</span>
+        <span class="badge">Smart City</span>
+        <span class="badge">Kakkanad</span>
+        <span class="badge">Edapally</span>
+        <span class="badge">Vyttila</span>
+        <span class="badge">Palarivattom</span>
+        <span class="badge">Aluva</span>
+        <span class="badge">Angamaly</span>
+        <span class="badge">Thrippunithura</span>
+        <span class="badge">Muvattupuzha</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="section">
+    <div class="wrap">
+      <div style="background:linear-gradient(135deg,var(--green),var(--green-dark));color:var(--white);border-radius:20px;padding:50px;text-align:center;margin:60px 0">
+        <h2 style="font-size:2rem;margin-bottom:20px">Ready to Sell Your Old Electronics?</h2>
+        <p style="font-size:1.1rem;margin-bottom:30px;opacity:0.9">Get a quote in 15 minutes. Free pickup, instant payment, NIST data wipe included. Better than Cashify — try us.</p>
+        <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+          <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn" style="background:var(--white);color:var(--green);font-weight:800;font-size:1.1rem;padding:16px 32px">💬 WhatsApp Now</a>
+          <a href={contact.phoneLink} class="btn" style="background:transparent;border:2px solid var(--white);color:var(--white);font-size:1.1rem;padding:14px 30px">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-eyebrow">Questions?</div>
+      <h2 class="sec-title">Selling Old Electronics — <em>FAQs</em></h2>
+      <div style="display:grid;gap:16px;max-width:800px;margin:0 auto">
+        {faqs.map((faq, i) => (
+          <details style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px">
+            <summary style="font-weight:600;cursor:pointer;font-size:1.05rem">{faq.q}</summary>
+            <p style="margin-top:12px;color:var(--muted);line-height:1.7">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+      <p style="text-align:center;margin-top:30px">
+        <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Ask us on WhatsApp →</a>
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
