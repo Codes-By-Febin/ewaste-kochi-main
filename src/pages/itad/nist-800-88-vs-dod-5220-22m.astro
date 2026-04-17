@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'NIST 800-88 vs DoD 5220.22-M | Data Destruction Standards Comparison';
+const description = 'Compare NIST 800-88 and DoD 5220.22-M data destruction standards. Which wiping standard is right for your ITAD project?';
+---
+
+<BaseLayout title={title} description={description}>
+  <Navbar currentPath="/itad/nist-800-88-vs-dod-5220-22m/" />
+  <section class="py-20 text-center">
+    <h1 class="text-4xl font-bold mb-4">NIST 800-88 vs DoD 5220.22-M</h1>
+    <p class="text-xl">Data destruction standards comparison for ITAD</p>
+  </section>
+  <Footer />
+</BaseLayout>

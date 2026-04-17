@@ -1,0 +1,246 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const metaTitle = 'Electronic Waste Disposal | Professional E-Waste Management';
+const metaDescription = 'Safe and compliant electronic waste disposal solutions. Certified hazardous material handling, regulatory compliance, and comprehensive service areas for e-waste disposal near you.';
+const targetKeywords = ['electronic waste disposal', 'e waste disposal near me', 'hazardous material handling', 'regulatory compliance', 'e-waste disposal services'];
+---
+
+<Layout title={metaTitle} description={metaDescription} keywords={targetKeywords}>
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Professional Electronic Waste Disposal Services</h1>
+      <p>Safe, compliant, and certified e-waste management solutions for homes and businesses. Protecting the environment through responsible disposal methods.</p>
+      <div class="cta-buttons">
+        <a href="#services" class="btn btn-primary">Our Services</a>
+        <a href="#contact" class="btn btn-secondary">Get Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="disposal-methods" class="container section">
+    <h2>Disposal Methods</h2>
+    <div class="grid">
+      <FeatureCard
+        title="Dismantling and Sorting"
+        description="Manual and automated processes to separate components by material type for optimal recycling rates."
+        icon="🔧"
+      />
+      <FeatureCard
+        title="Material Recovery"
+        description="Advanced extraction processes for precious metals, plastics, and glass from electronic components."
+        icon="🔄"
+      />
+      <FeatureCard
+        title="Certified Recycling"
+        description="Partnership with certified facilities ensuring 100% environmentally responsible processing."
+        icon="♻️"
+      />
+      <FeatureCard
+        title="Secure Data Destruction"
+        description="Military-grade data wiping and physical destruction to protect sensitive information."
+        icon="🔒"
+      />
+    </div>
+  </section>
+
+  <section id="regulatory-compliance" class="container section bg-gray-50">
+    <h2>Regulatory Compliance</h2>
+    <div class="compliance-grid">
+      <FeatureCard
+        title="R2 Certification"
+        description="Responsible Recycling certification ensuring adherence to rigorous environmental and safety standards."
+        icon="🏆"
+      />
+      <FeatureCard
+        title="e-Stewards Certified"
+        description="International standard for ethical and sustainable electronics recycling practices."
+        icon="🌍"
+      />
+      <FeatureCard
+        title="Local Regulations"
+        description="Full compliance with municipal, state, and federal electronic waste disposal regulations."
+        icon="📋"
+      />
+      <FeatureCard
+        title="Audit Trail Documentation"
+        description="Complete chain of custody documentation for all disposed electronics."
+        icon="📊"
+      />
+    </div>
+  </section>
+
+  <section id="hazardous-materials" class="container section">
+    <h2>Hazardous Material Handling</h2>
+    <div class="process-grid">
+      <ProcessStep number="1" title="Identification and Segregation">
+        Proper categorization of hazardous materials including batteries, circuit boards, and mercury-containing devices.
+      </ProcessStep>
+      <ProcessStep number="2" title="Specialized Storage">
+        Secure containment areas with proper ventilation and spill prevention systems for toxic materials.
+      </ProcessStep>
+      <ProcessStep number="3" title="Professional Treatment">
+        Licensed technicians handle hazardous substances using approved neutralization and containment procedures.
+      </ProcessStep>
+      <ProcessStep number="4" title="Safe Disposal">
+        Transportation and final disposal at authorized hazardous waste facilities with full regulatory compliance.
+      </ProcessStep>
+    </div>
+  </section>
+
+  <section id="service-areas" class="container section bg-gray-50">
+    <h2>Service Areas</h2>
+    <div class="service-areas-grid">
+      <div class="service-area">
+        <h3>Metropolitan Coverage</h3>
+        <p>Comprehensive coverage of major urban and suburban regions with same-day service availability.</p>
+      </div>
+      <div class="service-area">
+        <h3>Commercial Accounts</h3>
+        <p>Dedicated account management for businesses with flexible scheduling and volume-based pricing.</p>
+      </div>
+      <div class="service-area">
+        <h3>Residential Services</h3>
+        <p>Convenient pickup scheduling for households with bulk item handling capabilities.</p>
+      </div>
+      <div class="service-area">
+        <h3>On-Site Solutions</h3>
+        <p>Mobile shredding and processing units for large-scale disposal projects and security-sensitive materials.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container section">
+    <h2>Get Your E-Waste Disposal Quote</h2>
+    <p class="section-subtitle">Contact us for competitive pricing on all electronic waste disposal needs.</p>
+    <ContactForm />
+  </section>
+</Layout>
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-primary {
+    background: #0066cc;
+    color: white;
+    border: 2px solid #0066cc;
+  }
+
+  .btn-primary:hover {
+    background: #0052a3;
+    border-color: #0052a3;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: #667eea;
+    transform: translateY(-2px);
+  }
+
+  .section {
+    padding: 80px 0;
+  }
+
+  .section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .compliance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-areas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-area {
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .service-area h3 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+    
+    .section h2 {
+      font-size: 2rem;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

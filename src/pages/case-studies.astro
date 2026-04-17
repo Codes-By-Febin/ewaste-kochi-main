@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Case Studies | EWaste Kochi Success Stories';
+const description = 'Real case studies of ITAD projects, office decommissioning, and e-waste recycling for businesses in Kochi, Infopark, and Smart City.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Navbar currentPath="/case-studies/" />
+  <section class="py-20 text-center">
+    <h1 class="text-4xl font-bold mb-4">Case Studies</h1>
+    <p class="text-xl">Real success stories from our corporate clients</p>
+  </section>
+  <Footer />
+</BaseLayout>

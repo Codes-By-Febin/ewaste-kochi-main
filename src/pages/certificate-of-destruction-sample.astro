@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Certificate of Destruction Sample | EWaste Kochi';
+const description = 'View a sample Certificate of Destruction from EWaste Kochi. NIST 800-88 compliant documentation for data destruction and ITAD services.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Navbar currentPath="/certificate-of-destruction-sample/" />
+  <section class="py-20 text-center">
+    <h1 class="text-4xl font-bold mb-4">Certificate of Destruction Sample</h1>
+    <p class="text-xl">NIST 800-88 compliant documentation for audit trails</p>
+  </section>
+  <Footer />
+</BaseLayout>

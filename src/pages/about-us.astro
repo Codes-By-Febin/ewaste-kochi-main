@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'About Us | EWaste Kochi - Kerala Trusted E-Waste Recycler';
+const description = 'Learn about EWaste Kochi, Kerala leading KSPCB-authorized e-waste recycling company. Our facility, team, certifications, and commitment to responsible recycling.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Navbar currentPath="/about-us/" />
+  <section class="py-20 text-center">
+    <h1 class="text-4xl font-bold mb-4">About EWaste Kochi</h1>
+    <p class="text-xl">Kerala's most trusted certified e-waste recycler since 2018</p>
+  </section>
+  <Footer />
+</BaseLayout>
