@@ -45,5 +45,5 @@ export const contact = {
 
   // GST / Registration (replace with real)
   gst: 'GSTIN: 32XXXXX1234X1ZX',
-  kspcbAuth: 'KSPCB Authorization No: XXXX/2023',
+  kspcbAuth: 'KSPCB Authorization No: KL/EW/628',
 };

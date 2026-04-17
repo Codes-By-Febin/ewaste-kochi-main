@@ -135,20 +135,20 @@ export const generateServiceFaqs = (svcName) => [
   { q: `Is EWaste Kochi DPDP Act compliant for ${svcName}?`, a: `Yes. Our ${svcName} process meets all DPDP Act 2023 requirements, with documentation suitable for data protection audits, RBI reviews and ISO 27001 assessments.` },
 ];
 
-// GSC-targeted: generate massive FAQ list for pillar pages
+// GSC-targeted: generate natural FAQ list for pillar pages
 export const generateMassiveFaqs = (topicName) => {
   const base = [
-    { q: `What is ${topicName} and why is it important for Kochi businesses?`, a: `${topicName} in Kochi requires KSPCB-authorized handling under India's E-Waste Rules 2022. EWaste Kochi is the certified authority for ${topicName}, providing full compliance documentation, NIST 800-88 data destruction, and Certificate of Destruction for every engagement.` },
-    { q: `How does EWaste Kochi handle ${topicName}?`, a: `Our certified process for ${topicName}: asset intake and tagging, NIST 800-88 data destruction, KSPCB-authorized recycling, and full audit trail documentation including Certificate of Destruction and DPDP Act compliance evidence.` },
-    { q: `Is ${topicName} free for corporate clients in Kochi?`, a: `Free collection for 10+ devices. Certificate of Destruction included at no extra cost. Buyback value for working devices offsets or eliminates service costs for most corporate clients.` },
-    { q: `What certification is required for ${topicName} in Kerala?`, a: `KSPCB authorization is mandatory under E-Waste Rules 2022. EWaste Kochi holds authorization No. KL/EW/628, one of only three authorized facilities in Ernakulam district.` },
-    { q: `How quickly can you complete ${topicName} in Kochi?`, a: `Standard turnaround: same-day to 48 hours. Emergency service (4-hour SLA) available for urgent corporate requirements. Certificate of Destruction delivered within 24 hours of completion.` },
-    ...faqs.slice(0, 10).map(f => ({ q: f.q, a: f.a })),
+    { q: `What are the legal requirements for e-waste disposal for a company in Kochi?`, a: `Companies in Kochi must comply with India's E-Waste Rules 2022, which require using a KSPCB-authorized recycler. We are authorized (Reg. No: KL/EW/628) and provide the necessary compliance documentation and Certificate of Destruction for every job.` },
+    { q: `How does your e-waste collection service work?`, a: `Simply contact us to schedule a pickup. We arrive with proper documentation, collect your e-waste, and provide a Certificate of Destruction within 24 hours. For 10+ devices, pickup is free.` },
+    { q: `Is e-waste disposal free for businesses?`, a: `We offer free pickup for 10 or more devices. Every job includes a Certificate of Destruction at no extra cost.` },
+    { q: `What certifications should I look for in an e-waste recycler?`, a: `Always verify KSPCB authorization. We hold KL/EW/628 — one of the few authorized facilities in Ernakulam district. We also provide NIST 800-88 data destruction and DPDP Act compliance documentation.` },
+    { q: `How quickly can you collect e-waste from my office?`, a: `Same-day to 48-hour turnaround is standard. We also offer 4-hour emergency service for urgent corporate needs.` },
+    ...faqs.slice(0, 8).map(f => ({ q: f.q, a: f.a })),
   ];
-  // Supplement with location-based variants
-  const locs = ['Infopark', 'Kakkanad', 'Smart City', 'Edappally', 'MG Road', 'Fort Kochi', 'Aluva', 'Kalamassery'];
+  // Add location-specific variants naturally
+  const locs = ['Infopark', 'Kakkanad', 'Smart City', 'Edappally'];
   locs.forEach(loc => {
-    base.push({ q: `Do you provide ${topicName} in ${loc}, Kochi?`, a: `Yes. EWaste Kochi provides full ${topicName} services in ${loc} with free pickup for 10+ devices, same-day processing and Certificate of Destruction. Infopark and Smart City clients get priority same-day slots.` });
+    base.push({ q: `Do you collect e-waste from ${loc}?`, a: `Yes, we serve all major business parks in Kochi including ${loc}. Corporate clients get same-day pickup and priority scheduling.` });
   });
   return base;
 };
