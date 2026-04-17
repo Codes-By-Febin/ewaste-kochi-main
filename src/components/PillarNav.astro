@@ -1,0 +1,29 @@
+---
+export interface Props {
+  currentPillar: 'ewaste' | 'itad' | 'sell';
+}
+const { currentPillar } = Astro.props;
+const { pillars } = await import('../data/taxonomy');
+const otherPillars = pillars.filter(p => p.id !== currentPillar);
+---
+
+<div class="pillar-nav">
+  <h3>Explore Our Services</h3>
+  <div class="pillar-links">
+    {otherPillars.map(pillar => (
+      <a href={pillar.url} class="pillar-card">
+        <h4>{pillar.name}</h4>
+        <p>{pillar.description}</p>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .pillar-nav { margin-top: 3rem; }
+  .pillar-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+  .pillar-card { display: block; padding: 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 1rem; text-decoration: none; transition: transform 0.2s; }
+  .pillar-card:hover { border-color: var(--green); transform: translateY(-4px); }
+  .pillar-card h4 { color: var(--green); margin-bottom: 0.5rem; }
+  .pillar-card p { color: var(--text); font-size: 0.9rem; }
+</style>
