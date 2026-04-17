@@ -148,6 +148,7 @@ if (root && root.dataset.initialized !== 'true') {
     isOpen: false,
     hasStarted: false,
     messageCount: 0,
+    userInteracted: false,
   };
 
   const intentMatchers = [
@@ -302,6 +303,7 @@ if (root && root.dataset.initialized !== 'true') {
   const openWidget = () => {
     windowEl.classList.add('is-open');
     state.isOpen = true;
+    state.userInteracted = true;
     tip.style.display = 'none';
     startConversation();
     setTimeout(() => inputEl.focus(), 100);
@@ -356,19 +358,19 @@ if (root && root.dataset.initialized !== 'true') {
   });
 
   window.setTimeout(() => {
-    if (!state.isOpen) {
+    if (!state.isOpen && !state.userInteracted) {
       tip.style.display = 'block';
     }
   }, 1800);
 
   window.setTimeout(() => {
-    if (!state.isOpen) openWidget();
+    if (!state.isOpen && !state.userInteracted) openWidget();
   }, 3800);
 
   window.addEventListener(
     'scroll',
     () => {
-      if (!state.isOpen && window.scrollY > 260) {
+      if (!state.isOpen && !state.userInteracted && window.scrollY > 260) {
         openWidget();
       }
     },
