@@ -28,5 +28,17 @@
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
     "eslint-plugin-astro": "^0.30.0"
-  }
+  },
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodesbyFebin/ewaste-kochi-main.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodesbyFebin/ewaste-kochi-main/issues"
+  },
+  "homepage": "https://github.com/CodesbyFebin/ewaste-kochi-main#readme"
 }
