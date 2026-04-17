@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /_astro/
-
+Disallow: /*?text=
+Disallow: /*?utm_*
 Sitemap: https://ewastekochi.com/sitemap-index.xml
+Host: ewastekochi.com

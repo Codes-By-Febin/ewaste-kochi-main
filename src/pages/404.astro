@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Page Not Found | EWaste Kochi">
+  <Navbar />
+  <main>
+    <section class="section" style="text-align:center;padding:150px 0">
+      <h1 style="font-size:8rem;font-weight:800;color:var(--green);line-height:1">404</h1>
+      <p style="font-size:1.5rem;margin:20px 0;color:var(--text)">This page has been recycled.</p>
+      <p style="color:var(--muted);margin-bottom:40px">Let's get you back on track.</p>
+      <a href="/" class="btn btn-primary">Return Home</a>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+<style>
+.btn{padding:14px 32px;background:var(--green);color:black;border-radius:8px;font-weight:700;text-decoration:none}
+</style>
