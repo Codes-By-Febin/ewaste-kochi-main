@@ -39,6 +39,17 @@ export default defineConfig({
         'https://ewastekochi.com/blog/complete-guide-hard-drive-destruction-kochi/',
       ],
     }),
+    sitemap({
+      name: 'image-sitemap',
+      changefreq: 'monthly',
+      priority: 0.5,
+      lastmod: new Date(),
+      filter: (page) => page.includes('/img/') || page.includes('/images/'),
+      customPages: [
+        'https://ewastekochi.com/img/ewaste-guide-hero.png',
+        'https://ewastekochi.com/brand/ewastekochi-logo.svg',
+      ],
+    }),
     tailwind({
       applyBaseStyles: false,
     }),
@@ -63,4 +74,25 @@ export default defineConfig({
       },
     },
   },
+  // Canonicalization best practices for pagination and parameter handling
+  match: {
+    combine: (to, from) => {
+      // Handle parameter variations and canonicalization
+      const cleanParams = (obj) => {
+        return Object.entries(obj)
+          .filter(([key, val]) => {
+            // Skip tracking parameters and WhatsApp text parameters that create infinite variations
+            return !key.startsWith('utm_') && 
+                   key !== 'text' && 
+                   key !== 'fbclid' && 
+                   key !== 'gclid' &&
+                   !(key === 'ref' && val === 'footer');
+          })
+          .reduce((acc, [key, val]) => {
+            return {...acc, [key]: val};
+          }, {});
+      }
+      return cleanParams(to.searchParams) === cleanParams(from.searchParams) ? from : undefined
+    }
+  }
 });
