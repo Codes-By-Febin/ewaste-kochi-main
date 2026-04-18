@@ -22,7 +22,7 @@ const crossCategoryServices = services.filter(s => otherCategories.includes(s.ca
 
 <div class="cluster-links">
   <div class="cluster-group">
-    <h4>Related {currentCategory.toUpperCase()} Solutions</h4>
+    <h4>Related {(currentCategory || 'Service').toUpperCase()} Solutions</h4>
     <div class="link-grid">
       {siblingServices.map(s => (
         <a href={l(`/services/${s.slug}/`)} class="cluster-link">

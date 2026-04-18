@@ -3,7 +3,7 @@ name: AI SEO Autopilot
 on:
   schedule:
     - cron: '0 0 * * 0' # Weekly on Sunday
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
 
 jobs:
   seo-analysis:
