@@ -14,47 +14,57 @@ const breadcrumbs = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDesc} breadcrumbs={breadcrumbs}>
+  <div id="topbar">
+    <div id="ticker">
+      <span class="tb-item">♻️ Certified Zero-Landfill Facility — Kochi HQ</span>
+      <span class="tb-item">🏭 KSPCB Authorized Recycler #KL/EW/628</span>
+      <span class="tb-item">🥇 Kerala's #1 Electronics Recycler since 2018</span>
+      <span class="tb-item">📞 24/7 Service — +91-75005-55454</span>
+      <!-- Loop -->
+      <span class="tb-item">♻️ Certified Zero-Landfill Facility — Kochi HQ</span>
+      <span class="tb-item">🏭 KSPCB Authorized Recycler #KL/EW/628</span>
+    </div>
+  </div>
+
   <Navbar currentPath="/about/" />
 
   <main>
-    <section class="section" style="background:var(--bg);padding:80px 0">
+    <section class="section" style="background:linear-gradient(135deg, #060809 0%, #0a111a 100%); padding:100px 0; border-bottom: 1px solid var(--border-wiki);">
       <div class="wrap">
         <nav aria-label="Breadcrumb" style="font-size:0.8rem;color:var(--muted);margin-bottom:20px">
-          <a href="/" style="color:var(--green)">Home</a> / About Us
+          <a href="/" style="color:var(--amber)">Home</a> / About Us
         </nav>
         
-        <h1 style="font-size:clamp(2.5rem,5vw,4rem);line-height:1.05;margin-bottom:25px;font-weight:800;letter-spacing:-0.03em">
-          Kerala's Most Trusted <span style="color:var(--green)">E-Waste Authority</span>
+        <h1 style="font-size:clamp(2.5rem,5vw,4.45rem);line-height:1;margin-bottom:25px;font-weight:800;letter-spacing:-0.04em">
+          Kerala's Most Trusted <span style="color:var(--amber)">E-Waste Authority</span>
         </h1>
-        <p style="font-size:1.15rem;color:var(--text);max-width:680px;line-height:1.7;margin-bottom:40px">
-          Founded in 2018, EWaste Kochi is a KSPCB-authorized recycling and IT asset disposition company based in Thrippunithura, Kerala. We provide certified, audit-ready solutions for businesses and residents across the state.
+        <p style="font-size:1.2rem;color:var(--text);max-width:720px;line-height:1.7;margin-bottom:40px;font-family:var(--serif);font-style:italic">
+          Founded in 2018, EWaste Kochi is a KSPCB-authorized recycling and IT asset disposition company based in Thrippunithura. We provide certified, audit-ready solutions for enterprise hardware retirement.
         </p>
       </div>
     </section>
 
     <section class="section">
       <div class="wrap">
-        <h2 class="sec-title">Our Certifications</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:30px">
-          <div style="background:var(--card);padding:25px;border-radius:12px;border:1px solid var(--border)">
-            <div style="font-size:1.5rem;margin-bottom:10px">🏭</div>
-            <h3 style="color:var(--green);margin-bottom:8px">KSPCB Authorization</h3>
-            <p style="color:var(--muted);font-size:0.9rem">No. KL/EW/628</p>
+        <h2 class="sec-title">The Industrial <em>Authority</em> Certifications</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:40px">
+          <div style="background:var(--card-wiki);padding:35px;border-radius:20px;border:1px solid var(--border-wiki);border-top:2px solid var(--amber)">
+            <div style="font-size:2rem;margin-bottom:15px">🏭</div>
+            <h3 style="color:var(--white);margin-bottom:10px">KSPCB Authorized</h3>
+            <p style="color:var(--muted);font-size:0.9rem">Authorized under E-Waste Rules 2022 to collect, process and recover electronic waste in Kerala.</p>
+            <div style="margin-top:15px;font-size:0.75rem;color:var(--amber);font-weight:700">CERT: #KL/EW/628</div>
           </div>
-          <div style="background:var(--card);padding:25px;border-radius:12px;border:1px solid var(--border)">
-            <div style="font-size:1.5rem;margin-bottom:10px">🔐</div>
-            <h3 style="color:var(--green);margin-bottom:8px">NIST 800-88 Data Destruction</h3>
-            <p style="color:var(--muted);font-size:0.9rem">Certified Process</p>
+          <div style="background:var(--card-wiki);padding:35px;border-radius:20px;border:1px solid var(--border-wiki);border-top:2px solid var(--amber)">
+            <div style="font-size:2rem;margin-bottom:15px">🔐</div>
+            <h3 style="color:var(--white);margin-bottom:10px">NIST 800-88 Purge</h3>
+            <p style="color:var(--muted);font-size:0.9rem">Military-grade data destruction for HDD/SSD using logical purging and industrial physical shredding.</p>
+            <div style="margin-top:15px;font-size:0.75rem;color:var(--amber);font-weight:700">AUDIT READY</div>
           </div>
-          <div style="background:var(--card);padding:25px;border-radius:12px;border:1px solid var(--border)">
-            <div style="font-size:1.5rem;margin-bottom:10px">⚖️</div>
-            <h3 style="color:var(--green);margin-bottom:8px">DPDP Act 2023</h3>
-            <p style="color:var(--muted);font-size:0.9rem">Fully Compliant</p>
-          </div>
-          <div style="background:var(--card);padding:25px;border-radius:12px;border:1px solid var(--border)">
-            <div style="font-size:1.5rem;margin-bottom:10px">♻️</div>
-            <h3 style="color:var(--green);margin-bottom:8px">EPR Registered</h3>
-            <p style="color:var(--muted);font-size:0.9rem">With CPCB</p>
+          <div style="background:var(--card-wiki);padding:35px;border-radius:20px;border:1px solid var(--border-wiki);border-top:2px solid var(--amber)">
+            <div style="font-size:2rem;margin-bottom:15px">⚖️</div>
+            <h3 style="color:var(--white);margin-bottom:10px">DPDP Act Shield</h3>
+            <p style="color:var(--muted);font-size:0.9rem">Full compliance with India's new data protection laws. Serialized CoD for every asset.</p>
+            <div style="margin-top:15px;font-size:0.75rem;color:var(--amber);font-weight:700">100% COMPLIANT</div>
           </div>
         </div>
       </div>
@@ -62,20 +72,18 @@ const breadcrumbs = [
 
     <section class="section-alt">
       <div class="wrap">
-        <h2 class="sec-title">Our Mission</h2>
-        <p style="color:var(--text);max-width:680px;line-height:1.8;margin-top:20px">
-          To provide the most secure, transparent, and environmentally sound e-waste management in South India, while creating green jobs and protecting Kerala's natural resources. We process e-waste responsibly and recover precious metals through certified zero-landfill pathways.
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap" style="text-align:center">
-        <h2 class="sec-title">Ready to Work With Us?</h2>
-        <p class="sec-sub" style="margin:0 auto 30px">Get a free quote for your e-waste or ITAD needs.</p>
-        <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap">
-          <a href={contact.whatsappMessage} class="btn btn-primary btn-lg">💬 WhatsApp Now</a>
-          <a href="/contact/" class="btn btn-outline btn-lg">Contact Page →</a>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+          <div>
+            <h2 class="sec-title">Our Zero-Landfill <em>Mission</em></h2>
+            <p style="color:var(--text);line-height:1.8;margin-top:30px;font-size:1.05rem;font-family:var(--serif)">
+              To provide the most secure, transparent, and environmentally sound e-waste management in South India. Our Thrippunithura facility was built to process Kochi's industrial-scale hardware retirement while ensuring every gram of material is reintroduced to the circular economy. We recover gold, silver, copper and aluminum to power Kerala's digital future.
+            </p>
+          </div>
+          <div style="background:var(--card-wiki);padding:40px;border-radius:30px;border:1px solid var(--border-wiki);text-align:center">
+             <div style="font-size:3rem;font-weight:900;color:var(--amber);letter-spacing:-0.05em">2,400+ T</div>
+             <div style="text-transform:uppercase;font-size:0.8rem;color:var(--muted);letter-spacing:0.15em;margin-bottom:30px">Safe Material Recovery</div>
+             <a href="/recycling/" class="btn btn-primary btn-lg" style="background:var(--amber);color:#000">See Tech Encyclopedia →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -85,9 +93,7 @@ const breadcrumbs = [
 </BaseLayout>
 
 <style>
-  .btn { display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s }
-  .btn:hover { transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3) }
-  .btn-primary { background:var(--green);color:black }
-  .btn-outline { background:transparent;border:1px solid var(--border);color:var(--text) }
-  .btn-lg { padding:16px 36px;font-size:1.1rem }
+  .btn:hover { transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,166,35,0.2) }
+  .btn-primary { background:var(--amber);color:black }
+  .btn-outline { background:transparent;border:1px solid var(--border-wiki);color:var(--text) }
 </style>

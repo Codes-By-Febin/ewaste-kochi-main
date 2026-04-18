@@ -29,6 +29,18 @@ const contactSchema = {
   schema={contactSchema}
   breadcrumbs={breadcrumbs}
 >
+  <div id="topbar">
+    <div id="ticker">
+      <span class="tb-item">♻️ Certified Zero-Landfill Electronics Recycling — Kochi HQ</span>
+      <span class="tb-item">🏭 KSPCB Authorized Recycler #KL/EW/628</span>
+      <span class="tb-item">🥇 Kerala's #1 Electronics Recycler since 2018</span>
+      <span class="tb-item">📞 24/7 Service — +91-75005-55454</span>
+      <!-- Loop -->
+      <span class="tb-item">♻️ Certified Zero-Landfill Facility — Kochi HQ</span>
+      <span class="tb-item">🏭 KSPCB Authorized Recycler #KL/EW/628</span>
+    </div>
+  </div>
+
   <Navbar currentPath="/contact" />
 
   <!-- Breadcrumb -->
@@ -49,11 +61,11 @@ const contactSchema = {
     <div class="wrap">
       <div class="contact-grid">
         <div class="contact-left">
-          <p class="sec-eyebrow">Get in Touch</p>
-          <h1 class="sec-title">Fast Pickup. <br/><em>24/7 Response.</em></h1>
+          <p class="sec-eyebrow" style="color:var(--amber); border-color:var(--amber);">Get in Touch</p>
+          <h1 class="sec-title">Fast Pickup. <br/><em style="color:var(--amber)">24/7 Response.</em></h1>
           <p class="sec-desc">
-            We handle e-waste disposal and data destruction for Kochi's leading IT companies, banks, and hospitals. 
-            Fill out the form below or use our direct channels for an immediate response.
+            The authority on hardware retirement for Kochi's leading IT companies, banks, and hospitals. 
+            NIST 800-88 data destruction and KSPCB-certified recycling for every project across Kerala.
           </p>
 
           <div class="direct-channels">
@@ -171,33 +183,35 @@ const contactSchema = {
   
   .direct-channels { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 40px; }
   .chan-box { display: flex; align-items: center; gap: 15px; background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 12px; transition: border-color 0.3s; }
-  .chan-box:hover { border-color: var(--green); }
-  .chan-icon { font-size: 1.5rem; background: rgba(0,232,150,0.1); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+  .chan-box:hover { border-color: var(--amber); }
+  .chan-icon { font-size: 1.5rem; background: rgba(245,166,35,0.1); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 10px; color: var(--amber); }
   .chan-info strong { display: block; color: var(--white); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 3px; }
   .chan-info span { font-size: 1rem; color: var(--text); font-weight: 700; }
   .wa-box:hover { border-color: #25D366; }
   .wa-box .chan-icon { background: rgba(37,211,102,0.1); }
   .wa-box span { color: #25D366; }
 
-  .office-box { padding: 30px; border: 1px solid var(--border2); border-radius: 12px; position: relative; overflow: hidden; }
+  .office-box { padding: 30px; border: 1px solid var(--border-wiki); border-radius: 12px; position: relative; overflow: hidden; background: var(--card-wiki); }
   .office-box h4 { margin-bottom: 10px; color: var(--white); }
   .office-box address { color: var(--text); font-style: normal; margin-bottom: 15px; line-height: 1.6; }
-  .map-link { color: var(--green); font-weight: 600; font-size: 0.85rem; }
+  .map-link { color: var(--amber); font-weight: 600; font-size: 0.85rem; }
 
   /* Form Styling */
-  .form-container { background: var(--card); border: 1px solid var(--border2); padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .form-container { background: var(--card-wiki); border: 1px solid var(--border-wiki); border-top: 3px solid var(--amber); padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
   .lead-form { display: flex; flex-direction: column; gap: 20px; }
   .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .f-group { display: flex; flex-direction: column; gap: 8px; }
   .f-group label { font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
   
   .f-group input, .f-group select, .f-group textarea { 
-    background: var(--surface); color: var(--white); border: 1px solid var(--border); padding: 14px; border-radius: 10px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s;
+    background: #060809; color: var(--white); border: 1px solid var(--border-wiki); padding: 14px; border-radius: 10px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s;
   }
   .f-group input:focus, .f-group select:focus, .f-group textarea:focus { 
-    border-color: var(--green); outline: none; 
+    border-color: var(--amber); outline: none; 
   }
   
+  .btn-primary { background: var(--amber); color: #000; }
+  .btn-primary:hover { background: var(--amber2); }
   .btn-block { width: 100%; justify-content: center; padding: 18px; font-size: 1rem; }
   .form-disclaimer { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 10px; }
 

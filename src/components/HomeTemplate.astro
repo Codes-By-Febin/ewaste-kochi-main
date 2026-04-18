@@ -54,6 +54,23 @@ const l = (path: string) => lang === 'en' ? path : `/${lang}${path}`;
   schema={organizationSchema}
   breadcrumbs={breadcrumbs}
 >
+  <div id="topbar">
+    <div id="ticker">
+      <span class="tb-item">♻️ Certified Zero-Landfill Electronics Recycling — Kochi</span>
+      <span class="tb-item">🔒 NIST/DoD Data Destruction Every Device</span>
+      <span class="tb-item">🏭 KSPCB & CPCB Authorized Facility</span>
+      <span class="tb-item">🚚 Free Pickup — Kochi & Ernakulam</span>
+      <span class="tb-item">⚡ Same-Day Collection — Infopark & Smart City</span>
+      <span class="tb-item">🥇 Kerala's #1 Electronics Recycler since 2018</span>
+      <span class="tb-item">📞 24/7 Service — +91-75005-55454</span>
+      <!-- loop copy -->
+      <span class="tb-item">♻️ Certified Zero-Landfill Electronics Recycling — Kochi</span>
+      <span class="tb-item">🔒 NIST/DoD Data Destruction Every Device</span>
+      <span class="tb-item">🏭 KSPCB & CPCB Authorized Facility</span>
+      <span class="tb-item">🚚 Free Pickup — Kochi & Ernakulam</span>
+    </div>
+  </div>
+
   <Navbar currentPath={l("/")} />
 
   <main id="main-content">
@@ -61,15 +78,16 @@ const l = (path: string) => lang === 'en' ? path : `/${lang}${path}`;
        <SpeechReader targetSelector="#main-content" />
     </div>
     <!-- MASTER HERO -->
-    <section class="hero" style="min-height:90vh;display:flex;align-items:center;background:radial-gradient(circle at 70% 30%, rgba(0,232,150,0.08), transparent), #050908;">
+    <section class="hero" style="min-height:90vh;display:flex;align-items:center;background:linear-gradient(135deg, #060809 0%, #0a0f14 100%); position:relative; overflow:hidden;">
+      <div style="position:absolute; inset:0; background:radial-gradient(circle at 70% 30%, rgba(245,166,35,0.08), transparent); pointer-events:none;"></div>
       <div class="wrap">
-        <div class="hero-inner" style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:60px;align-items:center">
+        <div class="hero-inner" style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:60px;align-items:center; position:relative; z-index:2;">
           <div>
-            <div class="hero-badge" style="background:rgba(0,232,150,0.1);color:var(--green);padding:8px 20px;border-radius:30px;display:inline-block;font-size:0.7rem;font-weight:800;letter-spacing:0.15em;margin-bottom:20px;border:1px solid rgba(0,232,150,0.2)">
+            <div class="hero-badge" style="background:rgba(245,166,35,0.1);color:var(--amber);padding:8px 20px;border-radius:30px;display:inline-block;font-size:0.7rem;font-weight:800;letter-spacing:0.15em;margin-bottom:20px;border:1px solid rgba(245,166,35,0.2)">
               {t('home.hero_badge')}
             </div>
             <h1 style="font-size:clamp(3rem, 6vw, 4.5rem);line-height:0.95;margin-bottom:25px;letter-spacing:-0.04em">
-              {t('home.hero_h1')}
+              Certified <span style="color:var(--amber)">E-Waste</span> <br/>& ITAD <span style="color:var(--white)">Kochi</span>
             </h1>
             <p style="font-size:1.2rem;color:var(--text);max-width:640px;line-height:1.6;margin-bottom:40px;font-family:var(--serif);font-style:italic">
               {t('home.hero_p')}
@@ -96,19 +114,19 @@ const l = (path: string) => lang === 'en' ? path : `/${lang}${path}`;
           </div>
           
           <div class="hero-visual" style="position:relative">
-             <div style="background:var(--card);border:2px solid var(--border);border-top:2px solid var(--green);padding:40px;border-radius:30px;box-shadow:0 30px 60px rgba(0,0,0,0.5)" role="figure" aria-label="Compliance Dashboard: NIST Data Wiping 100%, Material Recovery 98.2%, Zero Landfill 100%">
-                <div style="font-size:0.75rem;color:var(--green);font-weight:800;margin-bottom:20px;text-transform:uppercase">Compliance Dashboard</div>
+             <div style="background:var(--card-wiki);border:1px solid var(--border-wiki);border-top:2px solid var(--amber);padding:40px;border-radius:30px;box-shadow:0 30px 60px rgba(0,0,0,0.5)" role="figure" aria-label="Compliance Dashboard">
+                <div style="font-size:0.75rem;color:var(--amber);font-weight:800;margin-bottom:20px;text-transform:uppercase">Compliance Dashboard</div>
                 <div style="margin-bottom:20px">
-                   <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.85rem"><span>NIST Data Wiping</span><span style="color:var(--green)">100%</span></div>
-                   <div style="height:6px;background:var(--border);border-radius:10px"><div style="width:100%;height:6px;background:var(--green);border-radius:10px" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="NIST Data Wiping compliance"></div></div>
+                   <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.85rem"><span>NIST Data Wiping</span><span style="color:var(--amber)">100%</span></div>
+                   <div style="height:6px;background:var(--border-wiki);border-radius:10px"><div style="width:100%;height:6px;background:var(--amber);border-radius:10px"></div></div>
                 </div>
                 <div style="margin-bottom:20px">
-                   <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.85rem"><span>Material Recovery</span><span style="color:var(--green)">98.2%</span></div>
-                   <div style="height:6px;background:var(--border);border-radius:10px"><div style="width:98%;height:6px;background:var(--green);border-radius:10px" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100" aria-label="Material Recovery rate"></div></div>
+                   <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.85rem"><span>Material Recovery</span><span style="color:var(--amber)">98.2%</span></div>
+                   <div style="height:6px;background:var(--border-wiki);border-radius:10px"><div style="width:98%;height:6px;background:var(--amber);border-radius:10px"></div></div>
                 </div>
                 <div style="margin-bottom:20px">
-                   <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.85rem"><span>Zero Landfill Rate</span><span style="color:var(--green)">100%</span></div>
-                   <div style="height:6px;background:var(--border);border-radius:10px"><div style="width:100%;height:6px;background:var(--green);border-radius:10px" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Zero Landfill diversion"></div></div>
+                   <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.85rem"><span>Zero Landfill Rate</span><span style="color:var(--amber)">100%</span></div>
+                   <div style="height:6px;background:var(--border-wiki);border-radius:10px"><div style="width:100%;height:6px;background:var(--amber);border-radius:10px"></div></div>
                 </div>
                 <div style="padding-top:10px;text-align:center">
                    <span style="display:block;font-size:2rem;font-weight:800;color:var(--white);letter-spacing:-0.03em">KSPCB Certified</span>

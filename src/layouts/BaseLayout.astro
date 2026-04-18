@@ -305,6 +305,13 @@ const baseSchema = {
         --serif: "Lora", Georgia, serif;
         --radius: 12px;
         --radius-lg: 18px;
+
+        /* Industrial Authority Theme (Amber) */
+        --amber: #F5A623;
+        --amber2: #D4891C;
+        --bg-wiki: #060809;
+        --card-wiki: #0C1014;
+        --border-wiki: #161E22;
       }
 
       *,
@@ -348,9 +355,15 @@ const baseSchema = {
         border-radius: 2px;
       }
       ::selection {
-        background: rgba(0, 232, 150, 0.18);
-        color: var(--green);
+        background: rgba(245, 166, 35, 0.18);
+        color: var(--amber);
       }
+
+      /* Authority Ticker (Industrial) */
+      #topbar { background: var(--amber); padding: 8px 0; overflow: hidden; z-index: 1000; position: relative; }
+      #ticker { display: flex; white-space: nowrap; animation: tick 45s linear infinite; }
+      .tb-item { display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 800; color: #1a0d00; padding: 0 40px; }
+      @keyframes tick { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
       /* Layout */
       .wrap {
