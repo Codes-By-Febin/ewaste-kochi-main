@@ -1,0 +1,457 @@
+---
+/**
+ * ServicePageTemplate.astro — Reusable i18n-aware service layout
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from './Navbar.astro';
+import Footer from './Footer.astro';
+import WhatsAppCTA from './WhatsAppCTA.astro';
+import SpeechReader from './SpeechReader.astro';
+import { services } from '../data/services.js';
+import { contact } from '../data/contact.js';
+import { testimonials } from '../data/testimonials.js';
+import { primaryLocations } from '../data/locations.js';
+import { getPillarFaqs } from '../data/faqs.js';
+import { blogs } from '../data/blogs.js';
+import { useTranslations } from '../i18n/ui.js';
+import ClusterInterlinks from './ClusterInterlinks.astro';
+
+interface Props {
+  service: any;
+  lang?: string;
+}
+
+const { service, lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+
+// Contextual FAQs for this service category
+const serviceFaqs = getPillarFaqs(service.category, 5);
+
+// Build related services
+const siblingServices = services.filter(s => s.slug !== service.slug && s.category === service.category).slice(0, 10);
+const crossServices = services.filter(s => s.category !== service.category && s.isPillar).slice(0, 10);
+const allRelatedServices = [...siblingServices, ...crossServices];
+
+const relevantBlogs = blogs.filter(b => b.category === service.category || b.category === 'compliance').slice(0, 10);
+
+const dynamicWaText = encodeURIComponent(`Hi, I need assistance with ${service.name} in Kochi/Ernakulam. Can I get a quote?`);
+const waLink = `https://wa.me/${contact.whatsappBase}?text=${dynamicWaText}`;
+
+const relevantTestimonials = testimonials.slice(0, 3);
+
+// Correctly prefix URLs for i18n
+const l = (path: string) => lang === 'en' ? path : `/${lang}${path}`;
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'Services', url: 'https://ewastekochi.com/services/' },
+  { name: service.name, url: `https://ewastekochi.com/services/${service.slug}/` },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  name: service.name,
+  serviceType: service.name,
+  provider: { '@id': 'https://ewastekochi.com/#organization' },
+  areaServed: { '@type': 'State', name: 'Kerala' },
+  description: service.longDescription || service.description,
+};
+---
+
+<BaseLayout
+  title={service.metaTitle}
+  description={service.metaDescription}
+  schema={serviceSchema}
+  faqs={serviceFaqs.map(f => ({ q: f.q, a: f.a }))}
+  breadcrumbs={breadcrumbs}
+>
+  <Navbar currentPath={l(`/services/${service.slug}/`)} />
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <div class="wrap">
+      <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        {breadcrumbs.map((crumb, i) => (
+          <li
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <a href={crumb.url} itemprop="item">
+              <span itemprop="name">{crumb.name}</span>
+            </a>
+            <meta itemprop="position" content={String(i + 1)} />
+            {i < breadcrumbs.length - 1 && <span class="bc-sep" aria-hidden="true">›</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="svc-hero">
+    <div class="svc-hero-bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="svc-hero-inner">
+        <div class="svc-hero-left">
+          <div class="svc-icon-lg" aria-hidden="true">{service.icon}</div>
+          <div class="hero-badge">
+            <span class="pulse" aria-hidden="true"></span>
+            <span>{service.tagline}</span>
+          </div>
+          <h1 class="svc-h1">{service.name}</h1>
+          <p class="svc-lead">{service.description}</p>
+
+          <div class="svc-badges">
+            {service.badges.map(b => (
+              <span class="badge badge-g">{b}</span>
+            ))}
+          </div>
+
+          <div class="svc-price-bar">
+            <span class="price-label">Starting from:</span>
+            <span class="price-value">{service.price}</span>
+          </div>
+
+          <div class="svc-ctas">
+            <a href={l("/contact/")} class="btn btn-primary btn-lg" id="svc-quote-btn">{t('service.quote_btn')}</a>
+            <a href={waLink} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg track-wa" id="svc-wa-btn">
+              {t('service.wa_now')}
+            </a>
+            <a href={contact.phoneLink} class="btn btn-outline btn-lg track-call" id="svc-call-btn">{t('service.call_now')}</a>
+          </div>
+        </div>
+
+        <div class="svc-hero-right">
+          <div class="svc-info-card">
+            <h3>{t('service.quick_facts')}</h3>
+            <ul class="quick-facts">
+              <li><span class="qf-icon">✓</span> <span>KSPCB Authorized Recycler</span></li>
+              <li><span class="qf-icon">✓</span> <span>NIST 800-88 Compliant</span></li>
+              <li><span class="qf-icon">✓</span> <span>DoD 5220.22-M Certified</span></li>
+              <li><span class="qf-icon">✓</span> <span>DPDP Act 2023 Compliant</span></li>
+              <li><span class="qf-icon">✓</span> <span>Certificate of Destruction Every Job</span></li>
+              <li><span class="qf-icon">✓</span> <span>Same-Day Pickup Available</span></li>
+              <li><span class="qf-icon">✓</span> <span>Free Bulk Pickup (10+ devices)</span></li>
+              <li><span class="qf-icon">✓</span> <span>Serving All 52+ Kochi Areas</span></li>
+            </ul>
+            <a href={l("/contact/")} class="btn btn-primary" style="width:100%;justify-content:center;margin-top:20px;" id="svc-card-btn">
+              {t('service.quote_btn')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Long Description -->
+  <section class="section">
+    <div class="wrap">
+      <div class="content-grid">
+        <div class="content-main">
+          <article class="content-body service-readable-body" itemprop="description">
+            <SpeechReader targetSelector=".service-readable-body" />
+            
+            <h2>About {service.name} in Kochi</h2>
+            {service.longDescription
+              ? service.longDescription.split('\n\n').map(para => (
+                  <p set:html={para.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
+                ))
+              : <p>{service.description}</p>
+            }
+
+            <h2>{t('service.why_choose')}</h2>
+            <p>
+              EWaste Kochi has been Kerala's most trusted certified e-waste and ITAD provider since 2018.
+              Our team is trained to handle {service.shortName.toLowerCase()} with the highest security and
+              environmental standards. Every job receives full documentation and a Certificate of Destruction.
+            </p>
+
+            <div class="callout conversion-block">
+              <p>
+                <strong>⚡ Need a quote for {service.shortName} in Kochi?</strong><br/>
+                We offer free pickup for bulk requirements across all business parks in Ernakulam. <br/>
+                <a href={waLink} class="track-wa">💬 Send us a WhatsApp</a> or <a href={contact.phoneLink} class="track-call">📞 Call {contact.phoneDisplay}</a> for an instant estimate.
+              </p>
+            </div>
+
+            <h2 id="process">The {service.shortName} Process: Step-by-Step</h2>
+            <p>We execute a flawless, audit-ready workflow designed strictly for enterprise security. Here is exactly what happens when you book {service.shortName}:</p>
+            <div class="process-timeline">
+              <div class="step-card">
+                <span class="step-num">01</span>
+                <h4>{service.category === 'buyback' ? 'Audit & Valuation' : 'Logistics & Secure Pickup'}</h4>
+                <p>{service.category === 'buyback' ? 'Our agents evaluate your devices on-site in Kochi. Working assets are graded strictly by working condition to maximize your buyback return.' : 'Our screened fleet arrives at your Ernakulam address. Devices are counted, tagged, and a chain-of-custody manifest is signed on the spot.'}</p>
+              </div>
+              <div class="step-card">
+                <span class="step-num">02</span>
+                <h4>{service.category === 'data' ? 'NIST Data Wiping' : 'Processing & Sorting'}</h4>
+                <p>{service.category === 'data' ? 'Every drive undergoes NIST 800-88 Purge wiping or physical shredding. You can witness this destruction on-site.' : 'Upon reaching our KSPCB-authorized Thrippunithura facility, items undergo strict inventory matching and material segregation.'}</p>
+              </div>
+              <div class="step-card">
+                <span class="step-num">03</span>
+                <h4>{service.category === 'recycling' ? 'Zero-Landfill Extraction' : 'Compliance Certification'}</h4>
+                <p>{service.category === 'recycling' ? 'Hazardous materials like lead and lithium are safely neutralized. Precious metals are extracted for the circular economy.' : 'We compile the data logs and issue your legally binding Certificate. All reports are audit-ready for ISO 27001.'}</p>
+              </div>
+            </div>
+
+            <h2 id="compliance">{t('service.guarantee')}</h2>
+            <p>Dealing with uncertified dealers exposes your company to liabilities. Our {service.name} operations are entirely shielded by India's strictest frameworks:</p>
+            <ul class="compliance-list">
+              {service.category === 'data' || service.category === 'itad' ? (
+                <>
+                  <li><strong>DPDP Act 2023 Ready:</strong> We indemnify your organization by ensuring zero personal data escapes your IT lifecycle via NIST-certified wiping.</li>
+                  <li><strong>DoD 5220.22-M Standard:</strong> Our wiping software issues tampering-proof certificates compliant with US Department of Defense parameters.</li>
+                </>
+              ) : (
+                <>
+                  <li><strong>KSPCB Authorized Facility:</strong> We are legally mandated to process hazardous electronic waste by the Kerala State Pollution Control Board.</li>
+                  <li><strong>E-Waste (Management) Rules 2022:</strong> We execute full EPR fulfillment, preventing unauthorized dumping in Kochi backwaters.</li>
+                </>
+              )}
+            </ul>
+
+            <div style="margin: 2.5rem 0; background: var(--card2); padding: 30px; border-radius: 12px; text-align: center; border: 1px dashed var(--green);">
+              <h3 style="margin-top:0;">{t('service.contact_cta')}</h3>
+              <p style="font-size: 0.9rem; margin-bottom: 20px;">Protect your business from liabilities. Talk to our compliance experts today.</p>
+                <div style="display:flex; justify-content:center; gap: 15px; margin-bottom: 12px; font-size: 0.7rem; color: var(--text); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="color:var(--green);">✓</span> KSPCB Authorized</span>
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="color:var(--green);">✓</span> ISO 27001 Ready</span>
+                  <span style="display:flex; align-items:center; gap:4px;"><span style="color:var(--green);">✓</span> Data Wiped</span>
+                </div>
+                <a href={waLink} target="_blank" class="btn btn-wa track-wa" style="width: 100%; max-width: 320px; justify-content: center;">💬 Chat on WhatsApp</a>
+                <div style="display:flex; justify-content:center; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+                  <a href={`https://wa.me/917500555454?text=${encodeURIComponent(`Hi, I am looking for Business Pickup for ${service.name} in Kochi.`)}`} target="_blank" class="badge badge-g">🏢 Business Pickup</a>
+                  <a href={`https://wa.me/917500555454?text=${encodeURIComponent(`Hi, I need Home Pickup for ${service.name} in Kochi.`)}`} target="_blank" class="badge badge-a">🏠 Home Pickup</a>
+                  <a href={`https://wa.me/917500555454?text=${encodeURIComponent(`Hi, I have Bulk items for ${service.name} in Kochi.`)}`} target="_blank" class="badge badge-b">📦 Bulk Disposal</a>
+                  <a href={`https://wa.me/917500555454?text=${encodeURIComponent(`Hi, I need a Compliance Certificate for ${service.name}.`)}`} target="_blank" class="badge badge-r">📜 Need Certificate</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout">
+              <p>
+                <strong>📞 Ready to schedule?</strong> Call <a href={contact.phoneLink}>{contact.phoneDisplay}</a> or
+                <a href={contact.whatsappMessage} target="_blank" rel="noopener noreferrer">WhatsApp us</a> for a same-day quote.
+                Available 24/7 including weekends and holidays.
+              </p>
+            </div>
+
+            <h2>{t('service.areas')}</h2>
+            <p>
+              We provide {service.shortName.toLowerCase()} services across all of Kochi and Ernakulam including
+              Infopark, Smart City, Kakkanad, Edapally, Vyttila, Palarivattom, Aluva, Thrippunithura, Angamaly,
+              and 52+ more areas. Large corporate projects across all Kerala districts are also covered.
+            </p>
+
+            <ClusterInterlinks currentCategory={service.category} currentSlug={service.slug} lang={lang} />
+          </article>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="content-sidebar">
+          <!-- Location links -->
+          <div class="sidebar-card">
+            <h4>Available in These Areas</h4>
+            <ul class="sidebar-links">
+              {primaryLocations.slice(0, 8).map(loc => (
+                <li>
+                  <a href={`/locations/${loc.slug}/${service.slug}/`}>
+                    {service.shortName} in {loc.name} →
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="/locations/"><strong>View all 52+ locations →</strong></a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Related Services -->
+          {allRelatedServices.length > 0 && (
+            <div class="sidebar-card">
+              <h4>Sibling Services</h4>
+              <ul class="sidebar-links">
+                {allRelatedServices.slice(0, 15).map(s => (
+                  <li>
+                    <a href={`/services/${s.slug}/`}>{s.icon} {s.name} →</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Contact card -->
+          <div class="sidebar-contact-card">
+            <h4>Get a Free Quote</h4>
+            <p>Available 24/7 including weekends</p>
+            <a href={contact.phoneLink} class="btn btn-primary track-call" style="width:100%;justify-content:center;margin-bottom:10px;" id="sidebar-call-btn">
+              📞 Call Now
+            </a>
+            <a href={waLink} target="_blank" rel="noopener noreferrer" class="btn btn-wa track-wa" style="width:100%;justify-content:center;" id="sidebar-wa-btn">
+              💬 WhatsApp
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="text-center">
+        <p class="sec-eyebrow">Reviews</p>
+        <h2 class="sec-title">{t('service.reviews')}</h2>
+      </div>
+      <div class="testi-grid">
+        {relevantTestimonials.map(t => (
+          <article class="testi-card" itemscope itemtype="https://schema.org/Review">
+            <div class="testi-stars">{'★'.repeat(t.rating)}</div>
+            <p class="testi-text">"{t.text}"</p>
+            <div class="testi-author">
+              <div class="testi-av">{t.avatar}</div>
+              <div>
+                <div class="testi-name" itemprop="author">{t.name}</div>
+                <div class="testi-role">{t.role} · {t.company}</div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Blogs & Internal Links Grid -->
+  <section class="section">
+    <div class="wrap">
+      <div class="text-center">
+        <p class="sec-eyebrow">Resources Hub</p>
+        <h2 class="sec-title">{t('service.resources')}</h2>
+        <p class="sec-sub">Dive deeper into compliance, e-waste laws, and data destruction guides for Kerala.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:40px">
+        {relevantBlogs.map(b => (
+          <a href={`/blog/${b.slug}/`} style="background:var(--card);padding:24px;border:1px solid var(--border);border-radius:12px;transition:all 0.2s">
+            <h4 style="font-size:1rem;color:var(--white);margin-bottom:10px;line-height:1.4">{b.title}</h4>
+            <p style="font-size:0.85rem;color:var(--muted);line-height:1.6">{b.excerpt.slice(0,80)}...</p>
+          </a>
+        ))}
+      </div>
+
+      <div style="text-align:center;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="/itad-services-kochi/" class="btn btn-outline">Central ITAD Hub</a>
+        <a href="/itad-faq-kochi/" class="btn btn-outline">Compliance FAQs</a>
+        <a href="/blog/" class="btn btn-outline">All Blog Articles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="cta-section">
+        <h2 class="cta-title">Ready for {service.shortName}?</h2>
+        <p class="cta-sub">Free pickup · Certificate guaranteed · KSPCB authorized · 24/7 available</p>
+        <div class="cta-btns">
+          <a href={l("/contact/")} class="btn btn-primary btn-lg" id="bottom-cta-btn">{t('service.quote_btn')}</a>
+          <a href={waLink} target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-lg track-wa" id="bottom-wa-btn">{t('service.wa_now')}</a>
+          <a href={contact.phoneLink} class="btn btn-outline btn-lg track-call" id="bottom-call-btn">{t('service.call_now')} {contact.phoneDisplay}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+  <WhatsAppCTA context="itad" />
+</BaseLayout>
+
+<style>
+  /* Breadcrumb */
+  .breadcrumb-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 0; }
+  .breadcrumb { display: flex; align-items: center; gap: 6px; list-style: none; }
+  .breadcrumb li { display: flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--muted); }
+  .breadcrumb a { color: var(--muted); transition: color .2s; }
+  .breadcrumb a:hover { color: var(--green); }
+  .bc-sep { color: var(--border2); }
+
+  /* Service hero */
+  .svc-hero { padding: 80px 0; position: relative; overflow: hidden; }
+  .svc-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 80% 40%, rgba(0,232,150,.04) 0%, transparent 60%); }
+  .svc-hero-inner { display: grid; grid-template-columns: 1.2fr .8fr; gap: 64px; align-items: start; position: relative; z-index: 1; }
+  .svc-icon-lg { font-size: 3rem; margin-bottom: 16px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--green); background: rgba(0,232,150,.08); border: 1px solid rgba(0,232,150,.18); padding: 7px 16px; border-radius: 24px; margin-bottom: 20px; }
+  .pulse { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .5; transform: scale(1.4); } }
+  .svc-h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.05; margin-bottom: 18px; letter-spacing: -.03em; color: var(--white); }
+  .svc-lead { font-size: 1rem; line-height: 1.75; color: var(--text); margin-bottom: 20px; font-family: var(--serif); max-width: 560px; }
+  .svc-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .svc-price-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; padding: 12px 18px; background: rgba(0,232,150,.06); border: 1px solid rgba(0,232,150,.14); border-radius: 10px; }
+  .price-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .price-value { font-size: 1rem; font-weight: 800; color: var(--green); }
+  .svc-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .svc-info-card { background: var(--card); border: 1px solid rgba(0,232,150,.18); border-radius: var(--radius-lg); padding: 28px; }
+  .svc-info-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 18px; }
+  .quick-facts { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .quick-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: .85rem; color: var(--text); }
+  .qf-icon { color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+  /* Content */
+  .content-grid { display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
+  .content-body { font-size: .93rem; line-height: 1.85; color: var(--text); font-family: var(--serif); }
+  .content-body h2 { font-family: var(--font); font-size: 1.6rem; color: var(--white); margin: 2.2rem 0 .8rem; letter-spacing: -.02em; }
+  .content-body h3 { font-family: var(--font); font-size: 1.2rem; color: var(--white); margin: 1.8rem 0 .6rem; }
+  .content-body p { margin-bottom: 1.2rem; }
+  .content-body strong { color: var(--white); font-weight: 700; }
+  .content-body a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+  .callout { background: rgba(0,232,150,.06); border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 1.5rem 0; }
+  .callout p { margin: 0; font-size: .87rem; color: var(--white); }
+  .sidebar-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 16px; }
+  .sidebar-card h4 { font-size: .8rem; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
+  .sidebar-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .sidebar-links a { font-size: .83rem; color: var(--muted); transition: color .2s; display: block; padding: 4px 0; }
+  .sidebar-links a:hover { color: var(--green); }
+  .sidebar-contact-card { background: linear-gradient(145deg, rgba(0,232,150,.06), rgba(0,232,150,.02)); border: 1px solid rgba(0,232,150,.18); border-radius: 14px; padding: 22px; }
+  .sidebar-contact-card h4 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .sidebar-contact-card p { font-size: .8rem; color: var(--muted); margin-bottom: 16px; }
+
+  /* Process Timeline */
+  .process-timeline { border-left: 2px dashed rgba(0,232,150,.2); margin: 2rem 0 3rem 1.2rem; padding-left: 30px; display: flex; flex-direction: column; gap: 28px; }
+  .step-card { position: relative; background: linear-gradient(90deg, rgba(0,232,150,.03), transparent); border: 1px solid rgba(0,232,150,.08); padding: 22px 28px; border-radius: 12px; }
+  .step-card h4 { font-family: var(--font); color: var(--green); margin-bottom: 10px; font-size: 1.1rem; }
+  .step-card p { margin: 0; font-size: 0.9rem; line-height: 1.6; }
+  .step-num { position: absolute; left: -46px; top: 24px; width: 32px; height: 32px; background: var(--bg); border: 2px solid var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; color: var(--green); }
+  
+  /* Compliance List */
+  .compliance-list { list-style: none; padding: 0; margin: 2rem 0; display: flex; flex-direction: column; gap: 16px; }
+  .compliance-list li { background: var(--card2); padding: 18px 22px; border-radius: 8px; font-size: 0.9rem; line-height: 1.6; border-left: 4px solid var(--green); }
+  .compliance-list strong { color: var(--green); font-family: var(--font); display: block; margin-bottom: 4px; font-size: 0.95rem; }
+
+  /* Testimonials */
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .testi-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; }
+  .testi-stars { color: var(--amber); font-size: .9rem; margin-bottom: 14px; letter-spacing: 2px; }
+  .testi-text { font-family: var(--serif); font-style: italic; font-size: .9rem; color: var(--text); line-height: 1.75; margin-bottom: 20px; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-av { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,232,150,.15); border: 1px solid rgba(0,232,150,.2); display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; color: var(--green); flex-shrink: 0; }
+  .testi-name { font-size: .85rem; font-weight: 700; color: var(--white); }
+  .testi-role { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+  /* CTA */
+  .cta-section { background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0,232,150,.07) 0%, transparent 70%); border: 1px solid rgba(0,232,150,.12); border-radius: 24px; padding: 64px 48px; text-align: center; }
+  .cta-title { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; color: var(--white); margin-bottom: 12px; letter-spacing: -.03em; }
+  .cta-sub { font-size: .9rem; color: var(--text); margin-bottom: 28px; font-family: var(--serif); }
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  @media (max-width: 1024px) {
+    .svc-hero-inner { grid-template-columns: 1fr; }
+    .content-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 768px) {
+    .testi-grid { grid-template-columns: 1fr; }
+    .svc-ctas { flex-direction: column; }
+    .cta-section { padding: 40px 20px; }
+  }
+</style>

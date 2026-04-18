@@ -1,0 +1,98 @@
+---
+/**
+ * ClusterInterlinks.astro
+ * Programmatic internal linking component to build SEO silo depth.
+ */
+import { services } from '../data/services.js';
+
+interface Props {
+  currentCategory: string;
+  currentSlug: string;
+  lang?: string;
+}
+
+const { currentCategory, currentSlug, lang = 'en' } = Astro.props;
+
+const l = (path: string) => lang === 'en' ? path : `/${lang}${path}`;
+
+const siblingServices = services.filter(s => s.category === currentCategory && s.slug !== currentSlug);
+const otherCategories = [...new Set(services.map(s => s.category))].filter(c => c !== currentCategory);
+const crossCategoryServices = services.filter(s => otherCategories.includes(s.category) && s.isPillar).slice(0, 5);
+---
+
+<div class="cluster-links">
+  <div class="cluster-group">
+    <h4>Related {currentCategory.toUpperCase()} Solutions</h4>
+    <div class="link-grid">
+      {siblingServices.map(s => (
+        <a href={l(`/services/${s.slug}/`)} class="cluster-link">
+          <span class="dot"></span> {s.name}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="cluster-group">
+    <h4>Compliance & ITAD Hubs</h4>
+    <div class="link-grid">
+      <a href={l("/itad-services-kochi/")} class="cluster-link active">Central ITAD Hub</a>
+      <a href={l("/recycling/")} class="cluster-link">Recycling Encyclopedia</a>
+      {crossCategoryServices.map(s => (
+        <a href={l(`/services/${s.slug}/`)} class="cluster-link">
+          {s.shortName} Authority
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .cluster-links {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .cluster-group h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 15px;
+  }
+  .link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .cluster-link {
+    font-size: 0.85rem;
+    color: var(--text);
+    text-decoration: none;
+    padding: 10px 15px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cluster-link:hover {
+    border-color: var(--green);
+    color: var(--green);
+    transform: translateX(4px);
+  }
+  .cluster-link.active {
+    border-color: var(--green);
+    background: rgba(0, 232, 150, 0.05);
+  }
+  .dot {
+    width: 4px;
+    height: 4px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+</style>

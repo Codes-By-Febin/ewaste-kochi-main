@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import ClusterInterlinks from "../components/ClusterInterlinks.astro";
+import { contact } from "../data/contact";
+
+const pageTitle = "ITAD Services Kochi | 🏆 Kerala's #1 Certified IT Asset Disposition";
+const pageDesc = "Complete IT Asset Disposition (ITAD) in Kochi. NIST 800-88 data destruction, value recovery, DPDP Act compliance. Enterprise IT equipment lifecycle management.";
+
+const faqs = [
+  { q: "What is ITAD (IT Asset Disposition)?", a: "IT Asset Disposition (ITAD) is the business of safely and responsibly disposing of obsolete or unwanted equipment in a safe and ecologically-responsible manner, strictly conforming to local E-Waste Rules 2022 and Data privacy acts like DPDP 2023." },
+  { q: "Why do Kochi businesses need certified ITAD?", a: "With the DPDP Act 2023 now active, non-compliant data disposal can attract penalties up to ₹250 Crores. Certified ITAD guarantees NIST 800-88 data destruction with an audit-ready chain of custody." },
+  { q: "Do you offer on-site data destruction in Infopark?", a: "Yes, we provide mobile hard drive shredding and on-site degaussing directly at your office premises in Infopark, Smart City, and Kakkanad." },
+  { q: "What happens to the hardware after data is wiped?", a: "Depending on the age and condition, assets are dynamically graded. Functional equipment is remarketed to recover maximum ROI for your organization. Obsolete equipment is broken down and processed at our KSPCB-authorized zero-landfill recycling facility." },
+  { q: "How do you calculate buyback value?", a: "Value is based on processor generation, RAM, storage type, cosmetic condition, battery health, and real-time secondary market demand. Example: A 3-year-old corporate Dell i7 averages ₹12,000–₹18,000 in buyback." },
+  { q: "What documentation do we receive?", a: "You receive a complete Asset Audit Report, Chain of Custody Log, NIST 800-88 Certificate of Data Destruction for every serial number, and a KSPCB Certificate of Recycling (if applicable)." },
+  { q: "Is EWaste Kochi authorized by Kerala State Pollution Control Board?", a: "Yes, EWaste Kochi holds active KSPCB authorization (KL/EW/628) and operates fully under the EPR framework." },
+  { q: "How long does the ITAD process take?", a: "From pickup to complete documentation, average turnaround is 7-10 business days depending on volume. On-site destruction is completed same-day." },
+  { q: "Do you handle enterprise servers and data center decommissioning?", a: "Absolutely. We specialize in complex data center teardowns, handling SANs, NAS arrays, blade servers, and network switches with specialized rack extraction teams." },
+  { q: "What is the minimum volume for corporate pickup?", a: "We offer free corporate pickup across Ernakulam for lots containing 10 or more major devices (laptops, desktops, servers)." }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "IT Asset Disposition (ITAD) Kochi",
+  "provider": { "@id": "https://ewastekochi.com/#organization" },
+  "areaServed": "Kochi, Kerala",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "ITAD Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Secure Data Destruction" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Asset Valuation & Buyback" } }
+    ]
+  }
+};
+---
+
+<BaseLayout 
+  title={pageTitle} 
+  description={pageDesc} 
+  schema={schema}
+  faqs={faqs}
+  breadcrumbs={[
+    { name: 'Home', url: 'https://ewastekochi.com/' },
+    { name: 'ITAD Services', url: 'https://ewastekochi.com/itad-services-kochi/' }
+  ]}
+>
+  <Navbar currentPath="/itad-services-kochi/" />
+  
+  <!-- HERO -->
+  <header class="section p-12 bg-[#050908] border-b border-[#162018] relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(0,232,150,0.06)_0%,transparent_100%)] pointer-events-none"></div>
+    <div class="wrap relative z-10 max-w-5xl mx-auto text-center pt-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(0,232,150,0.2)] bg-[rgba(0,232,150,0.05)] text-green text-sm font-bold tracking-widest uppercase mb-8">
+        <span class="w-2 h-2 rounded-full bg-green animate-pulse"></span>
+        Enterprise-Grade ITAD
+      </div>
+      <h1 class="text-5xl md:text-7xl font-extrabold text-[#ebf5ef] leading-[1.1] mb-8 tracking-tight">
+        Master Your IT Lifecycle with <span class="text-transparent bg-clip-text bg-gradient-to-r from-green to-blue-400">Secure ITAD</span> in Kochi
+      </h1>
+      <p class="text-xl text-[#8ab4a0] max-w-3xl mx-auto leading-relaxed font-serif mb-12">
+        From Infopark startups to multinational banking hubs, EWaste Kochi provides unparalleled IT Asset Disposition. We guarantee absolute data destruction under NIST 800-88, maximize the residual value of your fleet, and assure 100% DPDP Act 2023 compliance.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#quote" class="btn btn-primary btn-lg shadow-[0_0_40px_rgba(0,232,150,0.3)]">Schedule Corporate Audit</a>
+        <a href={contact.whatsappMessage} target="_blank" class="btn btn-wa btn-lg">Chat with an Expert</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap max-w-6xl mx-auto py-20 px-6 prose prose-lg prose-invert text-[#8ab4a0]">
+    
+    <!-- SECTION 1: Introduction -->
+    <section class="mb-24">
+      <h2 class="text-4xl font-bold text-white mb-6">Why Kochi Demands a Higher Standard of ITAD</h2>
+      <p>
+        Kochi is the technological heartbeat of Kerala. With massive corporate engines operating out of Infopark, Smart City, and the bustling commercial hubs of Edapally and Kakkanad, the sheer volume of retiring IT assets—laptops, blade servers, enterprise networking switches, and proprietary storage arrays—is staggering. But discarding electronics isn't like tossing out office furniture. Modern IT assets are brimming with highly sensitive, regulated data and rare earth metals.
+      </p>
+      <p>
+        Improper disposal is no longer just an environmental faux pas; it is a profound legal liability. The <strong>Digital Personal Data Protection (DPDP) Act 2023</strong> has transformed the regulatory landscape in India. A single leaked hard drive from an improperly "formatted" corporate laptop can result in devastating penalties and catastrophic brand damage. 
+      </p>
+      <p>
+        EWaste Kochi's IT Asset Disposition (ITAD) framework is engineered specifically for this high-stakes environment. We don't just "recycle"; we rigorously audit, categorically sanitize, strategically remarket, and securely destroy. When you partner with us, you are deploying a fortified wall between your retiring hardware and compliance risk.
+      </p>
+    </section>
+
+    <!-- SECTION 2: The Process -->
+    <section class="mb-24">
+        <h2 class="text-4xl font-bold text-white mb-6">Our 6-Step Certified ITAD Process</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+            <div class="bg-[#0b1410] border border-[#162018] p-8 rounded-2xl">
+                <div class="text-green text-3xl font-black mb-4">01</div>
+                <h3 class="text-2xl text-white mt-0 mb-3">Secure Logistics & Edge Tagging</h3>
+                <p class="text-[0.95rem] leading-relaxed m-0 text-gray-400">We deploy secure, GPS-tracked vehicles strictly within Kochi bounds. Before anything is loaded, our field technicians apply audit tags and log serial numbers directly into our real-time manifest.</p>
+            </div>
+            <div class="bg-[#0b1410] border border-[#162018] p-8 rounded-2xl">
+                <div class="text-green text-3xl font-black mb-4">02</div>
+                <h3 class="text-2xl text-white mt-0 mb-3">Facility Auditing</h3>
+                <p class="text-[0.95rem] leading-relaxed m-0 text-gray-400">Upon reaching our KSPCB-authorized Thrippunithura facility, assets enter a secure cage. Every barcode is scanned against the pickup manifest to ensure 100% chain-of-custody integrity.</p>
+            </div>
+            <div class="bg-[#0b1410] border border-[#162018] p-8 rounded-2xl">
+                <div class="text-green text-3xl font-black mb-4">03</div>
+                <h3 class="text-2xl text-white mt-0 mb-3">NIST 800-88 Data Sanitization</h3>
+                <p class="text-[0.95rem] leading-relaxed m-0 text-gray-400">All storage media undergo military-grade erasure protocols. For highly classified data, we deploy our industrial shredding unit, reducing drives to 5mm catastrophic fractions.</p>
+            </div>
+            <div class="bg-[#0b1410] border border-[#162018] p-8 rounded-2xl">
+                <div class="text-green text-3xl font-black mb-4">04</div>
+                <h3 class="text-2xl text-white mt-0 mb-3">Asset Triage & Grading</h3>
+                <p class="text-[0.95rem] leading-relaxed m-0 text-gray-400">Wiped hardware is diagnostically tested and categorized. A+ devices are prepped for enterprise remarketing. D-grade logic boards are sent directly to the materials recovery pipeline.</p>
+            </div>
+            <div class="bg-[#0b1410] border border-[#162018] p-8 rounded-2xl">
+                <div class="text-green text-3xl font-black mb-4">05</div>
+                <h3 class="text-2xl text-white mt-0 mb-3">Value Recovery (Buyback)</h3>
+                <p class="text-[0.95rem] leading-relaxed m-0 text-gray-400">By leveraging global B2B secondary markets, we extract the absolute maximum residual value from your aging fleet, offsetting your IT refresh costs natively.</p>
+            </div>
+            <div class="bg-[#0b1410] border border-[#162018] p-8 rounded-2xl">
+                <div class="text-green text-3xl font-black mb-4">06</div>
+                <h3 class="text-2xl text-white mt-0 mb-3">Compliance Deliverables</h3>
+                <p class="text-[0.95rem] leading-relaxed m-0 text-gray-400">You are equipped with a pristine Audit Portal containing your formal Certificate of Destruction (CoD), Environmental Impact Report, and KSPCB processing records.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Deep Compliance -->
+    <section class="mb-24 p-10 bg-gradient-to-br from-[#0b1410] to-[#050908] border border-[#162018] rounded-3xl">
+      <h2 class="text-3xl font-bold text-white mb-6">India's Strictest Compliance Frameworks, Conquered</h2>
+      <p>Dealing with legal frameworks requires absolute precision. We don't guess at compliance; we engineer it directly into our pipeline.</p>
+      <ul class="space-y-4 marker:text-green">
+        <li><strong>DPDP Act 2023:</strong> By issuing serialized, verifiable Certificates of Destruction, we protect you from the crippling financial penalties tied to improper Personal Identifiable Information (PII) disposal.</li>
+        <li><strong>E-Waste (Management) Rules, 2022:</strong> We are formally recognized by the Kerala State Pollution Control Board. We file EPR returns and maintain your Extended Producer Responsibility manifest.</li>
+        <li><strong>RBI & SEBI Mandates:</strong> For financial institutions in Kochi, our data erasure processes meet the rigid infosec mandates put forth by federal banking agencies.</li>
+        <li><strong>ISO 27001 ISMS:</strong> Our workflow guarantees that your retiring assets do not breach your Information Security Management Systems scopes.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 4: Industry Use Cases -->
+    <section class="mb-24">
+      <h2 class="text-4xl font-bold text-white mb-8">Specialized for Kerala's Key Industries</h2>
+      
+      <div class="mb-8">
+        <h3 class="text-2xl text-green font-bold">1. Corporate IT & Software (Infopark/Smart City)</h3>
+        <p>Software development agencies cycle through high-end laptops every 3 years. We handle bulk enterprise laptop buybacks, ensuring proprietary source code and client AWS keys are irrevocably wiped under DoD 5220.22-M standards before the hardware hits the secondary market.</p>
+      </div>
+      
+      <div class="mb-8">
+        <h3 class="text-2xl text-amber font-bold">2. Healthcare & Hospitals</h3>
+        <p>Patient health records (PHR) are highly coveted. Attempting to dispose of aging hospital servers, diagnostic computing stations, or administrative laptops without certified destruction is negligent. We execute on-site physical drive shredding for Kochi's largest medical networks.</p>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="text-2xl text-blue font-bold">3. Financial Institutions</h3>
+        <p>Retail banks and NBFCs store critical KYC data and biometric hashes. We provide secure, armored-tier logistics and witnessed destruction, ensuring RBI infosec compliance is actively maintained.</p>
+      </div>
+    </section>
+
+    <!-- INTERNAL LINKING CLUSTER GENERATOR -->
+    <section class="my-32 py-16 border-y border-[#162018]">
+      <h2 class="text-3xl font-bold text-center text-white mb-12">Explore the ITAD Knowledge Base</h2>
+      <ClusterInterlinks clusterTheme="itad" />
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="mb-24" id="faqs">
+      <h2 class="text-4xl font-bold text-white mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        {faqs.map((f, index) => (
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-qt text-left">{f.q}</span>
+              <span class="faq-ic">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-at">{f.a}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>

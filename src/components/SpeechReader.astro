@@ -1,0 +1,246 @@
+---
+// SpeechReader.astro - Phase B UX Component
+interface Props {
+  targetSelector?: string;
+}
+
+const { targetSelector = ".readable-content" } = Astro.props;
+---
+
+<div id="speech-reader-widget" class="speech-reader" data-target={targetSelector} aria-label="Text to speech controls">
+  <div class="speech-header">
+    <span class="speech-title">🔊 Listen to this page</span>
+  </div>
+  <div class="speech-controls">
+    <button id="sr-play" aria-label="Play article" title="Read Aloud">▶️ Play</button>
+    <button id="sr-pause" aria-label="Pause" title="Pause" style="display:none;">⏸️ Pause</button>
+    <button id="sr-stop" aria-label="Stop" title="Stop" style="display:none;">⏹️ Stop</button>
+    
+    <div class="speech-options">
+      <select id="sr-speed" aria-label="Speech Speed" title="Speech Speed">
+        <option value="0.8">0.8x</option>
+        <option value="1" selected>1.0x</option>
+        <option value="1.2">1.2x</option>
+        <option value="1.5">1.5x</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<style>
+  .speech-reader {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .speech-header {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .speech-controls { 
+    display: flex; 
+    gap: 8px; 
+    align-items: center; 
+    flex-wrap: wrap;
+  }
+  .speech-controls button, .speech-controls select {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .speech-controls button:hover, .speech-controls select:hover { 
+    border-color: var(--green); 
+    color: var(--green); 
+  }
+  
+  :global(.speech-highlight) {
+    background-color: rgba(0, 232, 150, 0.2) !important;
+    color: var(--white) !important;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    box-shadow: 0 0 0 2px rgba(0, 232, 150, 0.4);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!('speechSynthesis' in window)) {
+      const widget = document.getElementById('speech-reader-widget');
+      if(widget) widget.style.display = 'none';
+      return;
+    }
+
+    const widget = document.getElementById('speech-reader-widget');
+    if(!widget) return;
+    
+    const targetSelector = widget.getAttribute('data-target');
+    const playBtn = document.getElementById('sr-play');
+    const pauseBtn = document.getElementById('sr-pause');
+    const stopBtn = document.getElementById('sr-stop');
+    const speedSelect = document.getElementById('sr-speed');
+    
+    let isPlaying = false;
+    let isPaused = false;
+    let nodes = [];
+    let currentIndex = 0;
+    let utterance = null;
+
+    // Build the collection of readable text nodes
+    function initNodes() {
+      const parent = document.querySelector(targetSelector);
+      if(!parent) return false;
+      // We target paragraphs and headings for an article flow
+      nodes = Array.from(parent.querySelectorAll('p, h1, h2, h3, li'));
+      return nodes.length > 0;
+    }
+
+    function clearHighlight() {
+      nodes.forEach(n => n.classList.remove('speech-highlight'));
+    }
+
+    function highlightNode(index) {
+      clearHighlight();
+      if(nodes[index]) {
+        nodes[index].classList.add('speech-highlight');
+        // Smart scroll to the active paragraph
+        nodes[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function speakNext() {
+      if(currentIndex >= nodes.length) {
+        stopSpeech();
+        return;
+      }
+      
+      const node = nodes[currentIndex];
+      const text = node.innerText || node.textContent;
+      if(!text.trim()) {
+        currentIndex++;
+        speakNext();
+        return;
+      }
+
+      highlightNode(currentIndex);
+      
+      utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = parseFloat(speedSelect.value);
+      
+      // Attempt to pick a premium local voice to prevent robotic tones
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.lang.includes('IN') || v.lang.includes('GB')) || voices[0];
+      if(preferred) utterance.voice = preferred;
+
+      utterance.onend = () => {
+        currentIndex++;
+        if(isPlaying && !isPaused) speakNext();
+      };
+      
+      utterance.onerror = (e) => {
+        console.error("Speech Synthesis Error:", e);
+        stopSpeech();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function updateUiPlay() {
+      playBtn.style.display = 'none';
+      pauseBtn.style.display = 'inline-block';
+      stopBtn.style.display = 'inline-block';
+    }
+
+    function updateUiPause() {
+      playBtn.style.display = 'inline-block';
+      playBtn.innerText = '▶️ Resume';
+      pauseBtn.style.display = 'none';
+    }
+
+    function updateUiStop() {
+      playBtn.style.display = 'inline-block';
+      playBtn.innerText = '▶️ Play';
+      pauseBtn.style.display = 'none';
+      stopBtn.style.display = 'none';
+    }
+
+    function startSpeech() {
+      if(nodes.length === 0) {
+        if(!initNodes()) return; // Nothing to read
+      }
+      
+      isPlaying = true;
+      isPaused = false;
+      updateUiPlay();
+
+      window.speechSynthesis.cancel(); // Clear queue
+      speakNext();
+    }
+
+    function pauseSpeech() {
+      if(window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        isPaused = true;
+        updateUiPause();
+      }
+    }
+
+    function resumeSpeech() {
+      if(isPaused) {
+        window.speechSynthesis.resume();
+        isPaused = false;
+        updateUiPlay();
+      } else {
+        startSpeech();
+      }
+    }
+
+    function stopSpeech() {
+      window.speechSynthesis.cancel();
+      isPlaying = false;
+      isPaused = false;
+      currentIndex = 0;
+      clearHighlight();
+      updateUiStop();
+    }
+
+    // Bind events
+    playBtn.addEventListener('click', () => {
+      if(isPaused) resumeSpeech();
+      else startSpeech();
+    });
+
+    pauseBtn.addEventListener('click', pauseSpeech);
+    stopBtn.addEventListener('click', stopSpeech);
+    
+    speedSelect.addEventListener('change', () => {
+      if(isPlaying) {
+        // Must restart current node if speed changes
+        window.speechSynthesis.cancel();
+        speakNext();
+      }
+    });
+
+    // Handle voice load latency in some browsers
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+
+    // Clean up if user leaves page
+    window.addEventListener('beforeunload', stopSpeech);
+  });
+</script>

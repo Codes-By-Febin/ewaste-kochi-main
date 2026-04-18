@@ -1,0 +1,17 @@
+---
+// src/pages/hi/services/[service].astro — Hindi Dynamic service pages
+import { services } from '../../../data/services.js';
+import ServicePageTemplate from '../../../components/ServicePageTemplate.astro';
+
+export const prerender = true;
+export async function getStaticPaths() {
+  return services.map(service => ({
+    params: { service: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<ServicePageTemplate service={service} lang="hi" />

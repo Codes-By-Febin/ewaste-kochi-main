@@ -1,0 +1,237 @@
+---
+// src/pages/itad-faq-kochi.astro — ITAD FAQ Hub (Centralized Schema-Rich FAQ Page)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact.js';
+
+const title = 'ITAD FAQ Kochi 2026 | IT Asset Disposal Questions Answered';
+const description = 'Comprehensive ITAD FAQ for Kerala businesses. Data destruction standards, NIST vs DoD differences, EPR compliance, pickup costs, and DPDP Act requirements — answered by certified specialists.';
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://ewastekochi.com/' },
+  { name: 'ITAD Services Kochi', url: 'https://ewastekochi.com/itad-services-kochi/' },
+  { name: 'ITAD FAQ', url: 'https://ewastekochi.com/itad-faq-kochi/' },
+];
+
+const faqs = [
+  {
+    q: 'What is ITAD and why does my Kochi business need it?',
+    a: 'ITAD (IT Asset Disposition) is the certified, documented process of retiring IT equipment — laptops, servers, hard drives, phones — in a way that destroys any stored data and recycles the hardware responsibly. Kerala businesses need it because India\'s E-Waste Management Rules 2016 and the DPDP Act 2023 mandate secure disposal of electronics containing personal or financial data. Improper disposal can result in regulatory fines and data breach liability.'
+  },
+  {
+    q: 'What is the difference between NIST 800-88 and DoD 5220.22-M data wiping?',
+    a: 'NIST 800-88 (current standard) categorizes media by type and uses targeted single-pass overwrite or cryptographic erase. DoD 5220.22-M uses 7 overwrite passes. NIST is the modern, faster standard recommended for SSDs and flash storage. DoD 5220.22-M is older but remains respected for HDDs where physical destruction isn\'t possible. EWaste Kochi offers both, with physical shredding for maximum assurance.'
+  },
+  {
+    q: 'Is it safe to just format a hard drive before recycling?',
+    a: 'No. Standard formatting only removes the file system index — it does not overwrite data. Free data recovery tools can retrieve files from a formatted drive within minutes. For legally compliant disposal, you need either certified software wiping (NIST 800-88 / DoD) with a verified certificate, or physical destruction (shredding or degaussing). Never format and recycle for sensitive business data.'
+  },
+  {
+    q: 'Does EWaste Kochi provide a Certificate of Destruction?',
+    a: 'Yes. Every single job — regardless of size — receives a legally recognized Certificate of Destruction (CoD). The certificate lists each device by serial number, asset tag, the destruction method applied, date, and our KSPCB Authorization number. This document is accepted by RBI auditors, IT security auditors, and for DPDP Act compliance filing.'
+  },
+  {
+    q: 'How much does ITAD cost in Kochi?',
+    a: 'Pickup and collection is free for 10 or more devices anywhere in Ernakulam district. Data destruction is included in our ITAD service — no hidden per-drive charges. If your devices have resale value (working laptops, servers), you may receive a buyback payment that offsets or eliminates the cost entirely. Contact us for a firm quote based on your specific asset list.'
+  },
+  {
+    q: 'Can you do on-site data destruction at our Infopark / Smart City office?',
+    a: 'Yes. Our mobile ITAD unit can deploy to any location in Ernakulam district. We bring portable degaussers and mobile shredders to your premises. You can watch the destruction happen if your security policy requires it. We operate in Infopark Phase 1 and Phase 2, Smart City Kochi, Cochin Special Economic Zone, and all commercial areas in Ernakulam district.'
+  },
+  {
+    q: 'What happens to the hardware after data destruction?',
+    a: 'Post-destruction, all hardware is categorized: (1) Working units — cleaned, tested, and sent to refurbishers or donated to schools with proper documentation. (2) Non-working salvageable components — dismantled for component recovery by authorized processors. (3) Hazardous materials (batteries, CRT, capacitors) — segregated and sent to KSPCB-authorized hazardous waste handlers. Zero material goes to landfill from our facility.'
+  },
+  {
+    q: 'Does ITAD cover mobile phones and tablets?',
+    a: 'Yes. Mobile devices require factory reset plus secure wipe — factory reset alone is insufficient as data can often be recovered. We apply a NIST-compliant software wipe to all Android devices and verify using data recovery tools. For iPhones with hardware-level encryption, we verify cryptographic erase completion. All mobile devices receive their own line item on the Certificate of Destruction.'
+  },
+  {
+    q: 'What is the DPDP Act 2023 and how does it affect e-waste disposal in Kerala?',
+    a: 'The Digital Personal Data Protection Act 2023 classifies any digital storage containing Indian citizens\' personal data as requiring verifiable destruction when retired. For businesses in Kerala, this means laptops, servers, phones, and point-of-sale systems used in customer interactions must be formally destroyed with documentation before recycling. Failure to comply can result in penalties of up to ₹250 crore under the Act.'
+  },
+  {
+    q: 'What is EPR (Extended Producer Responsibility) and does it apply to us?',
+    a: 'EPR is the policy under India\'s E-Waste Management Rules that requires electronics producers, importers, and bulk consumers to ensure their discarded products reach authorized recyclers. As a bulk consumer (if your organization disposes of more than 1 metric tonne of e-waste per year), you must channel e-waste only to KSPCB-authorized facilities. EWaste Kochi is KSPCB-authorized — we provide KSPCB manifests that serve as evidence of compliant disposal for your EPR reporting.'
+  },
+  {
+    q: 'Can you handle server decommissioning for our data centre?',
+    a: 'Yes. Server decommissioning is one of our core specializations. We handle rack-mount servers (1U–8U), blade chassis, NAS arrays, SAN components, and network equipment. Every device receives: (1) asset capture with serial numbers, (2) hard drive extraction and cataloguing, (3) certified drive destruction, (4) server chassis categorization for refurbishment or recycling. We can issue a separate destruction manifest per server rack if required.'
+  },
+  {
+    q: 'What if some of my old equipment has resale value — can I sell it to you?',
+    a: 'Yes. We operate a buyback program for working electronics. Laptops 2019+, MacBooks 2018+, phones under 3 years old, and working servers all typically qualify. We\'ll assess the batch and provide a written buyback offer. The value is either paid directly or offset against ITAD service costs. We pay by cash, UPI, or bank transfer within 24 hours of collection for working devices.'
+  },
+  {
+    q: 'How long does an ITAD project take from request to certificate delivery?',
+    a: 'Typical timeline: Quote within 4 hours of inquiry → Pickup scheduled within 48 hours → Certificate of Destruction delivered within 24 hours of destruction completion. For large projects (100+ devices), we coordinate a dedicated schedule. Same-day partial certificates can be issued if your compliance obligations are time-sensitive — contact us to discuss.'
+  },
+  {
+    q: 'What brands and types of equipment do you accept?',
+    a: 'We accept all major brands: Dell, HP, Lenovo, Apple, Acer, Asus, Toshiba, Samsung, Cisco, IBM. Equipment types include: desktop computers, laptops, MacBooks, servers, NAS/SAN, network switches, routers, UPS systems, monitors, printers, copiers, scanners, phones (all types), tablets, ATM components, medical electronics (non-radioactive), CCTV systems, and most other business electronics.'
+  },
+  {
+    q: 'Is EWaste Kochi authorized to handle e-waste in Kerala?',
+    a: 'Yes. EWaste Kochi holds KSPCB (Kerala State Pollution Control Board) Authorization No. KL/EW/628 for collection, storage, and channelization of e-waste under India\'s E-Waste Management Rules 2016. We are also registered under the Kerala Pollution Control Board\'s list of authorized recyclers. Every job we perform generates a KSPCB Form 3 manifest, which serves as your legal evidence of compliant disposal.'
+  },
+  {
+    q: 'Can hospitals and healthcare providers use your ITAD service for patient data compliance?',
+    a: 'Yes, and this is one of our fastest-growing service areas. Patient records stored on workstations, hospital management system servers, radiology equipment computers, and pharmacy computers all contain sensitive personal health data covered under DPDP Act 2023. We apply enhanced destruction protocols for healthcare clients and provide destruction certificates formatted to satisfy healthcare compliance auditors. We\'ve served multiple hospitals in Ernakulam district.'
+  },
+  {
+    q: 'Do you serve areas outside Kochi / Ernakulam?',
+    a: 'Our primary service area is Ernakulam district (Kochi, Kakkanad, Infopark, Smart City, Thrissur Road, Aluva). For large projects (50+ devices), we offer scheduled pickups across all of Kerala including Thrissur, Calicut (Kozhikode), Trivandrum, and Palakkad. Call us to discuss logistics and distance-based fees for out-of-district projects.'
+  },
+  {
+    q: 'What documentation do I receive at the end of my ITAD project?',
+    a: 'Standard documentation set: (1) Device inventory report with serial numbers and asset tags, (2) Certificate of Data Destruction per storage device, (3) KSPCB Form 3 manifest (legally required), (4) Weight certificate showing tonnage recycled per material category, (5) Environmental impact certificate showing CO₂ avoided and landfill diverted. Optional: chain-of-custody log, video attestation of destruction, ISO audit-ready format.'
+  },
+  {
+    q: 'Can you collect e-waste from schools and educational institutions?',
+    a: 'Yes. Schools, colleges, and universities are one of the largest sources of end-of-life IT in Kerala. We work with educational institutions to schedule term-break pickups to minimize disruption. For schools specifically, we offer subsidized or zero-cost pickup for smaller quantities because working student laptops and equipment have high reuse value. We also provide an environmental impact report that schools can use for CSR reporting.'
+  },
+  {
+    q: 'How do I get a quote for ITAD services?',
+    a: 'The fastest way is WhatsApp — send us a message with a rough count of devices and your location, and we\'ll respond with a quote within 2–4 hours during business hours. Alternatively, use our contact form. For large or time-sensitive projects, call us directly. We do not charge for quotes or site surveys.'
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  faqs={faqs}
+  pageType="website"
+>
+  <Navbar currentPath="/itad-faq-kochi/" />
+
+  <!-- Breadcrumb -->
+  <nav style="background:var(--surface);padding:12px 0;border-bottom:1px solid var(--border)">
+    <div class="wrap">
+      <ol style="display:flex;gap:8px;list-style:none;font-size:0.8rem;color:var(--muted)">
+        {breadcrumbs.map((crumb, i) => (
+          <li>
+            <a href={crumb.url} style="color:var(--muted)">{crumb.name}</a>
+            {i < breadcrumbs.length - 1 && <span style="margin-left:8px;opacity:.3">›</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="section" style="padding-top:80px;padding-bottom:50px">
+    <div class="wrap">
+      <div style="max-width:800px;margin:0 auto;text-align:center">
+        <p class="sec-eyebrow">Kochi's ITAD Knowledge Base</p>
+        <h1 class="sec-title">ITAD FAQ: <em>20 Questions</em> Answered by Certified Specialists</h1>
+        <p class="sec-sub">
+          Everything Kerala businesses need to know about IT asset disposal, data destruction standards,
+          DPDP Act compliance, EPR requirements, and best practises for certified e-waste recycling in 2026.
+        </p>
+        <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:40px">
+          <a href="/itad-services-kochi/" class="btn btn-outline">← ITAD Hub</a>
+          <a href={`${contact.whatsappBase}?text=Hi%2C+I+have+an+ITAD+question.`} class="btn btn-wa" target="_blank" rel="noopener">💬 Ask Us Directly</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="faq-container">
+        {faqs.map((faq, i) => (
+          <details class="faq-details" id={`faq-${i + 1}`}>
+            <summary class="faq-summary">
+              <span class="faq-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="faq-q">{faq.q}</span>
+              <span class="faq-chevron" aria-hidden="true">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>{faq.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <!-- Internal link cluster -->
+      <div class="link-cluster">
+        <h3>Related Resources</h3>
+        <div class="cluster-grid">
+          {[
+            { url: '/itad-services-kochi/', label: 'ITAD Services Hub' },
+            { url: '/itad/nist-800-88-vs-dod-5220-22m/', label: 'NIST vs DoD — Full Comparison' },
+            { url: '/itad/server-decommissioning-checklist/', label: 'Server Decommissioning Checklist' },
+            { url: '/ewaste/dpdp-act-2023-compliance-checklist/', label: 'DPDP Act 2023 Compliance' },
+            { url: '/ewaste/epr-registration-kerala/', label: 'EPR Registration Kerala' },
+            { url: '/services/data-destruction-kochi/', label: 'Data Destruction Service' },
+            { url: '/contact/', label: 'Get a Free Quote' },
+            { url: '/blog/', label: 'ITAD & E-Waste Blog' },
+          ].map(link => (
+            <a href={link.url} class="cluster-link">
+              {link.label} →
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="section" style="text-align:center">
+    <div class="wrap" style="max-width:700px;margin:0 auto">
+      <h2 class="sec-title">Still Have Questions?</h2>
+      <p class="sec-sub" style="margin-bottom:40px">
+        Our ITAD specialists respond within 4 hours. WhatsApp is fastest.
+      </p>
+      <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap">
+        <a href="/contact/" class="btn btn-primary btn-lg">Contact ITAD Team →</a>
+        <a href={contact.phoneLink} class="btn btn-outline btn-lg">📞 {contact.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .faq-container { display: flex; flex-direction: column; gap: 12px; max-width: 900px; margin: 0 auto; }
+
+  .faq-details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-details[open] { border-color: var(--green); }
+
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 24px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary:hover { background: rgba(0, 232, 150, 0.04); }
+
+  .faq-num { font-size: 0.7rem; color: var(--green); font-weight: 800; letter-spacing: 0.1em; flex-shrink: 0; }
+  .faq-q { flex: 1; font-size: 0.97rem; color: var(--white); line-height: 1.4; font-weight: 600; }
+  .faq-chevron { font-size: 1.4rem; color: var(--green); font-weight: 300; flex-shrink: 0; transition: transform 0.2s; }
+  .faq-details[open] .faq-chevron { transform: rotate(45deg); }
+
+  .faq-answer { padding: 0 24px 24px 56px; }
+  .faq-answer p { color: var(--text); line-height: 1.75; font-size: 0.95rem; }
+
+  .link-cluster { margin-top: 60px; padding: 35px; background: var(--card); border: 1px solid var(--border2); border-radius: 20px; }
+  .link-cluster h3 { margin-bottom: 20px; color: var(--white); font-size: 1rem; }
+  .cluster-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .cluster-link { padding: 12px 18px; border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 0.85rem; transition: border-color 0.2s, color 0.2s; display: block; }
+  .cluster-link:hover { border-color: var(--green); color: var(--green); }
+</style>

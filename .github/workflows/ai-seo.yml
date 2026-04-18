@@ -1,0 +1,38 @@
+name: AI SEO Autopilot
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Weekly on Sunday
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  seo-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib requests
+
+      - name: Run Autopilot
+        env:
+          GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python automation/seo_autopilot.py
+
+      - name: Create Pull Request with Audit
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "🤖 AI SEO Autopilot: New Opportunities Detected"
+          title: "🤖 Weekly SEO Growth Analysis"
+          body: "Auto-generated report from AI SEO Autopilot. Review the markdown inside `backups/` for proposed changes."
+          branch: "ai-seo-updates"
+          delete-branch: true
