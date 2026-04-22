@@ -1,7 +1,44 @@
+# robots.txt - EWaste Kochi
+# https://www.ewastekochi.com/robots.txt
+# Updated: 2026-04-21
+
 User-agent: *
 Allow: /
+
+# Block legacy/dead URL structures (prevent re-crawling of 404 patterns)
+Disallow: /ml/
+Disallow: /buyback/laptops/
+Disallow: /buyback/phones/
+Disallow: /locations/ewaste-
+Disallow: /locations/v2/
+Disallow: /comparisons/
+Disallow: /industries/
+Disallow: /security/
+
+# Block internal/utility paths
 Disallow: /api/
-Disallow: /*?text=
-Disallow: /*?utm_*
-Sitemap: https://ewastekochi.com/sitemap-index.xml
-Host: ewastekochi.com
+Disallow: /_astro/
+Disallow: /cdn-cgi/
+
+# Allow all crawlers for AI / LLM indexing (llms.txt)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemaps
+Sitemap: https://www.ewastekochi.com/sitemap-index.xml
+Sitemap: https://www.ewastekochi.com/sitemap-0.xml

@@ -162,7 +162,71 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		
+		"blog": Record<string, {
+  id: string;
+  render(): Render[".md"];
+  slug: string;
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"buyback": Record<string, {
+  id: string;
+  render(): Render[".md"];
+  slug: string;
+  body: string;
+  collection: "buyback";
+  data: InferEntrySchema<"buyback">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"caseStudies": Record<string, {
+  id: string;
+  body?: string;
+  collection: "caseStudies";
+  data: any;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"faq": Record<string, {
+  id: string;
+  body?: string;
+  collection: "faq";
+  data: any;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"locations": Record<string, {
+  id: string;
+  render(): Render[".md"];
+  slug: string;
+  body: string;
+  collection: "locations";
+  data: InferEntrySchema<"locations">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"services": Record<string, {
+  id: string;
+  render(): Render[".md"];
+  slug: string;
+  body: string;
+  collection: "services";
+  data: InferEntrySchema<"services">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"testimonials": Record<string, {
+  id: string;
+  body?: string;
+  collection: "testimonials";
+  data: any;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
@@ -194,6 +258,6 @@ declare module 'astro:content' {
 		LiveContentConfig['collections'][C]['loader']
 	>;
 
-	export type ContentConfig = typeof import("../src/content.config.mjs");
+	export type ContentConfig = typeof import("../src/content/config.js");
 	export type LiveContentConfig = never;
 }

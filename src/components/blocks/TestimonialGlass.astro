@@ -1,0 +1,261 @@
+---
+// TestimonialGlass.astro - Glassmorphism testimonials section
+interface Props {
+  testimonials?: Array<{
+    name: string;
+    company?: string;
+    content: string;
+    rating?: number;
+    avatar?: string;
+  }>;
+  title?: string;
+  subtitle?: string;
+  autoRotate?: boolean;
+}
+
+const defaultTestimonials = [
+  {
+    name: "Rajesh Kumar",
+    company: "Infopark IT Solutions",
+    content: "Excellent service! They handled our server disposal with complete data security and provided all necessary documentation. Highly professional team.",
+    rating: 5,
+    avatar: "👨‍💼"
+  },
+  {
+    name: "Priya Nair",
+    company: "Kochi Tech Park",
+    content: "We've been using their services for 3 years now. Prompt pickup, certified recycling, and great customer support. The best in Kerala!",
+    rating: 5,
+    avatar: "👩‍💼"
+  },
+  {
+    name: "Mohammed Ali",
+    company: "Digital Kerala",
+    content: "Very impressed with their data destruction process. They provided detailed certificates and handled everything professionally.",
+    rating: 5,
+    avatar: "👨‍💻"
+  }
+];
+
+const {
+  testimonials = defaultTestimonials,
+  title = "What Our Clients Say",
+  subtitle = "Trusted by leading businesses across Kerala",
+  autoRotate = true
+} = Astro.props;
+---
+
+<section class="testimonials-section">
+  <div class="wrap">
+    <div class="section-header text-center">
+      <div class="sec-eyebrow">Testimonials</div>
+      <h2 class="sec-title">{title}</h2>
+      <p class="sec-sub">{subtitle}</p>
+    </div>
+    
+    <div class="testimonials-container" id="testimonialsContainer">
+      {testimonials.map((testimonial, index) => (
+        <div class="testimonial-card glass-card" key={index}>
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">{testimonial.avatar}</div>
+            <div class="testimonial-info">
+              <h4 class="testimonial-name">{testimonial.name}</h4>
+              {testimonial.company && (
+                <p class="testimonial-company">{testimonial.company}</p>
+              )}
+            </div>
+            <div class="testimonial-rating">
+              {Array.from({ length: 5 }, (_, i) => (
+                <span key={i} class={`star ${i < (testimonial.rating || 5) ? 'star-filled' : 'star-empty'}`}>
+                  ★
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          <blockquote class="testimonial-content">
+            "{testimonial.content}"
+          </blockquote>
+          
+          <div class="testimonial-footer">
+            <span class="badge-g">Verified Client</span>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="testimonials-nav">
+      {testimonials.map((_, index) => (
+        <button 
+          class="nav-dot" 
+          data-index={index}
+          onclick={`showTestimonial(${index})`}
+        ></button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    padding: 100px 0;
+  }
+  
+  .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .testimonials-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .testimonial-card {
+    padding: 32px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: 0 12px 40px rgba(0, 208, 132, 0.15);
+  }
+  
+  .testimonial-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .testimonial-avatar {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+  
+  .testimonial-info {
+    flex: 1;
+  }
+  
+  .testimonial-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  
+  .testimonial-company {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  
+  .testimonial-rating {
+    display: flex;
+    gap: 2px;
+  }
+  
+  .star {
+    font-size: 1rem;
+    color: var(--border);
+    transition: color 0.2s;
+  }
+  
+  .star-filled {
+    color: #ffa500;
+  }
+  
+  .star-empty {
+    color: var(--border);
+  }
+  
+  .testimonial-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 24px;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+  
+  .testimonial-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .testimonials-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .nav-dot:hover,
+  .nav-dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
+  }
+  
+  @media (max-width: 768px) {
+    .testimonials-container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    
+    .testimonial-card {
+      padding: 24px;
+    }
+    
+    .testimonial-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 12px;
+    }
+    
+    .testimonial-rating {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  let currentTestimonial = 0;
+  const testimonials = document.querySelectorAll('.testimonial-card');
+  const dots = document.querySelectorAll('.nav-dot');
+  
+  function showTestimonial(index) {
+    testimonials.forEach((card, i) => {
+      card.style.display = i === index ? 'block' : 'none';
+    });
+    
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    
+    currentTestimonial = index;
+  }
+  
+  // Auto-rotate testimonials
+  if (Astro.props.autoRotate && testimonials.length > 1) {
+    setInterval(() => {
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      showTestimonial(currentTestimonial);
+    }, 5000);
+  }
+  
+  // Initialize first testimonial
+  showTestimonial(0);
+</script>

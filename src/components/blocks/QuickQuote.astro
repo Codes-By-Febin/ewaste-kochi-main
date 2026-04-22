@@ -1,0 +1,575 @@
+---
+// QuickQuote.astro - Quick quote widget with form
+interface Props {
+  title?: string;
+  subtitle?: string;
+  position?: 'floating' | 'inline';
+  showOnScroll?: boolean;
+  services?: Array<{ name: string; value: string }>;
+}
+
+const defaultServices = [
+  { name: "Laptop Recycling", value: "laptop-recycling" },
+  { name: "Computer Recycling", value: "computer-recycling" },
+  { name: "Server Disposal", value: "server-disposal" },
+  { name: "Mobile Phone Recycling", value: "mobile-recycling" },
+  { name: "Printer Recycling", value: "printer-recycling" },
+  { name: "Battery Recycling", value: "battery-recycling" },
+  { name: "IT Asset Management", value: "it-asset-management" },
+  { name: "Other E-Waste", value: "other" }
+];
+
+const {
+  title = "Get Instant Quote",
+  subtitle = "Free pickup and certified recycling services",
+  position = 'floating',
+  showOnScroll = true,
+  services = defaultServices
+} = Astro.props;
+---
+
+{position === 'floating' ? (
+  <div class={`quick-quote-widget floating ${showOnScroll ? 'hidden' : ''}`} id="quickQuoteWidget">
+    <div class="quick-quote-container glass-card">
+      <button class="quote-close" onclick="closeQuickQuote()">✕</button>
+      
+      <div class="quote-header">
+        <h3>{title}</h3>
+        <p>{subtitle}</p>
+      </div>
+      
+      <form class="quote-form" onsubmit="submitQuote(event)">
+        <div class="form-group">
+          <label for="quote-name">Full Name *</label>
+          <input 
+            type="text" 
+            id="quote-name" 
+            name="name" 
+            required 
+            placeholder="Enter your full name"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="quote-phone">Phone Number *</label>
+          <input 
+            type="tel" 
+            id="quote-phone" 
+            name="phone" 
+            required 
+            placeholder="+91 98765 43210"
+            pattern="[+]?[0-9\s]{10,15}"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="quote-email">Email Address</label>
+          <input 
+            type="email" 
+            id="quote-email" 
+            name="email" 
+            placeholder="your@email.com"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="quote-service">Service Type *</label>
+          <select id="quote-service" name="service" required>
+            <option value="">Select a service</option>
+            {services.map((service, index) => (
+              <option value={service.value} key={index}>{service.name}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="quote-quantity">Approximate Quantity</label>
+          <select id="quote-quantity" name="quantity">
+            <option value="1-5">1-5 items</option>
+            <option value="6-20">6-20 items</option>
+            <option value="21-50">21-50 items</option>
+            <option value="51-100">51-100 items</option>
+            <option value="100+">100+ items</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="quote-location">Location *</label>
+          <input 
+            type="text" 
+            id="quote-location" 
+            name="location" 
+            required 
+            placeholder="Your area/city in Kerala"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="quote-message">Additional Details</label>
+          <textarea 
+            id="quote-message" 
+            name="message" 
+            rows="3" 
+            placeholder="Tell us more about your e-waste..."
+          ></textarea>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="quote-urgent" name="urgent" />
+            <span class="checkmark"></span>
+            Urgent pickup required
+          </label>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="quote-data" name="data_destruction" checked />
+            <span class="checkmark"></span>
+            Need data destruction service
+          </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg quote-submit">
+          Get Free Quote
+        </button>
+        
+        <div class="quote-note">
+          <small>
+            📞 Or call us directly: <a href="tel:+919876543210">+91 98765 43210</a>
+          </small>
+        </div>
+      </form>
+    </div>
+  </div>
+) : (
+  <section class="quick-quote-section">
+    <div class="wrap">
+      <div class="quick-quote-inline glass-card">
+        <div class="quote-header">
+          <h3>{title}</h3>
+          <p>{subtitle}</p>
+        </div>
+        
+        <form class="quote-form-inline" onsubmit="submitQuote(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <input 
+                type="text" 
+                name="name" 
+                required 
+                placeholder="Full Name *"
+              />
+            </div>
+            <div class="form-group">
+              <input 
+                type="tel" 
+                name="phone" 
+                required 
+                placeholder="Phone Number *"
+              />
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <select name="service" required>
+                <option value="">Select Service *</option>
+                {services.map((service, index) => (
+                  <option value={service.value} key={index}>{service.name}</option>
+                ))}
+              </select>
+            </div>
+            <div class="form-group">
+              <input 
+                type="text" 
+                name="location" 
+                required 
+                placeholder="Your Location *"
+              />
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">
+            Get Instant Quote
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+)}
+  
+  <div class="quote-success glass-card" id="quoteSuccess" style="display: none;">
+    <div class="success-content">
+      <div class="success-icon">✓</div>
+      <h3>Quote Request Submitted!</h3>
+      <p>Thank you for your inquiry. Our team will contact you within 2 hours with your free quote.</p>
+      <div class="success-actions">
+        <a href="tel:+919876543210" class="btn btn-primary btn-sm">
+          📞 Call Now
+        </a>
+        <a href="https://wa.me/919876543210" class="btn btn-wa btn-sm">
+          💬 WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+<style>
+  .quick-quote-widget.floating {
+    position: fixed;
+    bottom: 100px;
+    right: 100px;
+    z-index: 999;
+    max-width: 400px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .quick-quote-widget.floating.hidden {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+
+  .quick-quote-container {
+    padding: 32px;
+    position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .quote-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+  }
+
+  .quote-close:hover {
+    background: var(--glass);
+    color: var(--text);
+  }
+
+  .quote-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .quote-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .quote-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px 16px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+
+  .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .quote-submit {
+    margin-top: 8px;
+  }
+
+  .quote-note {
+    text-align: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .quote-note small {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .quote-note a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .quote-note a:hover {
+    color: var(--primary-hover);
+  }
+
+  /* Inline version */
+  .quick-quote-section {
+    padding: 80px 0;
+    background: var(--surface);
+  }
+
+  .quick-quote-inline {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .quote-form-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* Success message */
+  .quote-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    max-width: 400px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .success-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .success-content p {
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .success-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .quick-quote-widget.floating {
+      bottom: 80px;
+      right: 20px;
+      left: 20px;
+      max-width: none;
+    }
+
+    .quick-quote-container {
+      padding: 24px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .quick-quote-inline {
+      padding: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .quick-quote-widget.floating {
+      bottom: 70px;
+    }
+
+    .quote-success {
+      margin: 20px;
+      max-width: none;
+      padding: 32px 24px;
+    }
+  }
+</style>
+
+<script>
+  let quoteWidget;
+  let successMessage;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    quoteWidget = document.getElementById('quickQuoteWidget');
+    successMessage = document.getElementById('quoteSuccess');
+
+    // Show quote widget on scroll
+    if (Astro.props.showOnScroll && quoteWidget) {
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      const updateWidget = () => {
+        const currentScrollY = window.scrollY;
+        if (quoteWidget) {
+          if (currentScrollY > 800) {
+            quoteWidget.classList.remove('hidden');
+          } else {
+            quoteWidget.classList.add('hidden');
+          }
+        }
+        lastScrollY = currentScrollY;
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateWidget);
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+  });
+
+  function closeQuickQuote() {
+    if (quoteWidget) {
+      quoteWidget.classList.add('hidden');
+    }
+  }
+
+  function submitQuote(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    
+    // Here you would normally send the data to your backend
+    console.log('Quote submitted:', data);
+    
+    // Show success message
+    if (successMessage) {
+      successMessage.style.display = 'block';
+      
+      // Hide after 5 seconds
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 5000);
+    }
+    
+    // Reset form
+    event.target.reset();
+    
+    // Close floating widget if it's floating
+    if (Astro.props.position === 'floating' && quoteWidget) {
+      closeQuickQuote();
+    }
+    
+    // Optional: Send to WhatsApp for immediate response
+    const message = `Hi! I need a quote for ${data.service}. Name: ${data.name}, Phone: ${data.phone}, Location: ${data.location}`;
+    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+  }
+</script>

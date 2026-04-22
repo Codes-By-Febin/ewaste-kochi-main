@@ -1,0 +1,313 @@
+---
+// BlogPreview.astro - Glassmorphism blog posts preview
+interface Props {
+  posts?: Array<{
+    title: string;
+    excerpt: string;
+    date: string;
+    author?: string;
+    readTime?: string;
+    image?: string;
+    slug: string;
+    category?: string;
+  }>;
+  title?: string;
+  subtitle?: string;
+  showAllLink?: boolean;
+  columns?: 2 | 3;
+}
+
+const defaultPosts = [
+  {
+    title: "How to Properly Dispose of Old Laptops in Kochi",
+    excerpt: "Learn the certified process for laptop disposal, data security measures, and environmental benefits of proper e-waste recycling.",
+    date: "2024-01-15",
+    author: "EWaste Kochi Team",
+    readTime: "5 min read",
+    image: "/img/blog/laptop-disposal.webp",
+    slug: "/blog/how-to-dispose-laptops-kochi",
+    category: "Guides"
+  },
+  {
+    title: "Data Destruction Standards for IT Equipment",
+    excerpt: "Understanding NIST 800-88 standards and why certified data destruction is crucial for your business compliance.",
+    date: "2024-01-10",
+    author: "Security Team",
+    readTime: "7 min read",
+    image: "/img/blog/data-destruction.webp",
+    slug: "/blog/data-destruction-standards",
+    category: "Security"
+  },
+  {
+    title: "E-Waste Management Regulations in Kerala 2024",
+    excerpt: "Complete guide to KSPCB and CPCB regulations for e-waste management, compliance requirements, and best practices.",
+    date: "2024-01-05",
+    author: "Compliance Team",
+    readTime: "6 min read",
+    image: "/img/blog/regulations-2024.webp",
+    slug: "/blog/ewaste-regulations-kerala-2024",
+    category: "Regulations"
+  }
+];
+
+const {
+  posts = defaultPosts,
+  title = "Latest Insights",
+  subtitle = "Expert tips on e-waste recycling and data security",
+  showAllLink = true,
+  columns = 3
+} = Astro.props;
+
+const gridClass = `blog-grid-${columns}`;
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-IN', { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  });
+}
+---
+
+<section class="blog-preview-section">
+  <div class="wrap">
+    <div class="section-header text-center">
+      <div class="sec-eyebrow">Blog & Resources</div>
+      <h2 class="sec-title">{title}</h2>
+      <p class="sec-sub">{subtitle}</p>
+    </div>
+    
+    <div class={`blog-grid ${gridClass}`}>
+      {posts.map((post, index) => (
+        <article class="blog-card glass-card" key={index}>
+          {post.image && (
+            <div class="blog-image-container">
+              <img 
+                src={post.image} 
+                alt={post.title}
+                class="blog-image"
+                loading="lazy"
+              />
+              {post.category && (
+                <span class="blog-category">{post.category}</span>
+              )}
+            </div>
+          )}
+          
+          <div class="blog-content">
+            <div class="blog-meta">
+              <time datetime={post.date} class="blog-date">
+                {formatDate(post.date)}
+              </time>
+              {post.readTime && (
+                <span class="blog-read-time">{post.readTime}</span>
+              )}
+            </div>
+            
+            <h3 class="blog-title">
+              <a href={post.slug} class="blog-link">
+                {post.title}
+              </a>
+            </h3>
+            
+            <p class="blog-excerpt">{post.excerpt}</p>
+            
+            <div class="blog-footer">
+              {post.author && (
+                <span class="blog-author">{post.author}</span>
+              )}
+              <a href={post.slug} class="blog-read-more">
+                Read More →
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+    
+    {showAllLink && (
+      <div class="blog-cta text-center">
+        <a href="/blog" class="btn btn-outline btn-lg">
+          View All Articles
+        </a>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .blog-preview-section {
+    padding: 100px 0;
+  }
+  
+  .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .blog-grid {
+    display: grid;
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+  
+  .blog-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .blog-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .blog-card {
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: 0 12px 40px rgba(0, 208, 132, 0.15);
+  }
+  
+  .blog-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .blog-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .blog-card:hover .blog-image {
+    transform: scale(1.05);
+  }
+  
+  .blog-category {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--primary);
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .blog-content {
+    padding: 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  
+  .blog-date {
+    font-weight: 500;
+  }
+  
+  .blog-read-time {
+    opacity: 0.8;
+  }
+  
+  .blog-title {
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  
+  .blog-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .blog-link:hover {
+    color: var(--primary);
+  }
+  
+  .blog-excerpt {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex: 1;
+    font-size: 0.95rem;
+  }
+  
+  .blog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  
+  .blog-author {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  
+  .blog-read-more {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .blog-read-more:hover {
+    gap: 8px;
+    color: var(--primary-hover);
+  }
+  
+  .blog-cta {
+    margin-top: 40px;
+  }
+  
+  @media (max-width: 1024px) {
+    .blog-grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .blog-grid-2,
+    .blog-grid-3 {
+      grid-template-columns: 1fr;
+    }
+    
+    .blog-card {
+      margin-bottom: 24px;
+    }
+    
+    .blog-content {
+      padding: 24px;
+    }
+    
+    .blog-image-container {
+      height: 160px;
+    }
+  }
+</style>

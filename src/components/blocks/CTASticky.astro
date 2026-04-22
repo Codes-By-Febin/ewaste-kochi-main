@@ -1,0 +1,232 @@
+---
+// CTASticky.astro - Conversion-focused sticky CTA bar
+interface Props {
+  title?: string;
+  description?: string;
+  primaryCTA?: { text: string; url: string; phone?: string };
+  secondaryCTA?: { text: string; url: string };
+  showOnScroll?: boolean;
+  position?: 'bottom' | 'top';
+}
+
+const {
+  title = "Ready to Recycle?",
+  description = "Get free pickup and certified recycling services",
+  primaryCTA = { 
+    text: "📞 Call Now", 
+    url: "tel:+919876543210",
+    phone: "+91 98765 43210"
+  },
+  secondaryCTA = { 
+    text: "💬 WhatsApp", 
+    url: "https://wa.me/919876543210" 
+  },
+  showOnScroll = true,
+  position = 'bottom'
+} = Astro.props;
+---
+
+<div class={`cta-sticky cta-sticky-${position} ${showOnScroll ? 'cta-sticky-hidden' : ''}`} id="stickyCTA">
+  <div class="cta-content glass-card">
+    <div class="cta-info">
+      <h3 class="cta-title">{title}</h3>
+      <p class="cta-description">{description}</p>
+      {primaryCTA.phone && (
+        <div class="cta-phone">
+          <span class="phone-label">24/7 Helpline:</span>
+          <a href={`tel:${primaryCTA.phone.replace(/\s/g, '')}`} class="phone-number">
+            {primaryCTA.phone}
+          </a>
+        </div>
+      )}
+    </div>
+    
+    <div class="cta-actions">
+      <a href={primaryCTA.url} class="btn btn-primary btn-sm">
+        {primaryCTA.text}
+      </a>
+      <a href={secondaryCTA.url} class="btn btn-wa btn-sm">
+        {secondaryCTA.text}
+      </a>
+    </div>
+    
+    <button class="cta-close" onclick="document.getElementById('stickyCTA').style.display='none'">
+      ✕
+    </button>
+  </div>
+</div>
+
+<style>
+  .cta-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 16px 0;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(11, 15, 20, 0.95);
+    border-top: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .cta-sticky-top {
+    top: 0;
+    border-bottom: 1px solid var(--border);
+    border-top: none;
+  }
+  
+  .cta-sticky-bottom {
+    bottom: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+  }
+  
+  .cta-sticky-hidden {
+    transform: translateY(100%);
+  }
+  
+  .cta-sticky-top.cta-sticky-hidden {
+    transform: translateY(-100%);
+  }
+  
+  .cta-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    position: relative;
+  }
+  
+  .cta-info {
+    flex: 1;
+  }
+  
+  .cta-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  
+  .cta-description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  
+  .cta-phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+  
+  .phone-label {
+    color: var(--text-muted);
+  }
+  
+  .phone-number {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  
+  .phone-number:hover {
+    color: var(--primary-hover);
+  }
+  
+  .cta-actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  
+  .cta-close {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cta-close:hover {
+    background: var(--glass);
+    color: var(--text);
+  }
+  
+  @media (max-width: 768px) {
+    .cta-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 16px;
+    }
+    
+    .cta-actions {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .cta-close {
+      top: 8px;
+      right: 8px;
+      transform: none;
+    }
+    
+    .cta-title {
+      font-size: 1rem;
+    }
+    
+    .cta-description {
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
+<script>
+  // Show/hide sticky CTA based on scroll
+  if (Astro.props.showOnScroll) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    const updateCTA = () => {
+      const currentScrollY = window.scrollY;
+      const cta = document.getElementById('stickyCTA');
+      
+      if (cta) {
+        if (currentScrollY > 500) {
+          cta.classList.remove('cta-sticky-hidden');
+        } else {
+          cta.classList.add('cta-sticky-hidden');
+        }
+      }
+      
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+    
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateCTA);
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>

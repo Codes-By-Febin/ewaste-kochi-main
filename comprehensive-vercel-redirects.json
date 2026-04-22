@@ -1,0 +1,2300 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "ewastekochi.com"
+        }
+      ],
+      "destination": "https://www.ewastekochi.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/ml/(.*)",
+      "destination": "/$1",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/(.*)",
+      "destination": "/blog/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)\\.html",
+      "destination": "/$1",
+      "permanent": true
+    },
+    {
+      "source": "/locations/([^/]+)/([a-z-]+)-kochi",
+      "destination": "/$2-$1",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682001.html",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682002.html",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682012.html",
+      "destination": "/locations/fort-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682024.html",
+      "destination": "/locations/edappally/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682030.html",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682037.html",
+      "destination": "/locations/kakkanad/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682075.html",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682079.html",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682085",
+      "destination": "/locations/682085/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682090.html",
+      "destination": "/locations/682090/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682105.html",
+      "destination": "/locations/north-paravur/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682121.html",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682146.html",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682239.html",
+      "destination": "/locations/north-paravur/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682246.html",
+      "destination": "/locations/perumbavoor/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/laptops/sell-dell-(.*)",
+      "destination": "/buyback/dell-laptop-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/laptops/sell-hp-(.*)",
+      "destination": "/buyback/hp-laptop-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/laptops/sell-thinkpad-(.*)",
+      "destination": "/buyback/lenovo-laptop-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/laptops/sell-macbook-(.*)",
+      "destination": "/buyback/apple-laptop-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/phones/sell-iphone-(.*)",
+      "destination": "/buyback/iphone-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/phones/sell-samsung-(.*)",
+      "destination": "/buyback/samsung-phone-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/laptops/sell-([a-z0-9-]+)-kochi",
+      "destination": "/buyback/laptops/",
+      "permanent": true
+    },
+    {
+      "source": "/buyback/phones/sell-([a-z0-9-]+)-kochi",
+      "destination": "/buyback/phones/",
+      "permanent": true
+    },
+    {
+      "source": "/itad-kochi.html",
+      "destination": "/itad/",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact/",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/faq/",
+      "permanent": true
+    },
+    {
+      "source": "/get-instant-quote.html",
+      "destination": "/contact/",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/terms.html",
+      "destination": "/terms/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "/privacy-policy/",
+      "permanent": true
+    },
+    {
+      "source": "/e-waste-vyttila.html",
+      "destination": "/locations/vyttila/",
+      "permanent": true
+    },
+    {
+      "source": "/bulk-laptop-buyback.html",
+      "destination": "/sell-electronics-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/marketplace",
+      "destination": "/marketplace/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/laptop-resale-value-2026.html",
+      "destination": "/blog/laptop-resale-value-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/dpdp-act-impact-startups.html",
+      "destination": "/blog/dpdp-act-2023-it-disposal-compliance/",
+      "permanent": true
+    },
+    {
+      "source": "/compliance/nist-800-88-explained.html",
+      "destination": "/services/data-destruction-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/manufacturing-ewaste.html",
+      "destination": "/services/itad-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/comparisons/olx-vs-ewastekochi.html",
+      "destination": "/sell-electronics-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/comparisons/cashify-vs-ewastekochi",
+      "destination": "/sell-electronics-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/sell-old-phone-kochi",
+      "destination": "/buyback/iphone-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/laptop-recycling-near-me",
+      "destination": "/services/laptop-recycling-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/banks-financial-data-destruction.html",
+      "destination": "/services/data-destruction-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682001",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682002",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682024",
+      "destination": "/locations/edappally/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682030",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682037",
+      "destination": "/locations/kakkanad/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682075",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682079",
+      "destination": "/locations/ernakulam/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682085",
+      "destination": "/locations/682085/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682090",
+      "destination": "/locations/682090/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682105",
+      "destination": "/locations/north-paravur/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682121",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682146",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682239",
+      "destination": "/locations/north-paravur/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682246",
+      "destination": "/locations/perumbavoor/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-682356",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683101",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683104",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683106",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683107",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683108",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683109",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683110",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683111",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683112",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683113",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683114",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683115",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683116",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683117",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683118",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683119",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683120",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683121",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683122",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683123",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683124",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683125",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683126",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683127",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683128",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683129",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683130",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683131",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683132",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683133",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683134",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683135",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683136",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683137",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683138",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683139",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683140",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683141",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683142",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683143",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683144",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683145",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683146",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683147",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683148",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683149",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683150",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683151",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683152",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683153",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683154",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683155",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683156",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683157",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683158",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683159",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683160",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683161",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683162",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683163",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683164",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683165",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683166",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683167",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683168",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683169",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683170",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683171",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683172",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683173",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683174",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683175",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683176",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683177",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683178",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683179",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683180",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683181",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683182",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683183",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683184",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683185",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683186",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683187",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683188",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683189",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683190",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683191",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683192",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683193",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683194",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683195",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683196",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683197",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683198",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683199",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683200",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683201",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683202",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683203",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683204",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683205",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683206",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683207",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683208",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683209",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683210",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683211",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683212",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683213",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683214",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683215",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683216",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683217",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683218",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683219",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683220",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683221",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683222",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683223",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683224",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683225",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683226",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683227",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683228",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683229",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683230",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683231",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683232",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683233",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683234",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683235",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683236",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683237",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683238",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683239",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683240",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683241",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683242",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683243",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683244",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683245",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683246",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683247",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683248",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683249",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683250",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683251",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683252",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683253",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683254",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683255",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683256",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683257",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683258",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683259",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683260",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683261",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683262",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683263",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683264",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683265",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683266",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683267",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683268",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683269",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683270",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683271",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683272",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683273",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683274",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683275",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683276",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683277",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683278",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683279",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683280",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683281",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683282",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683283",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683284",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683285",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683286",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683287",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683288",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683289",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683290",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683291",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683292",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683293",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683294",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683295",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683296",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683297",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683298",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683299",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683300",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683301",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683302",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683303",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683304",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683305",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683306",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683307",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683308",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683309",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683310",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683311",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683312",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683313",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683314",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683315",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683316",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683317",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683318",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683319",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683320",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683321",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683322",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683323",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683324",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683325",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683326",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683327",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683328",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683329",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683330",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683331",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683332",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683333",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683334",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683335",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683336",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683337",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683338",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683339",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683340",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683341",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683342",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683343",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683344",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683345",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683346",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683347",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683348",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683349",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683350",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683351",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683352",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683353",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683354",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683355",
+      "destination": "/locations/aluva/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683356",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683357",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683358",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683359",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683360",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683361",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683362",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683363",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683364",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683365",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683366",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683367",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683368",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683369",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683370",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683371",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683372",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683373",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683374",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683375",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683376",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683377",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683378",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683379",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683380",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683381",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683382",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683383",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683384",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683385",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683386",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683387",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683388",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683389",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683390",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683391",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683392",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683393",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683394",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683395",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683396",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683397",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683398",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683399",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683400",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683401",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683402",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683403",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683404",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683405",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683406",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683407",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683408",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683409",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683410",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683411",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683412",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683413",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683414",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683415",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683416",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683417",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683418",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683419",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683420",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683421",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683422",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683423",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683424",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683425",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683426",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683427",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683428",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683429",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683430",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683431",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683432",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683433",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683434",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683435",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683436",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683437",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683438",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683439",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683440",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683441",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683442",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683443",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683444",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683445",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683446",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683447",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683448",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683449",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683450",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683451",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683452",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683453",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683454",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683455",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683456",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683457",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683458",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683459",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683460",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683461",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683462",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683463",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683464",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683465",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683466",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683467",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683468",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683469",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683470",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683471",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683472",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683473",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683474",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683475",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683476",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683477",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683478",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683479",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683480",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683481",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683482",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683483",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683484",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683485",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683486",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683487",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683488",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683489",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683490",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683491",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683492",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683493",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683494",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683495",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683496",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683497",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683498",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/ewaste-683499",
+      "destination": "/locations/angamaly/",
+      "permanent": true
+    }
+  ]
+}

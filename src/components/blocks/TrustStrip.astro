@@ -1,0 +1,129 @@
+---
+// TrustStrip.astro - Animated trust indicators strip
+interface Props {
+  badges?: Array<{
+    icon: string;
+    text: string;
+    description?: string;
+  }>;
+  speed?: number;
+}
+
+const badges = [
+  { icon: "🏆", text: "KSPCB Certified", description: "Kerala State Pollution Control Board" },
+  { icon: "🔒", text: "ISO 27001 Certified", description: "Information Security Management" },
+  { icon: "🌱", text: "E-Waste Authorized", description: "CPCB Registration No. KER/CPCB/EW/001" },
+  { icon: "📋", text: "Data Destruction Certified", description: "NIST 800-88 Compliant" },
+  { icon: "🏭", text: "ITAD Certified", description: "IT Asset Disposition Professional" },
+  { icon: "🌍", text: "Environmental Compliance", description: " Basel Convention Compliant" },
+  { icon: "📊", text: "Audit Trail", description: "Complete Documentation" },
+  { icon: "✅", text: "Certificate of Recycling", description: "Official Recycling Certificate" }
+];
+
+const { badges: customBadges, speed = 30 } = Astro.props;
+const displayBadges = customBadges || badges;
+---
+
+<section class="trust-strip">
+  <div class="trust-ticker" style={`animation-duration: ${speed}s`}>
+    {displayBadges.map((badge, index) => (
+      <div class="trust-item" key={index}>
+        <span class="trust-icon">{badge.icon}</span>
+        <div class="trust-content">
+          <span class="trust-text">{badge.text}</span>
+          {badge.description && (
+            <span class="trust-desc">{badge.description}</span>
+          )}
+        </div>
+      </div>
+    ))}
+    {/* Duplicate for seamless loop */}
+    {displayBadges.map((badge, index) => (
+      <div class="trust-item" key={`duplicate-${index}`}>
+        <span class="trust-icon">{badge.icon}</span>
+        <div class="trust-content">
+          <span class="trust-text">{badge.text}</span>
+          {badge.description && (
+            <span class="trust-desc">{badge.description}</span>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .trust-strip {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 16px 0;
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(8px);
+  }
+  
+  .trust-ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll linear infinite;
+  }
+  
+  .trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 40px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: fit-content;
+  }
+  
+  .trust-item:last-child {
+    border-right: none;
+  }
+  
+  .trust-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .trust-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .trust-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+  
+  .trust-desc {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .trust-item {
+      padding: 0 20px;
+    }
+    
+    .trust-text {
+      font-size: 0.75rem;
+    }
+    
+    .trust-desc {
+      font-size: 0.65rem;
+    }
+  }
+</style>

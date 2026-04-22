@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const buybacks = await getCollection('buyback');
+  return buybacks.map(item => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": item.data.title,
+  "description": item.data.description,
+  "brand": { "@type": "Brand", "name": item.data.brand.toUpperCase() },
+  "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
+};
+---
+
+<BaseLayout 
+  title={item.data.title}
+  description={item.data.description}
+  canonical={item.data.canonical}
+  schema={schema}
+>
+  <h1>{item.data.title}</h1>
+  <Content />
+</BaseLayout>

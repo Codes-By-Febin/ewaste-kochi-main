@@ -1,0 +1,225 @@
+---
+// ProcessSteps.astro - Glassmorphism process flow
+interface Props {
+  steps?: Array<{
+    number: number;
+    title: string;
+    description: string;
+    icon?: string;
+  }>;
+  title?: string;
+  subtitle?: string;
+}
+
+const defaultSteps = [
+  {
+    number: 1,
+    title: "Schedule Pickup",
+    description: "Call or WhatsApp us to schedule a convenient pickup time. We collect from your location.",
+    icon: "📅"
+  },
+  {
+    number: 2,
+    title: "Secure Collection",
+    description: "Our certified team arrives with proper equipment and documentation for secure collection.",
+    icon: "🚚"
+  },
+  {
+    number: 3,
+    title: "Data Destruction",
+    description: "Complete data wiping and destruction following NIST 800-88 standards with certificates.",
+    icon: "🔒"
+  },
+  {
+    number: 4,
+    title: "Responsible Recycling",
+    description: "Environmentally safe recycling with proper material recovery and disposal methods.",
+    icon: "♻️"
+  },
+  {
+    number: 5,
+    title: "Documentation",
+    description: "Receive certificates of recycling and data destruction for your compliance records.",
+    icon: "📋"
+  }
+];
+
+const {
+  steps = defaultSteps,
+  title = "How It Works",
+  subtitle = "Simple, Secure, and Certified Process"
+} = Astro.props;
+---
+
+<section class="process-section">
+  <div class="wrap">
+    <div class="section-header text-center">
+      <div class="sec-eyebrow">Our Process</div>
+      <h2 class="sec-title">{title}</h2>
+      <p class="sec-sub">{subtitle}</p>
+    </div>
+    
+    <div class="process-container">
+      <div class="process-line"></div>
+      {steps.map((step, index) => (
+        <div class="process-step" key={index}>
+          <div class="step-number glass-card">
+            {step.icon && <span class="step-icon">{step.icon}</span>}
+            <span class="step-num">{step.number}</span>
+          </div>
+          <div class="step-content glass-card">
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-description">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-section {
+    padding: 100px 0;
+    background: var(--surface);
+    position: relative;
+  }
+  
+  .section-header {
+    margin-bottom: 80px;
+  }
+  
+  .process-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .process-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  
+  .process-step {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .process-step:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+  
+  .step-number {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+    flex-shrink: 0;
+    border: 2px solid var(--primary);
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .step-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+  
+  .step-num {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  
+  .step-content {
+    flex: 1;
+    padding: 32px;
+    position: relative;
+  }
+  
+  .step-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  
+  .process-step:nth-child(odd) .step-content::before {
+    left: -10px;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent var(--border) transparent transparent;
+  }
+  
+  .process-step:nth-child(even) .step-content::before {
+    right: -10px;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent var(--border);
+  }
+  
+  .step-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  
+  .step-description {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  
+  @media (max-width: 768px) {
+    .process-line {
+      left: 20px;
+    }
+    
+    .process-step {
+      flex-direction: column !important;
+      gap: 20px;
+      margin-left: 60px;
+    }
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: -60px;
+      top: 0;
+    }
+    
+    .step-icon {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+    
+    .step-num {
+      font-size: 0.9rem;
+    }
+    
+    .step-content {
+      padding: 24px;
+    }
+    
+    .step-content::before {
+      display: none;
+    }
+  }
+</style>

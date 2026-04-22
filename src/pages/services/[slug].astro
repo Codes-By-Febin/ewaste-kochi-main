@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map(service => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { Content } = await service.render();
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": service.data.title,
+  "description": service.data.description,
+  "provider": { "@type": "LocalBusiness", "name": "EWaste Kochi" }
+};
+---
+
+<BaseLayout 
+  title={service.data.title}
+  description={service.data.description}
+  canonical={service.data.canonical}
+  schema={schema}
+>
+  <h1>{service.data.title}</h1>
+  <Content />
+</BaseLayout>

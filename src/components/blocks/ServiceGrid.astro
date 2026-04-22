@@ -1,0 +1,240 @@
+---
+// ServiceGrid.astro - Glassmorphism service cards grid
+interface Props {
+  services?: Array<{
+    title: string;
+    description: string;
+    icon: string;
+    features?: string[];
+    cta?: { text: string; url: string };
+  }>;
+  columns?: 2 | 3 | 4;
+  showCTA?: boolean;
+}
+
+const defaultServices = [
+  {
+    title: "Laptop Recycling",
+    description: "Secure disposal and recycling of laptops with certified data destruction",
+    icon: "💻",
+    features: ["Data Wiping", "Component Recovery", "Certificate Issued"],
+    cta: { text: "Learn More", url: "/services/laptop-recycling" }
+  },
+  {
+    title: "Server Disposal",
+    description: "Enterprise-grade server recycling with complete audit trails",
+    icon: "🖥️",
+    features: ["Enterprise Security", "Asset Tracking", "Compliance Reports"],
+    cta: { text: "Learn More", url: "/services/server-disposal" }
+  },
+  {
+    title: "Mobile Phone Recycling",
+    description: "Responsible mobile phone disposal with data security guarantees",
+    icon: "📱",
+    features: ["Data Destruction", "Battery Recycling", "Material Recovery"],
+    cta: { text: "Learn More", url: "/services/mobile-recycling" }
+  },
+  {
+    title: "Printer & Scanner Disposal",
+    description: "Office equipment recycling with environmental compliance",
+    icon: "🖨️",
+    features: ["Toner Recycling", "Component Salvage", "Eco-Friendly"],
+    cta: { text: "Learn More", url: "/services/printer-recycling" }
+  },
+  {
+    title: "Battery Recycling",
+    description: "Specialized battery disposal following safety protocols",
+    icon: "🔋",
+    features: ["Safe Handling", "Material Recovery", "Environmental Care"],
+    cta: { text: "Learn More", url: "/services/battery-recycling" }
+  },
+  {
+    title: "IT Asset Management",
+    description: "Complete ITAD solutions for businesses and organizations",
+    icon: "📊",
+    features: ["Asset Valuation", "Resale Options", "Reporting"],
+    cta: { text: "Learn More", url: "/services/it-asset-management" }
+  }
+];
+
+const {
+  services = defaultServices,
+  columns = 3,
+  showCTA = true
+} = Astro.props;
+
+const gridClass = `grid-cols-${columns}`;
+---
+
+<section class="service-grid-section">
+  <div class="wrap">
+    <div class="section-header text-center">
+      <div class="sec-eyebrow">Our Services</div>
+      <h2 class="sec-title">Comprehensive <em>E-Waste Solutions</em></h2>
+      <p class="sec-sub">
+        Certified recycling services that protect your data and the environment
+      </p>
+    </div>
+    
+    <div class={`service-grid ${gridClass}`}>
+      {services.map((service, index) => (
+        <div class="service-card glass-card" key={index}>
+          <div class="service-icon">{service.icon}</div>
+          <h3 class="service-title">{service.title}</h3>
+          <p class="service-description">{service.description}</p>
+          
+          {service.features && (
+            <ul class="service-features">
+              {service.features.map((feature, idx) => (
+                <li key={idx}>
+                  <span class="feature-check">✓</span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
+          
+          {showCTA && service.cta && (
+            <a href={service.cta.url} class="service-cta">
+              {service.cta.text} →
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-grid-section {
+    padding: 100px 0;
+  }
+  
+  .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .service-grid {
+    display: grid;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .service-card {
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .service-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+  
+  .service-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  
+  .service-description {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+  }
+  
+  .service-features {
+    list-style: none;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  
+  .service-features li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  
+  .feature-check {
+    color: var(--primary);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  
+  .service-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .service-cta:hover {
+    gap: 12px;
+    color: var(--primary-hover);
+  }
+  
+  @media (max-width: 1024px) {
+    .grid-cols-4 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .grid-cols-3,
+    .grid-cols-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .service-card {
+      padding: 24px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .grid-cols-2,
+    .grid-cols-3,
+    .grid-cols-4 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

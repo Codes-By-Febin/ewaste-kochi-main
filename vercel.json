@@ -1,14 +1,11 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": true,
+  "framework": "astro",
   "redirects": [
     {
-      "source": "/ml/buyback/laptops/:path*",
-      "destination": "/sell-electronics-kochi/",
-      "permanent": true
-    },
-    {
-      "source": "/ml/buyback/phones/:path*",
+      "source": "/ml/buyback/:path*",
       "destination": "/sell-electronics-kochi/",
       "permanent": true
     },
@@ -20,6 +17,21 @@
     {
       "source": "/buyback/phones/:path*",
       "destination": "/sell-electronics-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/comparisons/:path*",
+      "destination": "/sell-electronics-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/:path*",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
+      "source": "/security/:path*",
+      "destination": "/services/data-destruction-kochi/",
       "permanent": true
     },
     {
@@ -1886,6 +1898,179 @@
       "source": "/services/sell-used-servers-kochi.html",
       "destination": "/sell-electronics-kochi/",
       "permanent": true
+    },
+    {
+      "source": "/ml/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/v2/:path*",
+      "destination": "/locations/",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug.html",
+      "destination": "/blog/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/itad-kochi",
+      "destination": "/itad/",
+      "permanent": true
+    },
+    {
+      "source": "/ewaste",
+      "destination": "/ewaste/",
+      "permanent": true
+    },
+    {
+      "source": "/e-waste",
+      "destination": "/ewaste/",
+      "permanent": true
+    },
+    {
+      "source": "/recycling-kochi",
+      "destination": "/recycling/",
+      "permanent": true
+    },
+    {
+      "source": "/e-waste-recycling",
+      "destination": "/recycling/",
+      "permanent": true
+    },
+    {
+      "source": "/data-destruction",
+      "destination": "/services/data-destruction-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/hard-drive-shredding",
+      "destination": "/services/hard-drive-shredding-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/laptop-buyback",
+      "destination": "/services/laptop-buyback-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/sell-electronics",
+      "destination": "/sell-electronics-kochi/",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact/",
+      "permanent": true
+    },
+    {
+      "source": "/about-us",
+      "destination": "/contact/",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/faq/",
+      "permanent": true
     }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(self)"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/sitemap(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
+  ],
+  "regions": [
+    "sin1",
+    "bom1"
   ]
 }

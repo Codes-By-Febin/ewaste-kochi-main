@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const locations = await getCollection('locations');
+  return locations.map(loc => ({
+    params: { slug: loc.slug },
+    props: { loc },
+  }));
+}
+
+const { loc } = Astro.props;
+const { Content } = await loc.render();
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": loc.data.title,
+  "description": loc.data.description,
+  "address": { "@type": "PostalAddress", "addressLocality": loc.data.area, "postalCode": loc.data.pincode }
+};
+---
+
+<BaseLayout 
+  title={loc.data.title}
+  description={loc.data.description}
+  canonical={loc.data.canonical}
+  schema={schema}
+>
+  <h1>{loc.data.title}</h1>
+  <Content />
+</BaseLayout>

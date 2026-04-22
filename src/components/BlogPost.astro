@@ -1,0 +1,881 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import PeopleAlsoAskEngine from '../utils/peopleAlsoAskEngine.js';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  relatedPosts?: CollectionEntry<'blog'>[];
+  tableOfContents?: TOCItem[];
+}
+
+interface TOCItem {
+  id: string;
+  title: string;
+  level: number;
+}
+
+const { post, relatedPosts = [], tableOfContents = [] } = Astro.props;
+const { Content } = await post.render();
+
+// Initialize People Also Ask engine
+const paaEngine = new PeopleAlsoAskEngine();
+
+// Generate People Also Ask questions
+const clusterName = post.data.cluster || 'general';
+const paaQuestions = paaEngine.generatePeopleAlsoAsk(
+  post.data.content || '', 
+  clusterName, 
+  post.data.title
+);
+
+// Generate PAA schema
+const paaSchema = paaEngine.generatePAASchema(paaQuestions);
+
+// Generate content freshness timestamp
+const lastmod = post.data.lastmod ? new Date(post.data.lastmod) : new Date();
+const isRecentlyUpdated = (Date.now() - lastmod.getTime()) < (30 * 24 * 60 * 60 * 1000); // Within 30 days
+
+// Generate enhanced schema for blog posts
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "author": {
+    "@type": "Organization",
+    "name": post.data.author,
+    "url": "https://www.ewastekochi.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "EWaste Kochi",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.ewastekochi.com/logo.png"
+    }
+  },
+  "datePublished": post.data.published.toISOString(),
+  "dateModified": lastmod.toISOString(),
+  "mainEntityOfPage": `https://www.ewastekochi.com/blog/${post.slug}/`,
+  "image": `https://www.ewastekochi.com/images/blog/${post.slug}.webp`,
+  "articleSection": "E-Waste Management",
+  "wordCount": 2000,
+  "keywords": post.data.tags?.join(", ") || "e-waste, recycling, kochi",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "E-Waste Recycling"
+    },
+    {
+      "@type": "Place", 
+      "name": "Kochi"
+    }
+  ]
+};
+
+// Generate breadcrumbs
+const breadcrumbs = [
+  { name: "Home", url: "https://www.ewastekochi.com/" },
+  { name: "Blog", url: "https://www.ewastekochi.com/blog/" },
+  { name: post.data.title, url: `https://www.ewastekochi.com/blog/${post.slug}/` }
+];
+
+// Generate internal links based on content
+const generateInternalLinks = (content: string) => {
+  const links = [
+    {
+      keyword: "e-waste pickup",
+      url: "/services/free-ewaste-pickup-kochi/",
+      text: "free e-waste pickup service"
+    },
+    {
+      keyword: "data destruction",
+      url: "/services/data-destruction-kochi/", 
+      text: "certified data destruction"
+    },
+    {
+      keyword: "laptop recycling",
+      url: "/services/laptop-recycling-kochi/",
+      text: "professional laptop recycling"
+    },
+    {
+      keyword: "sell laptop",
+      url: "/buyback/dell-laptop-kochi/",
+      text: "sell your laptop"
+    },
+    {
+      keyword: "KSPCB",
+      url: "/blog/dpdp-act-2023-it-disposal-compliance/",
+      text: "KSPCB compliance"
+    }
+  ];
+
+  let processedContent = content;
+  links.forEach(link => {
+    const regex = new RegExp(`\\b${link.keyword}\\b`, 'gi');
+    processedContent = processedContent.replace(regex, `[${link.text}](${link.url})`);
+  });
+
+  return processedContent;
+};
+
+// Generate conversion-focused CTAs
+const generateCTAs = (content: string, category: string) => {
+  const ctas = {
+    'guides': [
+      {
+        title: "Ready to Start Recycling?",
+        text: "Schedule free pickup for your e-waste",
+        url: "/contact/",
+        type: "primary"
+      },
+      {
+        title: "Need Professional Help?",
+        text: "Get expert consultation for your business",
+        url: "/services/corporate-e-waste-pickup-kochi/",
+        type: "secondary"
+      }
+    ],
+    'comparisons': [
+      {
+        title: "Make the Right Choice",
+        text: "Get personalized recommendation for your e-waste",
+        url: "/contact/",
+        type: "primary"
+      },
+      {
+        title: "Compare All Services",
+        text: "View our complete service comparison",
+        url: "/services/",
+        type: "secondary"
+      }
+    ],
+    'pricing': [
+      {
+        title: "Get Best Price",
+        text: "Instant quote for your electronic items",
+        url: "/buyback/dell-laptop-kochi/",
+        type: "primary"
+      },
+      {
+        title: "Business Pricing",
+        text: "Special rates for bulk disposal",
+        url: "/services/bulk-it-asset-disposal-kochi/",
+        type: "secondary"
+      }
+    ]
+  };
+
+  return ctas[category as keyof typeof ctas] || ctas['guides'];
+};
+
+// Generate FAQ section
+const generateFAQ = (content: string) => {
+  const faqs = [
+    {
+      question: "How quickly can you pick up my e-waste in Kochi?",
+      answer: "We offer same-day pickup service across Kochi. Schedule your pickup and we'll collect within 4 hours."
+    },
+    {
+      question: "Is your e-waste recycling certified?",
+      answer: "Yes, we are KSPCB authorized and follow NIST 800-88 standards for data destruction and environmental compliance."
+    },
+    {
+      question: "Do you provide data destruction certificates?",
+      answer: "Absolutely! We provide detailed certificates of data destruction and recycling for your records and compliance."
+    }
+  ];
+
+  return faqs;
+};
+---
+
+<BaseLayout 
+  title={post.data.title}
+  description={post.data.description}
+  canonical={post.data.canonical}
+  schema={schema}
+>
+  <article class="blog-post">
+    <!-- Schema Breadcrumbs -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": crumb.name,
+        "item": crumb.url
+      }))
+    })} />
+
+    <!-- Blog Header -->
+    <header class="blog-header">
+      <div class="blog-meta">
+        <time datetime={post.data.published.toISOString()}>
+          {post.data.published.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+        </time>
+        {isRecentlyUpdated && (
+          <span class="freshness-badge" title="Recently updated">
+            Updated {lastmod.toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric' 
+            })}
+          </span>
+        )}
+        <span class="author">By {post.data.author}</span>
+        <span class="read-time">15 min read</span>
+      </div>
+      
+      <h1 class="blog-title">{post.data.title}</h1>
+      
+      <div class="blog-excerpt">
+        <p>{post.data.description}</p>
+      </div>
+
+      <!-- Table of Contents -->
+      {tableOfContents.length > 0 && (
+        <nav class="table-of-contents" aria-label="Table of Contents">
+          <h2>Table of Contents</h2>
+          <ol>
+            {tableOfContents.map(item => (
+              <li style={`margin-left: ${(item.level - 1) * 20}px`}>
+                <a href={`#${item.id}`}>{item.title}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+    </header>
+
+    <!-- Blog Content -->
+    <div class="blog-content">
+      <Content />
+    </div>
+
+    <!-- People Also Ask Section -->
+    <section class="people-also-ask" id="people-also-ask">
+      <h2>People Also Ask</h2>
+      <div class="paa-container">
+        {paaQuestions.map((q, index) => (
+          <div class="paa-item" data-paa-id={`${post.slug}-${index}`}>
+            <details class="paa-question" open={index === 0}>
+              <summary class="paa-trigger">
+                <span class="paa-question-text">{q.question}</span>
+                <span class="paa-icon">+</span>
+              </summary>
+              <div class="paa-answer">
+                <p>{q.answer}</p>
+                <div class="paa-actions">
+                  <a href="/contact/" class="paa-cta">Get Help</a>
+                  <button class="paa-helpful" data-question={q.question}>Helpful</button>
+                </div>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- PAA Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(paaSchema)} />
+
+    <!-- Conversion CTAs -->
+    <section class="blog-ctas">
+      {generateCTAs(post.data.content || '', post.data.category || 'guides').map(cta => (
+        <div class={`cta-card cta-${cta.type}`}>
+          <h3>{cta.title}</h3>
+          <p>{cta.text}</p>
+          <a href={cta.url} class={`btn btn-${cta.type}`}>
+            {cta.type === 'primary' ? 'Get Started' : 'Learn More'}
+          </a>
+        </div>
+      ))}
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="blog-faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        {generateFAQ(post.data.content || '').map((faq, index) => (
+          <details class="faq-item" open={index === 0}>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <section class="related-posts">
+        <h2>Related Articles</h2>
+        <div class="related-grid">
+          {relatedPosts.map(relatedPost => (
+            <article class="related-card">
+              <a href={`/blog/${relatedPost.slug}/`}>
+                <h3>{relatedPost.data.title}</h3>
+                <p>{relatedPost.data.description}</p>
+                <time datetime={relatedPost.data.published.toISOString()}>
+                  {relatedPost.data.published.toLocaleDateString()}
+                </time>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Internal Links Section -->
+    <section class="internal-links">
+      <h2>Explore Our Services</h2>
+      <div class="links-grid">
+        <a href="/services/free-ewaste-pickup-kochi/" class="service-link">
+          <h3>Free E-Waste Pickup</h3>
+          <p>Same-day pickup service across Kochi</p>
+        </a>
+        <a href="/services/data-destruction-kochi/" class="service-link">
+          <h3>Data Destruction</h3>
+          <p>Certified secure data destruction</p>
+        </a>
+        <a href="/buyback/dell-laptop-kochi/" class="service-link">
+          <h3>Sell Your Laptop</h3>
+          <p>Best prices for used laptops</p>
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <!-- Blog Styles -->
+  <style>
+    .blog-post {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .blog-header {
+      margin-bottom: 3rem;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .freshness-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    .blog-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: #1a202c;
+    }
+
+    .blog-excerpt {
+      font-size: 1.2rem;
+      color: #4a5568;
+      margin-bottom: 2rem;
+    }
+
+    .table-of-contents {
+      background: #f7fafc;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 3rem;
+    }
+
+    .table-of-contents h2 {
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
+      color: #2d3748;
+    }
+
+    .table-of-contents ol {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .table-of-contents li {
+      margin-bottom: 0.5rem;
+    }
+
+    .table-of-contents a {
+      color: #3182ce;
+      text-decoration: none;
+    }
+
+    .table-of-contents a:hover {
+      text-decoration: underline;
+    }
+
+    .blog-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #2d3748;
+    }
+
+    .blog-content h2 {
+      font-size: 1.8rem;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      color: #1a202c;
+    }
+
+    .blog-content h3 {
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #2d3748;
+    }
+
+    .blog-content ul, .blog-content ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+    }
+
+    .blog-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-ctas {
+      margin: 3rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .cta-card {
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .cta-primary {
+      background: linear-gradient(135deg, #3182ce, #2c5282);
+      color: white;
+    }
+
+    .cta-secondary {
+      background: #f7fafc;
+      border: 2px solid #e2e8f0;
+    }
+
+    .cta-card h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
+    }
+
+    .cta-card p {
+      margin: 0 0 1.5rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: white;
+      color: #3182ce;
+    }
+
+    .btn-primary:hover {
+      background: #f7fafc;
+    }
+
+    .btn-secondary {
+      background: #3182ce;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #2c5282;
+    }
+
+    .blog-faq {
+      margin: 3rem 0;
+    }
+
+    .blog-faq h2 {
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      color: #1a202c;
+    }
+
+    .faq-item {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .faq-item summary {
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .faq-item[open] summary {
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .faq-item p {
+      padding: 1rem 1.5rem;
+      margin: 0;
+    }
+
+    .related-posts {
+      margin: 3rem 0;
+    }
+
+    .related-posts h2 {
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      color: #1a202c;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .related-card {
+      background: #f7fafc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .related-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .related-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .related-card h3 {
+      margin: 0 0 1rem 0;
+      color: #2d3748;
+    }
+
+    .related-card p {
+      margin: 0 0 1rem 0;
+      color: #4a5568;
+    }
+
+    .related-card time {
+      font-size: 0.9rem;
+      color: #718096;
+    }
+
+    .internal-links {
+      margin: 3rem 0;
+    }
+
+    .internal-links h2 {
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      color: #1a202c;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-link {
+      background: #f7fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .service-link:hover {
+      border-color: #3182ce;
+      transform: translateY(-2px);
+    }
+
+    .service-link h3 {
+      margin: 0 0 0.5rem 0;
+      color: #2d3748;
+    }
+
+    .service-link p {
+      margin: 0;
+      color: #4a5568;
+      font-size: 0.9rem;
+    }
+
+    /* People Also Ask Styles */
+    .people-also-ask {
+      margin: 3rem 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      border-radius: 16px;
+      border: 1px solid #cbd5e0;
+    }
+
+    .people-also-ask h2 {
+      margin: 0 0 2rem 0;
+      font-size: 1.8rem;
+      color: #2d3748;
+      text-align: center;
+    }
+
+    .paa-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .paa-item {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .paa-item:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transform: translateY(-2px);
+    }
+
+    .paa-question {
+      border: none;
+      padding: 0;
+    }
+
+    .paa-trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: #2d3748;
+      transition: background-color 0.3s ease;
+    }
+
+    .paa-trigger:hover {
+      background-color: #f7fafc;
+    }
+
+    .paa-question-text {
+      flex: 1;
+      text-align: left;
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+
+    .paa-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #3182ce;
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .paa-question[open] .paa-icon {
+      transform: rotate(45deg);
+      background: #e53e3e;
+    }
+
+    .paa-answer {
+      padding: 0 1.5rem 1.5rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .paa-answer p {
+      margin: 0 0 1rem 0;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    .paa-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .paa-cta {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #3182ce;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .paa-cta:hover {
+      background: #2c5282;
+    }
+
+    .paa-helpful {
+      padding: 0.5rem 1rem;
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      color: #4a5568;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .paa-helpful:hover {
+      background: #e2e8f0;
+      border-color: #cbd5e0;
+    }
+
+    .paa-helpful.voted {
+      background: #c6f6d5;
+      border-color: #9ae6b4;
+      color: #22543d;
+    }
+
+    @media (max-width: 768px) {
+      .blog-post {
+        padding: 1rem;
+      }
+
+      .blog-title {
+        font-size: 2rem;
+      }
+
+      .blog-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .blog-ctas {
+        grid-template-columns: 1fr;
+      }
+
+      .people-also-ask {
+        margin: 2rem 0;
+        padding: 1.5rem;
+      }
+
+      .paa-question-text {
+        font-size: 1rem;
+      }
+
+      .paa-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .paa-cta,
+      .paa-helpful {
+        text-align: center;
+      }
+    }
+  </style>
+
+  <!-- PAA Interaction Tracking Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track PAA interactions
+      const paaItems = document.querySelectorAll('.paa-question');
+      const postId = '{post.slug}';
+      
+      paaItems.forEach((item, index) => {
+        const question = item.querySelector('.paa-question-text').textContent;
+        
+        // Track expand/collapse
+        item.addEventListener('toggle', function() {
+          const action = item.open ? 'expand' : 'collapse';
+          trackPAAInteraction(question, action, postId);
+        });
+        
+        // Track helpful votes
+        const helpfulBtn = item.querySelector('.paa-helpful');
+        if (helpfulBtn) {
+          helpfulBtn.addEventListener('click', function() {
+            if (!this.classList.contains('voted')) {
+              this.classList.add('voted');
+              this.textContent = 'Thanks!';
+              trackPAAInteraction(question, 'helpful', postId);
+            }
+          });
+        }
+        
+        // Track CTA clicks
+        const ctaBtn = item.querySelector('.paa-cta');
+        if (ctaBtn) {
+          ctaBtn.addEventListener('click', function() {
+            trackPAAInteraction(question, 'cta_click', postId);
+          });
+        }
+      });
+      
+      function trackPAAInteraction(question, action, postId) {
+        const data = {
+          postId,
+          question,
+          action,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent
+        };
+        
+        // Store in localStorage
+        const existing = JSON.parse(localStorage.getItem('paa_interactions') || '[]');
+        existing.push(data);
+        localStorage.setItem('paa_interactions', JSON.stringify(existing));
+        
+        // Send to analytics (customize as needed)
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'paa_interaction', {
+            'post_id': postId,
+            'action': action,
+            'question': question
+          });
+        }
+        
+        console.log('PAA Interaction:', data);
+      }
+    });
+  </script>
+</BaseLayout>

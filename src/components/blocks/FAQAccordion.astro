@@ -1,0 +1,314 @@
+---
+// FAQAccordion.astro - Glassmorphism FAQ section
+interface Props {
+  faqs?: Array<{
+    question: string;
+    answer: string;
+    category?: string;
+  }>;
+  title?: string;
+  subtitle?: string;
+  categories?: string[];
+}
+
+const defaultFAQs = [
+  {
+    question: "What types of e-waste do you accept?",
+    answer: "We accept all types of electronic waste including computers, laptops, servers, mobile phones, printers, scanners, batteries, UPS systems, and other IT equipment. We also accept household electronics like TVs, refrigerators, and air conditioners.",
+    category: "General"
+  },
+  {
+    question: "How do you ensure data security?",
+    answer: "We follow NIST 800-88 standards for data destruction. All storage devices are either physically destroyed or data is wiped using certified software. We provide detailed certificates of data destruction for your records and compliance.",
+    category: "Security"
+  },
+  {
+    question: "Do you provide pickup services?",
+    answer: "Yes, we provide free pickup services across Kochi and major areas in Kerala. Our team arrives with proper equipment and documentation. For large quantities or enterprise clients, we offer scheduled pickup services.",
+    category: "Services"
+  },
+  {
+    question: "What documents do you provide?",
+    answer: "We provide Certificate of Recycling, Certificate of Data Destruction, waste manifest, and detailed audit reports. All documents are compliant with KSPCB and CPCB regulations for your compliance needs.",
+    category: "Documentation"
+  },
+  {
+    question: "Are you certified and authorized?",
+    answer: "Yes, we are KSPCB certified and CPCB authorized e-waste recycler. We hold ISO 27001 certification for information security and follow all environmental regulations. Our registration number is KER/CPCB/EW/001.",
+    category: "Certification"
+  },
+  {
+    question: "How long does the recycling process take?",
+    answer: "The pickup process typically takes 1-2 business days to schedule. Data destruction is done immediately upon collection. Complete recycling and documentation usually takes 7-10 working days, depending on the volume and type of waste.",
+    category: "Process"
+  }
+];
+
+const {
+  faqs = defaultFAQs,
+  title = "Frequently Asked Questions",
+  subtitle = "Everything you need to know about e-waste recycling",
+  categories
+} = Astro.props;
+
+// Extract unique categories if not provided
+const uniqueCategories = categories || [...new Set(faqs.map(faq => faq.category).filter(Boolean))];
+const hasCategories = uniqueCategories.length > 0;
+---
+
+<section class="faq-section">
+  <div class="wrap">
+    <div class="section-header text-center">
+      <div class="sec-eyebrow">Got Questions?</div>
+      <h2 class="sec-title">{title}</h2>
+      <p class="sec-sub">{subtitle}</p>
+    </div>
+    
+    {hasCategories && (
+      <div class="faq-categories">
+        <button 
+          class="category-btn active" 
+          onclick="filterFAQs('all')"
+          data-category="all"
+        >
+          All FAQs
+        </button>
+        {uniqueCategories.map((category, index) => (
+          <button 
+            class="category-btn" 
+            onclick={`filterFAQs('${category}')`}
+            data-category={category}
+            key={index}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    )}
+    
+    <div class="faq-list">
+      {faqs.map((faq, index) => (
+        <div class="faq-item" data-category={faq.category || 'general'} key={index}>
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-qt">{faq.question}</span>
+            <div class="faq-ic">+</div>
+          </button>
+          <div class="faq-a">
+            <div class="faq-at">{faq.answer}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="faq-cta text-center">
+      <div class="glass-card" style="padding: 32px; max-width: 600px; margin: 0 auto;">
+        <h3 style="margin-bottom: 16px; color: var(--text);">Still have questions?</h3>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">
+          Our team is here to help with all your e-waste recycling needs
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="tel:+919876543210" class="btn btn-primary">
+            <span>📞</span> Call Us
+          </a>
+          <a href="https://wa.me/919876543210" class="btn btn-wa">
+            <span>💬</span> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    padding: 100px 0;
+    background: var(--surface);
+  }
+  
+  .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .faq-categories {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .category-btn {
+    padding: 10px 20px;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .category-btn:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+  }
+  
+  .category-btn.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+  }
+  
+  .faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .faq-item {
+    margin-bottom: 16px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .faq-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  .faq-q {
+    width: 100%;
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .faq-q:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+  }
+  
+  .faq-qt {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    flex: 1;
+  }
+  
+  .faq-ic {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--glass);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    font-weight: 300;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .faq-item.open .faq-ic {
+    transform: rotate(45deg);
+    background: var(--primary);
+    color: #ffffff;
+  }
+  
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .faq-item.open .faq-a {
+    max-height: 500px;
+  }
+  
+  .faq-at {
+    padding: 0 28px 24px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    font-family: var(--serif);
+  }
+  
+  .faq-cta {
+    margin-top: 60px;
+  }
+  
+  @media (max-width: 768px) {
+    .faq-categories {
+      gap: 8px;
+    }
+    
+    .category-btn {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+    }
+    
+    .faq-q {
+      padding: 20px 24px;
+    }
+    
+    .faq-qt {
+      font-size: 0.9rem;
+    }
+    
+    .faq-at {
+      padding: 0 24px 20px;
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+<script>
+  function toggleFAQ(button) {
+    const faqItem = button.closest('.faq-item');
+    const isOpen = faqItem.classList.contains('open');
+    
+    // Close all other FAQs
+    document.querySelectorAll('.faq-item.open').forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('open');
+      }
+    });
+    
+    // Toggle current FAQ
+    faqItem.classList.toggle('open');
+  }
+  
+  function filterFAQs(category) {
+    const faqItems = document.querySelectorAll('.faq-item');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    
+    // Update active button
+    categoryButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === category);
+    });
+    
+    // Filter FAQs
+    faqItems.forEach(item => {
+      if (category === 'all' || item.dataset.category === category) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+</script>

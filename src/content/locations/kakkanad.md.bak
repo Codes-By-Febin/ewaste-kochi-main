@@ -1,0 +1,33 @@
+---
+name: "E-Waste Recycling Kakkanad"
+slug: "kakkanad"
+title: "E-Waste Recycling Kakkanad"
+description: "Certified e-waste recycling services in Kakkanad, Kochi. Free pickup for IT equipment, electronics, and battery disposal with data security."
+address: "Infopark Road, Kakkanad, Kochi"
+city: "Kochi"
+district: "Ernakulam"
+state: "Kerala"
+pincode: "682042"
+phone: "+91 98765 43210"
+email: "kakkanad@ewastekochi.com"
+coordinates:
+  lat: 10.0184
+  lng: 76.3538
+service_areas:
+  - "Infopark"
+  - "Kakkanad"
+  - "Thrikkakara"
+  - "Edappally"
+  - "Palarivattom"
+pickup_available: true
+operating_hours: "Monday - Saturday: 9:00 AM - 6:00 PM"
+special_notes: "Located in the heart of Kochi's IT hub, we specialize in corporate e-waste management for IT companies and businesses in Infopark and surrounding areas."
+seo_title: "E-Waste Recycling Kakkanad | Free Pickup | EWaste Kochi"
+seo_description: "KSPCB certified e-waste recycling in Kakkanad, Kochi. Free pickup, data destruction, and compliance certificates. Call now for instant service."
+featured: true
+order: 1
+---
+
+# E-Waste Recycling Services in Kakkanad, Kochi
+
+Professional e-waste recycling services in Kakkanad, serving the heart of Kochi's IT hub. We provide certified electronic waste disposal with complete data security and regulatory compliance.

@@ -1,0 +1,46 @@
+{
+  "$ref": "#/definitions/faq",
+  "definitions": {
+    "faq": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "number",
+          "default": 0
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "order": {
+          "type": "number",
+          "default": 0
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "question",
+        "answer"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
